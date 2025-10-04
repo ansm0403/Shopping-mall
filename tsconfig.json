@@ -11,6 +11,18 @@
     },
     {
       "path": "./backend"
+    },
+    {
+      "path": "./shared"
+    },
+    {
+      "path": "./shared"
+    },
+    {
+      "path": "./shared"
+    },
+    {
+      "path": "./shared"
     }
   ]
 }

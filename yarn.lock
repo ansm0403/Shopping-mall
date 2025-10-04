@@ -4665,6 +4665,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@shopping-mall/shared@workspace:shared":
+  version: 0.0.0-use.local
+  resolution: "@shopping-mall/shared@workspace:shared"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  languageName: unknown
+  linkType: soft
+
 "@shopping-mall/source@workspace:.":
   version: 0.0.0-use.local
   resolution: "@shopping-mall/source@workspace:."
@@ -4711,6 +4719,7 @@ __metadata:
     jest-environment-jsdom: "npm:^30.0.2"
     jest-environment-node: "npm:^30.0.2"
     jest-util: "npm:^30.0.2"
+    jsonc-eslint-parser: "npm:^2.1.0"
     next: "npm:~15.2.4"
     nx: "npm:21.6.1"
     prettier: "npm:^2.6.2"

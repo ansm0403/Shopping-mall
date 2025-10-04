@@ -42,6 +42,7 @@
     "jest-environment-jsdom": "^30.0.2",
     "jest-environment-node": "^30.0.2",
     "jest-util": "^30.0.2",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "21.6.1",
     "prettier": "^2.6.2",
     "ts-jest": "^29.4.0",
@@ -55,7 +56,8 @@
     "packages/*",
     "frontend",
     "backend",
-    "backend-e2e"
+    "backend-e2e",
+    "shared"
   ],
   "packageManager": "yarn@4.10.3",
   "dependencies": {

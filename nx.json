@@ -65,6 +65,16 @@
         "watchDepsTargetName": "watch-deps",
         "serveStaticTargetName": "serve-static"
       }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "include": ["shared/*"],
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        }
+      },
+      "exclude": ["shared/*"]
     }
   ],
   "targetDefaults": {
