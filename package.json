@@ -58,7 +58,8 @@
     "frontend-e2e",
     "backend",
     "backend-e2e",
-    "shared"
+    "shared",
+    "mocks"
   ],
   "packageManager": "yarn@4.10.3",
   "dependencies": {

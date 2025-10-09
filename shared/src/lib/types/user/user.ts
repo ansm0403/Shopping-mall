@@ -9,6 +9,9 @@ export interface User extends BaseModel {
     phoneNumber: string;
     address: string;
     role: 'user' | 'admin';
-    reviews?: Review[];
     wishList?: WishList;
+}
+
+export type UserWithReviews = User & {
+    reviews?: Review[];
 }

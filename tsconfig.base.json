@@ -16,6 +16,12 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@shopping-mall/source"]
+    "customConditions": ["@shopping-mall/source"],
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["shared/src/*"],
+      "@shared/types/*": ["shared/src/lib/types/*"],
+      "@shared/utils/*": ["shared/src/lib/utils/*"]
+    }
   }
 }

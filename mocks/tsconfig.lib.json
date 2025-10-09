@@ -1,16 +1,17 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    // "composite": true,
-    "baseUrl": ".",
-    "rootDir": "src",
+    // "baseUrl": ".",
     "outDir": "dist",
+    "rootDir": "src",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "types": ["node"],
   },
   "include": ["src/**/*.ts"],
-  "references": [],
+  "references": [
+    { "path" : "../shared" }
+  ],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

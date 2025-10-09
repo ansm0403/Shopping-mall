@@ -4658,6 +4658,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@shopping-mall/mocks@workspace:mocks":
+  version: 0.0.0-use.local
+  resolution: "@shopping-mall/mocks@workspace:mocks"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  languageName: unknown
+  linkType: soft
+
 "@shopping-mall/shared@workspace:shared":
   version: 0.0.0-use.local
   resolution: "@shopping-mall/shared@workspace:shared"
