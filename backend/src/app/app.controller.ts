@@ -7,6 +7,12 @@ export class AppController {
 
   @Get()
   getData() {
+    console.log("나야");
     return this.appService.getData();
+  }
+
+  @Get('health')
+  getHealth() {
+    return { status: 'ok', timestamp: new Date().toISOString() };
   }
 }

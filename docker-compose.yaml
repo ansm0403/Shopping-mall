@@ -1,13 +1,99 @@
 services:
+  # PostgreSQL 데이터베이스
   postgres:
-    image: postgres:18
-    restart: always
+    image: postgres:18-alpine
+    restart: unless-stopped
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: sangmoon
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: sangmoon
-      
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sangmoon"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # NestJS 백엔드 API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend-prod
+    restart: unless-stopped
+    ports:
+      - "4000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=sangmoon
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=sangmoon
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Next.js 프론트엔드
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend-prod
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 개발 환경용 서비스
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.nx/cache
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "5432:5432"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=sangmoon
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=sangmoon
+    depends_on:
+      - postgres
+    profiles:
+      - dev
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  default:
+    name: shopping-mall-network

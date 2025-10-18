@@ -1,6 +1,6 @@
 //@ts-check
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+ 
 const { composePlugins, withNx } = require('@nx/next');
 
 /**
@@ -10,6 +10,18 @@ const nextConfig = {
   // Use this to set Nx-specific options
   // See: https://nx.dev/recipes/next/next-config-setup
   nx: {},
+  output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
+  
+  // 개발 환경에서 Hot Reload 개선
+  ...(process.env.NODE_ENV === 'development' && {
+    webpackDevMiddleware: config => {
+      config.watchOptions = {
+        poll: 1000,
+        aggregateTimeout: 300,
+      }
+      return config
+    },
+  }),
 };
 
 const plugins = [
