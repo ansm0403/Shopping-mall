@@ -1,0 +1,1 @@
+import { livingProducts } from "@mock/index"

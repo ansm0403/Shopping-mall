@@ -4,6 +4,12 @@
   "include": [],
   "references": [
     {
+      "path": "../shared"
+    },
+    {
+      "path": "../mocks"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {

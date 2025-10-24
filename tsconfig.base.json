@@ -15,10 +15,12 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "target": "es2022",
     "customConditions": ["@shopping-mall/source"],
     "baseUrl": ".",
     "paths": {
+      "@mock/*": ["mocks/src/*"],
       "@shared/*": ["shared/src/*"],
       "@shared/types/*": ["shared/src/lib/types/*"],
       "@shared/utils/*": ["shared/src/lib/utils/*"]

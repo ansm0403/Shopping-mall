@@ -81,5 +81,15 @@
         }
       }
     }
+  },
+  "dependencies": {
+    "@nestjs/mapped-types": "*",
+    "@nestjs/typeorm": "^11.0.0",
+    "@shopping-mall/mocks": "*",
+    "pg": "^8.16.3",
+    "typeorm": "^0.3.27"
+  },
+  "devDependencies": {
+    "@types/pg": "^8"
   }
 }

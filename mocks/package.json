@@ -6,6 +6,10 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@shopping-mall/shared": "*",
+    "tslib": "^2.0.0"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -14,8 +18,5 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     }
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
   }
 }
