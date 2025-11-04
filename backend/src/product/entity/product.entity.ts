@@ -38,10 +38,10 @@ export class ProductEntity extends BaseModel{
   @Column()
   isEvent: boolean;
 
-  @Column()
-  discountRate: number;
-
   @Column({ nullable: true })
+  discountRate?: number;
+
+  @Column('decimal', { precision: 3, scale: 1, nullable: true })
   rating?: number;
 
   @OneToMany(() => ReviewEntity, (review) => review.product)
@@ -50,4 +50,10 @@ export class ProductEntity extends BaseModel{
   @ManyToOne(() => WishListEntity, (wishList) => wishList.products)
   @JoinColumn()
   wishList: WishListEntity;
+
+  @Column({
+    type: 'jsonb',
+    default: {},
+  })
+  specs: Record<string, any>;
 }

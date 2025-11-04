@@ -2,7 +2,7 @@ import { Food } from "@shared/index.js";
 
 export type FoodMock = Omit<Food, 'id' | 'createdAt' | 'updatedAt'>
 
-export const foodsPart1: FoodMock[] = [
+export const foodProducts: FoodMock[] = [
   {
     category: 'FOOD',
     name: '유기농 양양해풍풍사과 1kg',

@@ -2,7 +2,7 @@ import { Shoes } from "@shared/index.js";
 
 export type ShoesMock = Omit<Shoes, 'id' | 'createdAt' | 'updatedAt'>
 
-export const shoesPart1: ShoesMock[] = [
+export const shoesProducts: ShoesMock[] = [
   {
     category: 'SHOES',
     name: 'Nike Air Trainer 1',

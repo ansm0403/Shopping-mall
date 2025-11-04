@@ -17,7 +17,7 @@ import { ReviewModule } from '../review/review.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       autoLoadEntities: true, // 자동으로 엔티티 로드
-      synchronize: false,
+      synchronize: true,
     }),
     ProductModule,
     ReviewModule,

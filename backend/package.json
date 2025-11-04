@@ -21,6 +21,17 @@
           }
         }
       },
+      "build:watch": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "webpack-cli build",
+          "args": [
+            "--node-env=development",
+            "--watch"
+          ],
+          "cwd": "backend"
+        }
+      },
       "prune-lockfile": {
         "dependsOn": [
           "build"
@@ -56,23 +67,53 @@
         "executor": "nx:noop"
       },
       "serve": {
-        "continuous": true,
-        "executor": "@nx/js:node",
+        "executor": "nx:run-commands",
         "defaultConfiguration": "development",
-        "dependsOn": [
-          "build"
-        ],
         "options": {
-          "buildTarget": "@shopping-mall/backend:build",
-          "runBuildTargetDependencies": false
+          "commands": [
+            "nx run @shopping-mall/backend:build:development",
+            "nx run @shopping-mall/backend:serve:watch"
+          ],
+          "cwd": "backend"
         },
         "configurations": {
           "development": {
-            "buildTarget": "@shopping-mall/backend:build:development"
+            "commands": [
+              "nx run @shopping-mall/backend:build:development",
+              "nx run @shopping-mall/backend:serve:watch"
+            ]
           },
           "production": {
-            "buildTarget": "@shopping-mall/backend:build:production"
+            "commands": [
+              "nx run @shopping-mall/backend:build:production",
+              "nx run @shopping-mall/backend:serve:node"
+            ]
           }
+        }
+      },
+      "serve:watch": {
+        "executor": "nx:run-commands",
+        "options": {
+          "commands": [
+            "nx run @shopping-mall/backend:build:watch",
+            "nx run @shopping-mall/backend:serve:node:watch"
+          ],
+          "parallel": true,
+          "cwd": "backend"
+        }
+      },
+      "serve:node:watch": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "wait-on dist/main.js -t 60000 && node watch-server.js",
+          "cwd": "backend"
+        }
+      },
+      "serve:node": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node dist/main.js",
+          "cwd": "backend"
         }
       },
       "test": {
@@ -83,10 +124,17 @@
     }
   },
   "dependencies": {
+    "@nestjs/common": "*",
+    "@nestjs/core": "*",
     "@nestjs/mapped-types": "*",
+    "@nestjs/platform-express": "*",
     "@nestjs/typeorm": "^11.0.0",
     "@shopping-mall/mocks": "*",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
     "pg": "^8.16.3",
+    "reflect-metadata": "*",
+    "rxjs": "*",
     "typeorm": "^0.3.27"
   },
   "devDependencies": {
