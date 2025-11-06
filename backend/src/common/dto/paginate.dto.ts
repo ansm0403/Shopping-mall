@@ -19,4 +19,9 @@ export class BasePaginateDto {
     @IsNumber()
     @IsOptional()
     take = 20;
+
+    // 동적 필터를 위한 인덱스 시그니처
+    // where__필드명__필터타입 형식의 필터를 동적으로 받을 수 있음
+    // 예: where__id__more_than, where__name__like, where__price__between 등
+    [key: string]: any;
 }
