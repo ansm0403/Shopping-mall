@@ -8,6 +8,9 @@ import { shoesProductsData } from '../data/shoes-products';
 import { bookProductsData } from '../data/book-products';
 import { foodProductsData } from '../data/food-products';
 import { livingProductsData } from '../data/living-products';
+import { PaginateProductDto } from './dto/paginate-product.dto';
+import { CommonService } from '../common/common.service';
+import { BasePaginateDto } from '../common/dto/paginate.dto';
 
 
 @Injectable()
@@ -15,6 +18,7 @@ export class ProductService {
     constructor(
         @InjectRepository(ProductEntity)
         private readonly productRepository: Repository<ProductEntity>,
+        private readonly commonService: CommonService,
     ) {}
 
     async createProducts() {
@@ -42,5 +46,14 @@ export class ProductService {
 
         console.log(books);
         return books;
+    }
+
+    async paginateProduct(query: BasePaginateDto) {
+        return this.commonService.paginate(
+            query,
+            this.productRepository,
+            {},
+            'product'
+        )
     }
 }

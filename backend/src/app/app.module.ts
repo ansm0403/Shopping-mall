@@ -6,9 +6,14 @@ import { ProductModule } from '../product/product.module';
 import { WishListModule } from '../wish-list/wish-list.module';
 import { UserModule } from '../user/user.module';
 import { ReviewModule } from '../review/review.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
