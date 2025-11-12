@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ProductService } from './product.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CommonModule } from '../common/common.module';
+import { BookEntity } from './entity/book/book.entity';
+import { BeautyEntity } from './entity/beauty/beauty.entity';
+import { LivingProductEntity } from './entity/living-product/living-product.entity';
+import { ClothingEntity } from './entity/clothing/clothing.entity';
 import { ProductController } from './product.controller';
 import { ProductEntity } from './entity/product.entity';
-import { BeautyEntity } from './entity/beauty/beauty.entity';
-import { ClothingEntity } from './entity/clothing/clothing.entity';
-import { FoodEntity } from './entity/food/food.entity';
-import { BookEntity } from './entity/book/book.entity';
-import { LivingProductEntity } from './entity/living-product/living-product.entity';
+import { ProductService } from './product.service';
 import { ShoesEntity } from './entity/shoes/shoes.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { FoodEntity } from './entity/food/food.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       BookEntity,
       LivingProductEntity,
       ShoesEntity,
-    ])
+    ]),
+    CommonModule,
   ],
   controllers: [ProductController],
   providers: [ProductService],

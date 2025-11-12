@@ -1,9 +1,8 @@
+
+import { BasePaginateDto } from '../../common/dto/paginate.dto';
 import { IsNumber, IsString } from 'class-validator';
 
-export class PaginateProductDto {
-    @IsNumber()
-    page: number;
-    
+export class PaginateProductDto extends BasePaginateDto {
     @IsString()
     category: string;
 }
