@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsIn, IsNumber, IsOptional } from 'class-validator';
+import { IsArray, IsEnum, IsIn, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * 페이지 기반 페이지네이션의 예시 쿼리
@@ -22,7 +22,7 @@ import { IsIn, IsNumber, IsOptional } from 'class-validator';
  * 페이지 기반에서는 특정 평점이상의 상품들만 보여달라는 조건(where__rating__more_than=4.0)이나 특정 카테고리의 상품만 보여달라는 조건(where__category="book") 등이 있을 때 where 쿼리를 받는다.
  * order 쿼리는 두 페이지네이션에서 필수 쿼리이다. 
  * order 쿼리가 들어오지 않을 때는 자동으로 where 쿼리에서 요구하는 기준(where__id 면 order__id 로 받는다.)과 동일하게 한다.
- * 하지만 where 쿼리조차 없는 경우에는 order__rating="DESC" 를 default 로 한다.
+ * 하지만 where 쿼리가가 없는 경우에는 order__rating="DESC" 를 default 로 한다.
  * 
  */
 export class BasePaginateDto {
@@ -36,8 +36,84 @@ export class BasePaginateDto {
   @IsOptional()
   take = 20;
 
+  @IsOptional()
+  @IsEnum(['id', 'createdAt', 'rating', 'price', 'viewCount'])
+  sortBy?: string = 'createdAt';
+
+  @IsOptional()
+  @IsEnum(['ASC', 'DESC'])
+  sortOrder?: 'ASC' | 'DESC' = 'DESC';
+
+  // ✅ 커서 추가
+  @IsOptional()
+  @IsString()
+  cursor?: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(()=>PaginateFilterDto)
+  filter? : PaginateFilterDto;
+
   // 동적 필터를 위한 인덱스 시그니처
   // where__필드명__필터타입 형식의 필터를 동적으로 받을 수 있음
   // 예: where__id__more_than, where__name__like, where__price__between 등
   [key: string]: any;
+}
+
+class PaginateFilterDto {
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => NumberFilterDto)
+  rating?: NumberFilterDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(()=>StringFilterDto)
+  status?: StringFilterDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(()=>StringFilterDto)
+  category?: StringFilterDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => NumberFilterDto)
+  price?: NumberFilterDto;
+}
+class NumberFilterDto {
+  @IsOptional()
+  @IsNumber()
+  equals?: number;
+
+  @IsOptional()
+  @IsNumber()
+  gt?: number;
+
+  @IsOptional()
+  @IsNumber()
+  gte?: number;
+
+  @IsOptional()
+  @IsNumber()
+  lt?: number;
+
+  @IsOptional()
+  @IsNumber()
+  lte?: number;
+}
+
+class StringFilterDto {
+  @IsOptional()
+  @IsString()
+  equals?: string;
+
+  @IsOptional()
+  @IsString()
+  contains?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  in?: string[];
 }
