@@ -1,6 +1,11 @@
 import { BaseModel, Beauty } from '@shared/index.js'
 
-type BeautyMock = Omit<Beauty, keyof BaseModel>;
+type BeautyMock = Omit<Beauty, keyof BaseModel> & {
+  status: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity: number;
+  salesCount: number;
+  viewCount: number;
+};
 
 export const beautyProducts: BeautyMock[] = [
   {
@@ -16,6 +21,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 23,
+    viewCount: 1250,
   },
   {
     category: 'BEAUTY',
@@ -29,6 +38,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.7,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 980,
   },
   {
     category: 'BEAUTY',
@@ -43,6 +56,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "DRY",
     rating: 4.5,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 45,
+    viewCount: 3420,
   },
   {
     category: 'BEAUTY',
@@ -56,6 +73,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "OILY",
     rating: 4.6,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 27,
+    viewCount: 2210,
   },
   {
     category: 'BEAUTY',
@@ -70,6 +91,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.2,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 8,
+    viewCount: 3150,
   },
   {
     category: 'BEAUTY',
@@ -83,6 +108,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 33,
+    viewCount: 1875,
   },
   {
     category: 'BEAUTY',
@@ -97,6 +126,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.1,
     madeIn: '대한민국',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 14,
+    viewCount: 4050,
   },
   {
     category: 'BEAUTY',
@@ -110,6 +143,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "COMBINATION",
     rating: 4.9,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 50,
+    viewCount: 2780,
   },
   {
     category: 'BEAUTY',
@@ -124,6 +161,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.8,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 6,
+    viewCount: 1120,
   },
   {
     category: 'BEAUTY',
@@ -137,6 +178,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.7,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 38,
+    viewCount: 1990,
   },
   {
     category: 'BEAUTY',
@@ -151,6 +196,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "DRY",
     rating: 4.5,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 18,
+    viewCount: 1540,
   },
   {
     category: 'BEAUTY',
@@ -164,6 +213,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.6,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 29,
+    viewCount: 1310,
   },
   {
     category: 'BEAUTY',
@@ -178,6 +231,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 41,
+    viewCount: 3675,
   },
   {
     category: 'BEAUTY',
@@ -191,6 +248,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "OILY",
     rating: 4.3,
     madeIn: '프랑스',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 15,
+    viewCount: 1420,
   },
   {
     category: 'BEAUTY',
@@ -205,6 +266,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.1,
     madeIn: '미국',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 22,
+    viewCount: 4890,
   },
   {
     category: 'BEAUTY',
@@ -218,6 +283,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.5,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 35,
+    viewCount: 2785,
   },
   {
     category: 'BEAUTY',
@@ -232,6 +301,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.4,
     madeIn: '프랑스',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 9,
+    viewCount: 1200,
   },
   {
     category: 'BEAUTY',
@@ -245,6 +318,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.3,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 11,
+    viewCount: 1080,
   },
   {
     category: 'BEAUTY',
@@ -259,6 +336,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "OILY",
     rating: 4.2,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 19,
+    viewCount: 1330,
   },
   {
     category: 'BEAUTY',
@@ -272,6 +353,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.7,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 44,
+    viewCount: 3560,
   },
   {
     category: 'BEAUTY',
@@ -286,6 +371,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "DRY",
     rating: 4.6,
     madeIn: '뉴질랜드',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 7,
+    viewCount: 1010,
   },
   {
     category: 'BEAUTY',
@@ -299,6 +388,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.9,
     madeIn: '미국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 25,
+    viewCount: 1650,
   },
   {
     category: 'BEAUTY',
@@ -313,6 +406,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.4,
     madeIn: '미국',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 32,
+    viewCount: 4210,
   },
   {
     category: 'BEAUTY',
@@ -326,6 +423,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.7,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 37,
+    viewCount: 2980,
   },
   {
     category: 'BEAUTY',
@@ -340,6 +441,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "OILY",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 10,
+    viewCount: 1405,
   },
   {
     category: 'BEAUTY',
@@ -353,6 +458,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "DRY",
     rating: 4.1,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 5,
+    viewCount: 990,
   },
   {
     category: 'BEAUTY',
@@ -367,6 +476,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 23,
+    viewCount: 1600,
   },
   {
     category: 'BEAUTY',
@@ -380,6 +493,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.7,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 21,
+    viewCount: 1740,
   },
   {
     category: 'BEAUTY',
@@ -394,6 +511,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.5,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 28,
+    viewCount: 2100,
   },
   {
     category: 'BEAUTY',
@@ -407,6 +528,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.3,
     madeIn: '대한민국',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 4,
+    viewCount: 1350,
   },
   {
     category: 'BEAUTY',
@@ -421,6 +546,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "DRY",
     rating: 4.8,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 40,
+    viewCount: 3620,
   },
   {
     category: 'BEAUTY',
@@ -434,6 +563,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "COMBINATION",
     rating: 4.5,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 3,
+    viewCount: 820,
   },
   {
     category: 'BEAUTY',
@@ -448,6 +581,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "OILY",
     rating: 4.9,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 11,
+    viewCount: 1290,
   },
   {
     category: 'BEAUTY',
@@ -461,6 +598,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 47,
+    viewCount: 4110,
   },
   {
     category: 'BEAUTY',
@@ -475,6 +616,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.7,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 26,
+    viewCount: 2400,
   },
   {
     category: 'BEAUTY',
@@ -488,6 +633,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.4,
     madeIn: '일본',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 13,
+    viewCount: 1170,
   },
   {
     category: 'BEAUTY',
@@ -502,6 +651,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.9,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 20,
+    viewCount: 1520,
   },
   {
     category: 'BEAUTY',
@@ -515,6 +668,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "OILY",
     rating: 4.6,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 36,
+    viewCount: 2650,
   },
   {
     category: 'BEAUTY',
@@ -529,6 +686,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.4,
     madeIn: '독일',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 39,
+    viewCount: 3340,
   },
   {
     category: 'BEAUTY',
@@ -542,6 +703,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.2,
     madeIn: '프랑스',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 24,
+    viewCount: 1760,
   },
   {
     category: 'BEAUTY',
@@ -556,6 +721,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.4,
     madeIn: '일본',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 17,
+    viewCount: 1490,
   },
   {
     category: 'BEAUTY',
@@ -569,6 +738,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.5,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 9,
+    viewCount: 1380,
   },
   {
     category: 'BEAUTY',
@@ -583,6 +756,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 2,
+    viewCount: 940,
   },
   {
     category: 'BEAUTY',
@@ -596,6 +773,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.9,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 31,
+    viewCount: 2890,
   },
   {
     category: 'BEAUTY',
@@ -610,6 +791,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.5,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 34,
+    viewCount: 2570,
   },
   {
     category: 'BEAUTY',
@@ -623,6 +808,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "DRY",
     rating: 4.8,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 50,
+    viewCount: 5000,
   },
   {
     category: 'BEAUTY',
@@ -637,6 +826,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "OILY",
     rating: 4.8,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 30,
+    viewCount: 2330,
   },
   {
     category: 'BEAUTY',
@@ -650,6 +843,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "DRY",
     rating: 4.2,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 14,
+    viewCount: 1210,
   },
   {
     category: 'BEAUTY',
@@ -664,6 +861,10 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "SENSITIVE",
     rating: 4.3,
     madeIn: '대한민국',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 16,
+    viewCount: 1470,
   },
   {
     category: 'BEAUTY',
@@ -677,5 +878,9 @@ export const beautyProducts: BeautyMock[] = [
     skinType: "ALL",
     rating: 4.4,
     madeIn: '대한민국',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 1,
+    viewCount: 100,
   }
 ];

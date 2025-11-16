@@ -1,7 +1,12 @@
 import { LivingProduct } from "@shopping-mall/shared";
 
 
-export type LivingMock = Omit<LivingProduct, 'id' | 'updatedAt' | 'createdAt' >;
+export type LivingMock = Omit<LivingProduct, 'id' | 'updatedAt' | 'createdAt' > & {
+  status?: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity?: number;
+  salesCount?: number;
+  viewCount?: number;
+};
 
 export const livingProducts: LivingMock[] = [
   {
@@ -17,6 +22,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 28,
+    viewCount: 2100,
     dimensions: {
       width: 200,
       height: 100,
@@ -38,6 +47,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱, 알루미늄',
     usage: '조명',
     origin: '중국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 17,
+    viewCount: 1750,
     dimensions: {
       width: 150,
       height: 400,
@@ -59,6 +72,10 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '음료보관',
     origin: '미국',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 33,
+    viewCount: 2890,
     dimensions: {
       width: 80,
       height: 200,
@@ -80,6 +97,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '방향',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 1400,
     dimensions: {
       width: 150,
       height: 180,
@@ -102,6 +123,10 @@ export const livingProducts: LivingMock[] = [
     material: '패브릭',
     usage: '수납',
     origin: '스웨덴',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 10,
+    viewCount: 1200,
     dimensions: {
       width: 300,
       height: 200,
@@ -122,6 +147,15 @@ export const livingProducts: LivingMock[] = [
     material: '실리콘',
     usage: '청소',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 24,
+    viewCount: 1980,
+    dimensions: {
+      width: 250,
+      height: 1200,
+      depth: 200
+    },
     weight: 150,
     color: '핑크',
   },
@@ -138,6 +172,10 @@ export const livingProducts: LivingMock[] = [
     material: '유리',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 30,
+    viewCount: 2450,
     dimensions: {
       width: 180,
       height: 80,
@@ -159,6 +197,10 @@ export const livingProducts: LivingMock[] = [
     material: '유리',
     usage: '방향',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 19,
+    viewCount: 1720,
     dimensions: {
       width: 80,
       height: 120,
@@ -181,6 +223,10 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 41,
+    viewCount: 3200,
     dimensions: {
       width: 600,
       height: 1200,
@@ -201,6 +247,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '청소',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 25,
+    viewCount: 2300,
     dimensions: {
       width: 250,
       height: 1100,
@@ -222,6 +272,10 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '수납',
     origin: '스웨덴',
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 9,
+    viewCount: 1150,
     dimensions: {
       width: 400,
       height: 1200,
@@ -242,6 +296,10 @@ export const livingProducts: LivingMock[] = [
     material: '폴리에스터',
     usage: '욕실',
     origin: '중국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 14,
+    viewCount: 1420,
     dimensions: {
       width: 1800,
       height: 2000,
@@ -263,6 +321,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '인테리어',
     origin: '일본',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 35,
+    viewCount: 2760,
     dimensions: {
       width: 300,
       height: 300,
@@ -283,6 +345,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '청소',
     origin: '중국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 18,
+    viewCount: 1690,
     dimensions: {
       width: 100,
       height: 180,
@@ -305,6 +371,10 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '청소',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 32,
+    viewCount: 2550,
     dimensions: {
       width: 250,
       height: 350,
@@ -326,6 +396,10 @@ export const livingProducts: LivingMock[] = [
     material: '규조토',
     usage: '욕실',
     origin: '중국',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 1380,
     dimensions: {
       width: 600,
       height: 10,
@@ -347,6 +421,15 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '수납',
     origin: '독일',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 23,
+    viewCount: 1880,
+    dimensions: {
+      width: 600,
+      height: 200,
+      depth: 150
+    },
     weight: 2500,
     color: '블랙',
   },
@@ -362,6 +445,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '방향',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 0,
+    salesCount: 12,
+    viewCount: 1400,
     dimensions: {
       width: 80,
       height: 120,
@@ -383,6 +470,10 @@ export const livingProducts: LivingMock[] = [
     material: '실리콘',
     usage: '주방',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 10,
+    viewCount: 1200,
     dimensions: {
       width: 200,
       height: 5,
@@ -403,6 +494,10 @@ export const livingProducts: LivingMock[] = [
     material: '유리, 플라스틱',
     usage: '조명',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 20,
+    viewCount: 1760,
     dimensions: {
       width: 200,
       height: 300,
@@ -424,6 +519,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '욕실',
     origin: '네덜란드',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 16,
+    viewCount: 1650,
     dimensions: {
       width: 150,
       height: 200,
@@ -444,6 +543,15 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '수납',
     origin: '대한민국',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 14,
+    viewCount: 1490,
+    dimensions: {
+      width: 600,
+      height: 200,
+      depth: 150
+    },
     weight: 600,
     color: '투명',
   },
@@ -460,6 +568,15 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '주방',
     origin: '이탈리아',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 28,
+    viewCount: 2100,
+    dimensions: {
+      width: 600,
+      height: 200,
+      depth: 150
+    },
     weight: 400,
     color: '실버',
   },
@@ -475,6 +592,10 @@ export const livingProducts: LivingMock[] = [
     material: '폴리에스터',
     usage: '침구',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 19,
+    viewCount: 1720,
     dimensions: {
       width: 2000,
       height: 20,
@@ -496,6 +617,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱, 철',
     usage: '가구',
     origin: '스웨덴',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 24,
+    viewCount: 1850,
     dimensions: {
       width: 400,
       height: 800,
@@ -516,6 +641,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱, 세라믹',
     usage: '방향',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 10,
+    viewCount: 1300,
     dimensions: {
       width: 200,
       height: 250,
@@ -538,6 +667,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '전자기기',
     origin: '미국',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 36,
+    viewCount: 2760,
     dimensions: {
       width: 300,
       height: 50,
@@ -558,6 +691,15 @@ export const livingProducts: LivingMock[] = [
     material: 'EVA',
     usage: '욕실',
     origin: '베트남',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 8,
+    viewCount: 1200,
+    dimensions: {
+      width: 600,
+      height: 200,
+      depth: 150
+    },
     weight: 200,
     color: '블랙',
   },
@@ -574,6 +716,15 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '주방',
     origin: '독일',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 30,
+    viewCount: 2400,
+    dimensions: {
+      width: 600,
+      height: 200,
+      depth: 150
+    },
     weight: 1800,
     color: '실버',
   },
@@ -589,6 +740,10 @@ export const livingProducts: LivingMock[] = [
     material: '원목',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 16,
+    viewCount: 1500,
     dimensions: {
       width: 600,
       height: 200,
@@ -610,7 +765,16 @@ export const livingProducts: LivingMock[] = [
     material: '유리',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 25,
+    viewCount: 2050,
     weight: 2000,
+    dimensions: {
+      width: 250,
+      height: 1200,
+      depth: 200
+    },
     color: '투명',
     capacity: 300,
   },
@@ -626,6 +790,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱, 철',
     usage: '공구',
     origin: '독일',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 14,
+    viewCount: 1600,
     dimensions: {
       width: 250,
       height: 200,
@@ -647,6 +815,10 @@ export const livingProducts: LivingMock[] = [
     material: '실리콘',
     usage: '주방',
     origin: '중국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 18,
+    viewCount: 1680,
     dimensions: {
       width: 200,
       height: 30,
@@ -667,6 +839,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '욕실',
     origin: '중국',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 34,
+    viewCount: 2660,
     dimensions: {
       width: 90,
       height: 180,
@@ -689,6 +865,10 @@ export const livingProducts: LivingMock[] = [
     material: '부직포',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 9,
+    viewCount: 1100,
     dimensions: {
       width: 600,
       height: 400,
@@ -709,6 +889,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '가전',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 22,
+    viewCount: 1890,
     dimensions: {
       width: 100,
       height: 150,
@@ -730,6 +914,10 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '인테리어',
     origin: '중국',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 20,
+    viewCount: 1700,
     dimensions: {
       width: 60,
       height: 30,
@@ -750,6 +938,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱, 스테인리스',
     usage: '청소',
     origin: '네덜란드',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 15,
+    viewCount: 1580,
     dimensions: {
       width: 150,
       height: 200,
@@ -772,6 +964,10 @@ export const livingProducts: LivingMock[] = [
     material: '금속, 세라믹',
     usage: '방향',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 19,
+    viewCount: 1750,
     dimensions: {
       width: 120,
       height: 180,
@@ -792,6 +988,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '수납',
     origin: '미국',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 10,
+    viewCount: 1200,
     dimensions: {
       width: 250,
       height: 80,
@@ -813,6 +1013,10 @@ export const livingProducts: LivingMock[] = [
     material: 'PVC',
     usage: '주방',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 23,
+    viewCount: 1820,
     dimensions: {
       width: 1400,
       height: 2,
@@ -833,6 +1037,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '가전',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 45,
+    viewCount: 4100,
     dimensions: {
       width: 400,
       height: 600,
@@ -854,6 +1062,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱, 스테인리스',
     usage: '주방',
     origin: '미국',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 18,
+    viewCount: 1690,
     dimensions: {
       width: 80,
       height: 350,
@@ -874,6 +1086,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 1400,
     dimensions: {
       width: 500,
       height: 600,
@@ -895,6 +1111,10 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '주방',
     origin: '프랑스',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 26,
+    viewCount: 2060,
     dimensions: {
       width: 200,
       height: 250,
@@ -916,6 +1136,15 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '수납',
     origin: '스웨덴',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 21,
+    viewCount: 1750,
+    dimensions: {
+      width: 250,
+      height: 1200,
+      depth: 200
+    },
     weight: 150,
     color: '화이트',
   },
@@ -932,6 +1161,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱',
     usage: '청소',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 18,
+    viewCount: 1680,
     dimensions: {
       width: 200,
       height: 100,
@@ -952,6 +1185,10 @@ export const livingProducts: LivingMock[] = [
     material: '아크릴',
     usage: '수납',
     origin: '대한민국',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 1400,
     dimensions: {
       width: 300,
       height: 200,
@@ -973,6 +1210,15 @@ export const livingProducts: LivingMock[] = [
     material: '스테인리스',
     usage: '주방',
     origin: '미국',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 18,
+    viewCount: 1690,
+    dimensions: {
+      width: 250,
+      height: 1200,
+      depth: 200
+    },
     weight: 400,
     color: '실버',
   },
@@ -988,6 +1234,10 @@ export const livingProducts: LivingMock[] = [
     material: '플라스틱, 알루미늄',
     usage: '청소',
     origin: '영국',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 45,
+    viewCount: 4100,
     dimensions: {
       width: 250,
       height: 1200,

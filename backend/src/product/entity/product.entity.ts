@@ -12,6 +12,14 @@ export enum ProductCategory {
   SHOES = 'SHOES',
 }
 
+export enum ProductStatus {
+  DRAFT = 'draft',           // 작성 중 (아직 등록 안 함)
+  PUBLISHED = 'published',   // 판매 중 (고객에게 보임)
+  SOLD_OUT = 'sold_out',     // 품절
+  HIDDEN = 'hidden',         // 숨김 (판매자가 일시적으로 숨김)
+  DISCONTINUED = 'discontinued'  // 단종
+}
+
 @Entity('products')
 export class ProductEntity extends BaseModel{
   @Column()
@@ -34,6 +42,22 @@ export class ProductEntity extends BaseModel{
 
   @Column()
   brand: string;
+
+  @Column({ type: 'int', default: 0 })
+  stockQuantity: number;
+
+  @Column({
+    type: 'enum',
+    enum: ProductStatus,
+    default: ProductStatus.PUBLISHED,
+  })
+  status: ProductStatus;
+
+  @Column({ type: 'int', default: 0 })
+  salesCount: number;
+
+  @Column({ type: 'int', default: 0 })
+  viewCount: number;
 
   @Column()
   isEvent: boolean;

@@ -1,6 +1,11 @@
 import { Shoes } from "@shared/index.js";
 
-export type ShoesMock = Omit<Shoes, 'id' | 'createdAt' | 'updatedAt'>
+export type ShoesMock = Omit<Shoes, 'id' | 'createdAt' | 'updatedAt'> & {
+  status?: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity?: number;
+  salesCount?: number;
+  viewCount?: number;
+}
 
 export const shoesProducts: ShoesMock[] = [
   {
@@ -15,7 +20,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'white',
     rating: 4.4,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 24,
+    viewCount: 2100
   },
   {
     category: 'SHOES',
@@ -28,7 +37,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'Dark Brown',
     rating: 4.7,
-    material: 'Leather'
+    material: 'Leather',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 18,
+    viewCount: 1760
   },
   {
     category: 'SHOES',
@@ -42,7 +55,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '280',
     color: 'black',
     rating: 4.8,
-    material: 'Synthetic Leather'
+    material: 'Synthetic Leather',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 33,
+    viewCount: 2890
   },
   {
     category: 'SHOES',
@@ -55,7 +72,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '260',
     color: 'brown',
     rating: 4.5,
-    material: 'Canvas'
+    material: 'Canvas',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 12,
+    viewCount: 1400
   },
   {
     category: 'SHOES',
@@ -69,7 +90,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '275',
     color: 'black',
     rating: 4.7,
-    material: 'Nubuck Leather'
+    material: 'Nubuck Leather',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 28,
+    viewCount: 2330
   },
   {
     category: 'SHOES',
@@ -82,7 +107,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '255',
     color: 'white',
     rating: 4.3,
-    material: 'Canvas'
+    material: 'Canvas',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 20,
+    viewCount: 1900
   },
   {
     category: 'SHOES',
@@ -96,7 +125,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'Red',
     rating: 4.4,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 30,
+    viewCount: 2450
   },
   {
     category: 'SHOES',
@@ -109,7 +142,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'White',
     rating: 4.1,
-    material: 'Synthetic'
+    material: 'Synthetic',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 15,
+    viewCount: 1600
   },
   {
     category: 'SHOES',
@@ -123,7 +160,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '275',
     color: 'Black',
     rating: 4.2,
-    material: 'Leather'
+    material: 'Leather',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 22,
+    viewCount: 1950
   },
   {
     category: 'SHOES',
@@ -137,7 +178,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'White/Black',
     rating: 4.3,
-    material: 'Synthetic Leather'
+    material: 'Synthetic Leather',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 41,
+    viewCount: 3200
   },
   {
     category: 'SHOES',
@@ -150,7 +195,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '275',
     color: 'Blue',
     rating: 4.6,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 21,
+    viewCount: 1850
   },
   {
     category: 'SHOES',
@@ -164,7 +213,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '260',
     color: 'Gray',
     rating: 4.5,
-    material: 'Recycled Fabric'
+    material: 'Recycled Fabric',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 11,
+    viewCount: 1450
   },
   {
     category: 'SHOES',
@@ -177,7 +230,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'White/Green',
     rating: 4.8,
-    material: 'Leather'
+    material: 'Leather',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 27,
+    viewCount: 2380
   },
   {
     category: 'SHOES',
@@ -191,7 +248,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'Gray/White',
     rating: 4.3,
-    material: 'Synthetic Leather'
+    material: 'Synthetic Leather',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 25,
+    viewCount: 2050
   },
   {
     category: 'SHOES',
@@ -205,7 +266,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '280',
     color: 'Black/White',
     rating: 4.2,
-    material: 'Knit'
+    material: 'Knit',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 19,
+    viewCount: 1720
   },
   {
     category: 'SHOES',
@@ -218,7 +283,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'Beige',
     rating: 4.6,
-    material: 'Suede'
+    material: 'Suede',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 21,
+    viewCount: 1880
   },
   {
     category: 'SHOES',
@@ -231,7 +300,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '260',
     color: 'Navy',
     rating: 4.5,
-    material: 'Knit'
+    material: 'Knit',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 26,
+    viewCount: 2090
   },
   {
     category: 'SHOES',
@@ -245,7 +318,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '275',
     color: 'White/Blue',
     rating: 4.7,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 29,
+    viewCount: 2390
   },
   {
     category: 'SHOES',
@@ -258,7 +335,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'White/Red',
     rating: 4.8,
-    material: 'Synthetic Leather'
+    material: 'Synthetic Leather',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 14,
+    viewCount: 1550
   },
   {
     category: 'SHOES',
@@ -272,7 +353,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '280',
     color: 'Brown/Black',
     rating: 4.4,
-    material: 'Nubuck Leather'
+    material: 'Nubuck Leather',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 22,
+    viewCount: 1920
   },
   {
     category: 'SHOES',
@@ -285,7 +370,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'Gray',
     rating: 4.1,
-    material: 'Suede'
+    material: 'Suede',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 9,
+    viewCount: 1200
   },
   {
     category: 'SHOES',
@@ -299,7 +388,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'Black/Red',
     rating: 4.2,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 24,
+    viewCount: 2000
   },
   {
     category: 'SHOES',
@@ -313,7 +406,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '280',
     color: 'Olive',
     rating: 4.4,
-    material: 'Synthetic Leather'
+    material: 'Synthetic Leather',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 20,
+    viewCount: 1900
   },
   {
     category: 'SHOES',
@@ -326,7 +423,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '260',
     color: 'Beige',
     rating: 4.8,
-    material: 'Knit'
+    material: 'Knit',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 12,
+    viewCount: 1800
   },
   {
     category: 'SHOES',
@@ -340,7 +441,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '275',
     color: 'White/Blue',
     rating: 4.6,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 24,
+    viewCount: 1980
   },
   {
     category: 'SHOES',
@@ -353,7 +458,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'White/Green',
     rating: 4.5,
-    material: 'Leather'
+    material: 'Leather',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 28,
+    viewCount: 2200
   },
   {
     category: 'SHOES',
@@ -367,7 +476,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '280',
     color: 'Brown',
     rating: 4.1,
-    material: 'Nubuck Leather'
+    material: 'Nubuck Leather',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 16,
+    viewCount: 1680
   },
   {
     category: 'SHOES',
@@ -380,7 +493,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'White/Gray',
     rating: 4.2,
-    material: 'Synthetic Leather'
+    material: 'Synthetic Leather',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 32,
+    viewCount: 2600
   },
   {
     category: 'SHOES',
@@ -394,7 +511,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'Black/White',
     rating: 4.7,
-    material: 'Synthetic'
+    material: 'Synthetic',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 23,
+    viewCount: 1780
   },
   {
     category: 'SHOES',
@@ -408,7 +529,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '275',
     color: 'Blue/Yellow',
     rating: 4.5,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 13,
+    viewCount: 1500
   },
   {
     category: 'SHOES',
@@ -421,7 +546,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '260',
     color: 'Gray',
     rating: 4.4,
-    material: 'Recycled Fabric'
+    material: 'Recycled Fabric',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 10,
+    viewCount: 1350
   },
   {
     category: 'SHOES',
@@ -435,7 +564,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'Black/Blue',
     rating: 4.6,
-    material: 'Mesh'
+    material: 'Mesh',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 35,
+    viewCount: 3000
   },
   {
     category: 'SHOES',
@@ -448,7 +581,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '265',
     color: 'Beige',
     rating: 4.8,
-    material: 'Suede'
+    material: 'Suede',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 19,
+    viewCount: 1700
   },
   {
     category: 'SHOES',
@@ -462,7 +599,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '280',
     color: 'Gray/Orange',
     rating: 4.8,
-    material: 'Nubuck Leather'
+    material: 'Nubuck Leather',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 28,
+    viewCount: 2400
   },
   {
     category: 'SHOES',
@@ -475,7 +616,11 @@ export const shoesProducts: ShoesMock[] = [
     size: '270',
     color: 'White/Navy',
     rating: 4.5,
-    material: 'Leather'
+    material: 'Leather',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 1500
   },
   {
     category: 'SHOES',
@@ -489,6 +634,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Brown',
     rating: 4.2,
     material: 'Leather',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 14,
+    viewCount: 1480
   },
   {
     category: 'SHOES',
@@ -503,6 +652,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Olive',
     rating: 4.5,
     material: 'Mesh',
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 33,
+    viewCount: 2890
   },
   {
     category: 'SHOES',
@@ -516,6 +669,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Gray',
     rating: 4.4,
     material: 'Canvas',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 10,
+    viewCount: 1200
   },
   {
     category: 'SHOES',
@@ -530,6 +687,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Navy',
     rating: 4.1,
     material: 'Synthetic Leather',
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 25,
+    viewCount: 2050
   },
   {
     category: 'SHOES',
@@ -543,6 +704,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Beige',
     rating: 4.0,
     material: 'Rubber',
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 6,
+    viewCount: 1050
   },
   {
     category: 'SHOES',
@@ -557,6 +722,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Black',
     rating: 4.4,
     material: 'Leather',
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 22,
+    viewCount: 1900
   },
   {
     category: 'SHOES',
@@ -570,6 +739,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'White',
     rating: 4.8,
     material: 'Mesh',
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 40,
+    viewCount: 3500
   },
   {
     category: 'SHOES',
@@ -584,6 +757,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Dark Brown',
     rating: 4.3,
     material: 'Suede',
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 24,
+    viewCount: 2000
   },
   {
     category: 'SHOES',
@@ -597,6 +774,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Ivory',
     rating: 4.0,
     material: 'Synthetic Leather',
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 9,
+    viewCount: 1400
   },
   {
     category: 'SHOES',
@@ -611,6 +792,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Red',
     rating: 4.3,
     material: 'Mesh',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 13,
+    viewCount: 1490
   },
   {
     category: 'SHOES',
@@ -624,6 +809,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Dark Brown',
     rating: 4.6,
     material: 'Leather',
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 29,
+    viewCount: 2600
   },
   {
     category: 'SHOES',
@@ -638,6 +827,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Olive',
     rating: 4.9,
     material: 'Nubuck Leather',
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 16,
+    viewCount: 1700
   },
   {
     category: 'SHOES',
@@ -651,6 +844,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'White',
     rating: 4.2,
     material: 'Canvas',
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 1400
   },
   {
     category: 'SHOES',
@@ -665,6 +862,10 @@ export const shoesProducts: ShoesMock[] = [
     color: 'Beige',
     rating: 4.4,
     material: 'Patent Leather',
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 7,
+    viewCount: 1080
   },
 ];
 

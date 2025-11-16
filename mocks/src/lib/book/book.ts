@@ -1,6 +1,11 @@
 import { Book } from "@shared/index.js";
 
-export type BookMock = Omit<Book, 'id' | 'createdAt' | 'updatedAt'>
+export type BookMock = Omit<Book, 'id' | 'createdAt' | 'updatedAt' > & {
+  status?: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity?: number;
+  salesCount?: number;
+  viewCount?: number;
+}
 
 // Book 제품 Mock Data (100개)
 export const bookProducts: BookMock[] = [
@@ -18,7 +23,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2020-07-08',
     pages: 300,
     genre: '판타지',
-    rating: 4.8
+    rating: 4.8,
+    status: 'published',
+    stockQuantity: 14,
+    salesCount: 31,
+    viewCount: 3990
   },
   {
     category: 'BOOK',
@@ -33,7 +42,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-10-19',
     pages: 456,
     genre: '경제',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 22,
+    viewCount: 2400
   },
   {
     category: 'BOOK',
@@ -49,7 +62,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '1999-03-05',
     pages: 352,
     genre: '판타지',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 41,
+    viewCount: 3890
   },
   {
     category: 'BOOK',
@@ -64,7 +81,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2016-10-14',
     pages: 192,
     genre: '소설/시/희곡',
-    rating: 3.8
+    rating: 3.8,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 9,
+    viewCount: 1170
   },
   {
     category: 'BOOK',
@@ -80,7 +101,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2017-03-31',
     pages: 268,
     genre: '청소년 문학',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 35,
+    viewCount: 2780
   },
   {
     category: 'BOOK',
@@ -95,7 +120,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-03-17',
     pages: 344,
     genre: '소설/시/희곡',
-    rating: 4.3
+    rating: 4.3,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 6,
+    viewCount: 980
   },
   {
     category: 'BOOK',
@@ -111,7 +140,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-04-22',
     pages: 328,
     genre: '자기계발',
-    rating: 4.1
+    rating: 4.1,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 33,
+    viewCount: 2210
   },
   {
     category: 'BOOK',
@@ -126,7 +159,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-09-16',
     pages: 232,
     genre: '만화/라이트노벨',
-    rating: 4.8
+    rating: 4.8,
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 12,
+    viewCount: 4050
   },
   {
     category: 'BOOK',
@@ -142,7 +179,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-04-20',
     pages: 336,
     genre: '한국 소설',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 27,
+    viewCount: 1650
   },
   {
     category: 'BOOK',
@@ -157,7 +198,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-02-10',
     pages: 276,
     genre: '인문/교양',
-    rating: 3.9
+    rating: 3.9,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 14,
+    viewCount: 1420
   },
   {
     category: 'BOOK',
@@ -173,7 +218,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2017-01-20',
     pages: 264,
     genre: '심리',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 46,
+    viewCount: 3675
   },
   {
     category: 'BOOK',
@@ -188,7 +237,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2000-05-15',
     pages: 248,
     genre: '성장소설/가족소설',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 18,
+    viewCount: 1540
   },
   {
     category: 'BOOK',
@@ -204,7 +257,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '1998-08-20',
     pages: 420,
     genre: '동유럽소설',
-    rating: 4.6
+    rating: 4.6,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 29,
+    viewCount: 1310
   },
   {
     category: 'BOOK',
@@ -219,7 +276,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2006-12-20',
     pages: 544,
     genre: '천문학',
-    rating: 5.0
+    rating: 5.0,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 20,
+    viewCount: 1760
   },
   {
     category: 'BOOK',
@@ -235,7 +296,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2007-10-30',
     pages: 188,
     genre: '한국 소설',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 36,
+    viewCount: 2650
   },
   {
     category: 'BOOK',
@@ -250,7 +315,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2013-07-31',
     pages: 280,
     genre: '자기계발',
-    rating: 3.5
+    rating: 3.5,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 24,
+    viewCount: 1490
   },
   {
     category: 'BOOK',
@@ -266,7 +335,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2010-06-10',
     pages: 632,
     genre: '생명과학',
-    rating: 3.9
+    rating: 3.9,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 11,
+    viewCount: 1380
   },
   {
     category: 'BOOK',
@@ -281,7 +354,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2016-08-22',
     pages: 256,
     genre: '한국 에세이',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 14,
+    viewCount: 1210
   },
   {
     category: 'BOOK',
@@ -297,7 +374,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2005-12-01',
     pages: 752,
     genre: '인문/교양',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 40,
+    viewCount: 3620
   },
   {
     category: 'BOOK',
@@ -312,7 +393,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2012-11-26',
     pages: 408,
     genre: '일본 소설',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 3,
+    viewCount: 820
   },
   {
     category: 'BOOK',
@@ -328,7 +413,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2016-04-27',
     pages: 568,
     genre: '만화/라이트노벨',
-    rating: 4.7
+    rating: 4.7,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 10,
+    viewCount: 1290
   },
   {
     category: 'BOOK',
@@ -343,7 +432,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2015-11-23',
     pages: 636,
     genre: '인문/교양',
-    rating: 3.7
+    rating: 3.7,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 47,
+    viewCount: 4110
   },
   {
     category: 'BOOK',
@@ -359,7 +452,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2018-06-25',
     pages: 260,
     genre: '한국 에세이',
-    rating: 3.8
+    rating: 3.8,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 26,
+    viewCount: 2400
   },
   {
     category: 'BOOK',
@@ -374,7 +471,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2003-04-10',
     pages: 396,
     genre: '영미 소설',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 13,
+    viewCount: 1170
   },
   {
     category: 'BOOK',
@@ -390,7 +491,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2019-01-03',
     pages: 392,
     genre: '자기 계발',
-    rating: 4.1
+    rating: 4.1,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 20,
+    viewCount: 1760
   },
   {
     category: 'BOOK',
@@ -405,7 +510,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2014-12-11',
     pages: 432,
     genre: '인문/교양',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 36,
+    viewCount: 2650
   },
   {
     category: 'BOOK',
@@ -421,7 +530,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2011-08-25',
     pages: 368,
     genre: '한국 소설',
-    rating: 3.2
+    rating: 3.2,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 39,
+    viewCount: 3340
   },
   {
     category: 'BOOK',
@@ -436,7 +549,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2007-03-15',
     pages: 128,
     genre: '프랑스 소설',
-    rating: 3.8
+    rating: 3.8,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 24,
+    viewCount: 1760
   },
   {
     category: 'BOOK',
@@ -452,7 +569,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2017-05-18',
     pages: 624,
     genre: '인문/교양',
-    rating: 3.8
+    rating: 3.8,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 17,
+    viewCount: 1490
   },
   {
     category: 'BOOK',
@@ -467,7 +588,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2020-06-03',
     pages: 384,
     genre: '만화/라이트노벨',
-    rating: 4.6
+    rating: 4.6,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 9,
+    viewCount: 1380
   },
   {
     category: 'BOOK',
@@ -483,7 +608,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2012-11-01',
     pages: 260,
     genre: '한국 에세이',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 14,
+    viewCount: 1210
   },
   {
     category: 'BOOK',
@@ -498,7 +627,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2001-11-05',
     pages: 232,
     genre: '스페인/중남미 소설',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 25,
+    viewCount: 2100
   },
   {
     category: 'BOOK',
@@ -514,7 +647,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2014-02-03',
     pages: 360,
     genre: '만화/라이트노벨',
-    rating: 4.7
+    rating: 4.7,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 18,
+    viewCount: 1780
   },
   {
     category: 'BOOK',
@@ -529,7 +666,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2000-03-20',
     pages: 192,
     genre: '독일 소설',
-    rating: 3.9
+    rating: 3.9,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 12,
+    viewCount: 1320
   },
   {
     category: 'BOOK',
@@ -545,7 +686,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2019-03-05',
     pages: 400,
     genre: '인문/교양',
-    rating: 3.0
+    rating: 3.0,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 9,
+    viewCount: 1015
   },
   {
     category: 'BOOK',
@@ -560,7 +705,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2018-09-10',
     pages: 344,
     genre: '미술',
-    rating: 3.2
+    rating: 3.2,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 11,
+    viewCount: 1290
   },
   {
     category: 'BOOK',
@@ -576,7 +725,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2016-01-25',
     pages: 232,
     genre: '한국 에세이',
-    rating: 4.3
+    rating: 4.3,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 22,
+    viewCount: 2680
   },
   {
     category: 'BOOK',
@@ -591,7 +744,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '1999-09-01',
     pages: 304,
     genre: '청소년 문학',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 40,
+    viewCount: 3890
   },
   {
     category: 'BOOK',
@@ -607,7 +764,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2014-11-17',
     pages: 336,
     genre: '심리',
-    rating: 4.1
+    rating: 4.1,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 19,
+    viewCount: 1765
   },
   {
     category: 'BOOK',
@@ -622,7 +783,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-07-13',
     pages: 368,
     genre: '한국 소설',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 7,
+    viewCount: 980
   },
   {
     category: 'BOOK',
@@ -638,7 +803,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-01-20',
     pages: 420,
     genre: '만화/라이트노벨',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 28,
+    viewCount: 2105
   },
   {
     category: 'BOOK',
@@ -653,7 +822,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2015-05-22',
     pages: 280,
     genre: '시/희곡',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 33,
+    viewCount: 3100
   },
   {
     category: 'BOOK',
@@ -669,7 +842,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2004-02-25',
     pages: 216,
     genre: '일본 소설',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 21,
+    viewCount: 1850
   },
   {
     category: 'BOOK',
@@ -684,7 +861,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2005-08-30',
     pages: 456,
     genre: '일본 소설',
-    rating: 4.8
+    rating: 4.8,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 27,
+    viewCount: 2290
   },
   {
     category: 'BOOK',
@@ -700,7 +881,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-04-05',
     pages: 168,
     genre: '영미 소설',
-    rating: 4.1
+    rating: 4.1,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 24,
+    viewCount: 2430
   },
   {
     category: 'BOOK',
@@ -715,7 +900,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-02-14',
     pages: 296,
     genre: '한국 소설',
-    rating: 4.3
+    rating: 4.3,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 29,
+    viewCount: 2550
   },
   {
     category: 'BOOK',
@@ -731,7 +920,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2011-01-10',
     pages: 368,
     genre: '경제',
-    rating: 3.5
+    rating: 3.5,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 15,
+    viewCount: 1650
   },
   {
     category: 'BOOK',
@@ -746,7 +939,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2010-06-15',
     pages: 432,
     genre: '세계 각국 소설',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 44,
+    viewCount: 4010
   },
   {
     category: 'BOOK',
@@ -762,7 +959,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '1993-10-01',
     pages: 408,
     genre: '역사',
-    rating: 4.1
+    rating: 4.1,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 26,
+    viewCount: 2200
   },
   {
     category: 'BOOK',
@@ -777,7 +978,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2008-09-15',
     pages: 240,
     genre: '마케팅/세일즈',
-    rating: 3.6
+    rating: 3.6,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 12,
+    viewCount: 1190
   },
   {
     category: 'BOOK',
@@ -793,7 +998,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-10-18',
     pages: 208,
     genre: '어린이 동화/만화',
-    rating: 3.1
+    rating: 3.1,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 10,
+    viewCount: 1215
   },
   {
     category: 'BOOK',
@@ -808,7 +1017,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2019-06-20',
     pages: 176,
     genre: '어린이 동화/만화',
-    rating: 4.3
+    rating: 4.3,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 23,
+    viewCount: 1720
   },
   {
     category: 'BOOK',
@@ -824,7 +1037,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2010-05-22',
     pages: 404,
     genre: '사회학',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 8,
+    viewCount: 1120
   },
   {
     category: 'BOOK',
@@ -839,7 +1056,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2013-08-30',
     pages: 480,
     genre: '자기계발',
-    rating: 3.5
+    rating: 3.5,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 20,
+    viewCount: 1800
   },
   {
     category: 'BOOK',
@@ -855,7 +1076,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-06-25',
     pages: 352,
     genre: '추리/미스터리',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 25,
+    viewCount: 2050
   },
   {
     category: 'BOOK',
@@ -870,7 +1095,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2020-09-09',
     pages: 288,
     genre: 'SF',
-    rating: 3.9
+    rating: 3.9,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 16,
+    viewCount: 1500
   },
   {
     category: 'BOOK',
@@ -886,7 +1115,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2019-11-05',
     pages: 708,
     genre: '판타지',
-    rating: 5.0
+    rating: 5.0,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 45,
+    viewCount: 4760
   },
   {
     category: 'BOOK',
@@ -901,7 +1134,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2020-01-15',
     pages: 1080,
     genre: '판타지',
-    rating: 4.7
+    rating: 4.7,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 14,
+    viewCount: 1680
   },
   {
     category: 'BOOK',
@@ -917,7 +1154,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-03-28',
     pages: 252,
     genre: '자기계발',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 19,
+    viewCount: 1760
   },
   {
     category: 'BOOK',
@@ -932,7 +1173,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-08-17',
     pages: 248,
     genre: '만화/라이트노벨',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 41,
+    viewCount: 3895
   },
   {
     category: 'BOOK',
@@ -948,7 +1193,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2016-10-04',
     pages: 400,
     genre: '자기계발',
-    rating: 4.1
+    rating: 4.1,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 28,
+    viewCount: 2300
   },
   {
     category: 'BOOK',
@@ -963,7 +1212,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2007-05-10',
     pages: 224,
     genre: '영미 소설',
-    rating: 3.9
+    rating: 3.9,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 9,
+    viewCount: 1085
   },
   {
     category: 'BOOK',
@@ -979,7 +1232,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-10-29',
     pages: 304,
     genre: '생명과학',
-    rating: 3.7
+    rating: 3.7,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 12,
+    viewCount: 1340
   },
   {
     category: 'BOOK',
@@ -994,7 +1251,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2005-12-15',
     pages: 208,
     genre: '만화/라이트노벨',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 17,
+    viewCount: 1600
   },
   {
     category: 'BOOK',
@@ -1010,7 +1271,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-05-20',
     pages: 240,
     genre: '영미 소설',
-    rating: 4.6
+    rating: 4.6,
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 6,
+    viewCount: 1000
   },
   {
     category: 'BOOK',
@@ -1025,7 +1290,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-06-15',
     pages: 280,
     genre: '만화/라이트노벨',
-    rating: 4.7
+    rating: 4.7,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 24,
+    viewCount: 2100
   },
   {
     category: 'BOOK',
@@ -1041,7 +1310,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2009-01-30',
     pages: 264,
     genre: '자연과학',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 37,
+    viewCount: 2850
   },
   {
     category: 'BOOK',
@@ -1056,7 +1329,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-02-10',
     pages: 512,
     genre: '투자/재테크',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 18,
+    viewCount: 1760
   },
   {
     category: 'BOOK',
@@ -1072,7 +1349,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2020-12-18',
     pages: 384,
     genre: '사회학',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 22,
+    viewCount: 1690
   },
   {
     category: 'BOOK',
@@ -1087,7 +1368,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-01-22',
     pages: 320,
     genre: '심리',
-    rating: 4.7
+    rating: 4.7,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 33,
+    viewCount: 3120
   },
   {
     category: 'BOOK',
@@ -1103,7 +1388,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-06-25',
     pages: 264,
     genre: 'SF',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 50,
+    viewCount: 4900
   },
   {
     category: 'BOOK',
@@ -1118,7 +1407,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-09-05',
     pages: 392,
     genre: '한국사',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 9,
+    viewCount: 1200
   },
   {
     category: 'BOOK',
@@ -1134,7 +1427,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2011-04-15',
     pages: 424,
     genre: '프랑스 소설',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 15,
+    viewCount: 1450
   },
   {
     category: 'BOOK',
@@ -1149,7 +1446,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2011-12-20',
     pages: 456,
     genre: '사회학',
-    rating: 3.6
+    rating: 3.6,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 20,
+    viewCount: 1730
   },
   {
     category: 'BOOK',
@@ -1165,7 +1466,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2012-05-31',
     pages: 512,
     genre: '무협',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 1,
+    salesCount: 8,
+    viewCount: 980
   },
   {
     category: 'BOOK',
@@ -1180,7 +1485,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-10-20',
     pages: 208,
     genre: '무협',
-    rating: 4.7
+    rating: 4.7,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 26,
+    viewCount: 2150
   },
   {
     category: 'BOOK',
@@ -1196,7 +1505,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2001-07-10',
     pages: 152,
     genre: '독일 소설',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 12,
+    viewCount: 1350
   },
   {
     category: 'BOOK',
@@ -1211,7 +1524,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-07-30',
     pages: 368,
     genre: '무협',
-    rating: 4.4
+    rating: 4.4,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 23,
+    viewCount: 2010
   },
   {
     category: 'BOOK',
@@ -1227,7 +1544,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2015-02-27',
     pages: 200,
     genre: '시/희곡',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 16,
+    viewCount: 1500
   },
   {
     category: 'BOOK',
@@ -1242,7 +1563,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2020-11-09',
     pages: 288,
     genre: '웹툰',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 11,
+    viewCount: 1190
   },
   {
     category: 'BOOK',
@@ -1258,7 +1583,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-08-25',
     pages: 352,
     genre: '웹툰',
-    rating: 4.3
+    rating: 4.3,
+    status: 'published',
+    stockQuantity: 8,
+    salesCount: 27,
+    viewCount: 2340
   },
   {
     category: 'BOOK',
@@ -1273,7 +1602,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2018-10-15',
     pages: 256,
     genre: '한국 에세이',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 19,
+    viewCount: 1720
   },
   {
     category: 'BOOK',
@@ -1289,7 +1622,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2025-04-28',
     pages: 416,
     genre: '웹툰',
-    rating: 4.6
+    rating: 4.6,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 25,
+    viewCount: 2080
   },
   {
     category: 'BOOK',
@@ -1304,7 +1641,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2011-09-20',
     pages: 324,
     genre: '자기계발',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 21,
+    viewCount: 1810
   },
   {
     category: 'BOOK',
@@ -1320,7 +1661,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-11-18',
     pages: 296,
     genre: '심리',
-    rating: 3.7
+    rating: 3.7,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 10,
+    viewCount: 1270
   },
   {
     category: 'BOOK',
@@ -1335,7 +1680,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2019-06-24',
     pages: 280,
     genre: 'SF',
-    rating: 4.8
+    rating: 4.8,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 34,
+    viewCount: 2660
   },
   {
     category: 'BOOK',
@@ -1351,7 +1700,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-04-10',
     pages: 224,
     genre: '웹툰',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 18,
+    viewCount: 1750
   },
   {
     category: 'BOOK',
@@ -1366,7 +1719,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2022-06-15',
     pages: 448,
     rating: 4.3,
-    genre: '인문/교양'
+    genre: '인문/교양',
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 9,
+    viewCount: 1400
   },
   {
     category: 'BOOK',
@@ -1382,7 +1739,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2025-09-30',
     pages: 336,
     genre: '웹툰',
-    rating: 4.8
+    rating: 4.8,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 42,
+    viewCount: 3890
   },
   {
     category: 'BOOK',
@@ -1397,7 +1758,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2019-12-20',
     pages: 304,
     genre: '인문교양',
-    rating: 3.5
+    rating: 3.5,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 17,
+    viewCount: 1580
   },
   {
     category: 'BOOK',
@@ -1413,7 +1778,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2021-03-12',
     pages: 240,
     genre: '심리',
-    rating: 3.9
+    rating: 3.9,
+    status: 'published',
+    stockQuantity: 2,
+    salesCount: 20,
+    viewCount: 930
   },
   {
     category: 'BOOK',
@@ -1428,7 +1797,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2025-02-07',
     pages: 312,
     genre: '판타지',
-    rating: 4.9
+    rating: 4.9,
+    status: 'published',
+    stockQuantity: 5,
+    salesCount: 32,
+    viewCount: 4320
   },
   {
     category: 'BOOK',
@@ -1444,7 +1817,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2019-02-28',
     pages: 344,
     genre: '철학/사상',
-    rating: 4.2
+    rating: 4.2,
+    status: 'published',
+    stockQuantity: 9,
+    salesCount: 31,
+    viewCount: 2890
   },
   {
     category: 'BOOK',
@@ -1459,7 +1836,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2020-10-16',
     pages: 556,
     genre: '철학/사상',
-    rating: 4.4
+    rating: 4.4,
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 50,
+    viewCount: 5000
   },
   {
     category: 'BOOK',
@@ -1475,7 +1856,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2023-08-10',
     pages: 216,
     genre: '만화/라이트노벨',
-    rating: 4.5
+    rating: 4.5,
+    status: 'published',
+    stockQuantity: 7,
+    salesCount: 30,
+    viewCount: 2330
   },
   {
     category: 'BOOK',
@@ -1490,7 +1875,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2018-05-18',
     pages: 208,
     genre: '해외 에세이',
-    rating: 4.0
+    rating: 4.0,
+    status: 'published',
+    stockQuantity: 4,
+    salesCount: 14,
+    viewCount: 1210
   },
   {
     category: 'BOOK',
@@ -1506,7 +1895,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2024-05-31',
     pages: 356,
     genre: '역사',
-    rating: 3.9
+    rating: 3.9,
+    status: 'published',
+    stockQuantity: 3,
+    salesCount: 16,
+    viewCount: 1470
   },
   {
     category: 'BOOK',
@@ -1521,7 +1914,11 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2024-09-28',
     pages: 416,
     genre: '웹툰',
-    rating: 4.3
+    rating: 4.3,
+    status: 'published',
+    stockQuantity: 6,
+    salesCount: 28,
+    viewCount: 2100
   },
   {
     category: 'BOOK',
@@ -1538,6 +1935,10 @@ export const bookProducts: BookMock[] = [
     pages: 241,
     genre: '웹툰',
     rating: 4.5,
+    status: 'sold_out',
+    stockQuantity: 0,
+    salesCount: 4,
+    viewCount: 1350,
   },
   {
     category: 'BOOK',
@@ -1552,6 +1953,10 @@ export const bookProducts: BookMock[] = [
     publicationDate: '2003-11-12',
     pages: 296,
     genre: '영미소설',
-    rating: 4.7
+    rating: 4.7,
+    status: 'published',
+    stockQuantity: 10,
+    salesCount: 40,
+    viewCount: 3620
   }
 ];
