@@ -52,8 +52,8 @@ export class ProductService {
         return this.commonService.paginate(
             query,
             this.productRepository,
-            {},
-            'product'
+            'product',
+            {}
         )
     }
 }

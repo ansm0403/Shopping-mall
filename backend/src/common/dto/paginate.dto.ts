@@ -1,5 +1,87 @@
-import { Type } from 'class-transformer';
-import { IsArray, IsEnum, IsIn, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import { IsArray, IsEnum, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+
+export class NumberFilterDto {
+  @IsOptional()
+  @IsNumber()
+  equals?: number;
+
+  @IsOptional()
+  @IsNumber()
+  gt?: number;
+
+  @IsOptional()
+  @IsNumber()
+  gte?: number;
+
+  @IsOptional()
+  @IsNumber()
+  lt?: number;
+
+  @IsOptional()
+  @IsNumber()
+  lte?: number;
+}
+
+export class StringFilterDto {
+  @IsOptional()
+  @IsString()
+  equals?: string;
+
+  @IsOptional()
+  @IsString()
+  contains?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  in?: string[];
+}
+
+export class PaginateFilterDto {
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => NumberFilterDto)
+  rating?: NumberFilterDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(()=>StringFilterDto)
+  status?: StringFilterDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Transform(({ value }) => {
+    // value가 없으면 패스
+    if (!value) return value;
+
+    // 1. equals 처리
+    if (typeof value.equals === 'string') {
+      value.equals = value.equals.toUpperCase();
+    }
+
+    // 2. contains 처리 (ENUM은 보통 like 검색이 안 되지만 혹시 몰라 처리)
+    if (typeof value.contains === 'string') {
+      value.contains = value.contains.toUpperCase();
+    }
+
+    // 3. in 처리 (배열)
+    if (Array.isArray(value.in)) {
+      value.in = value.in.map((v: any) => 
+        typeof v === 'string' ? v.toUpperCase() : v
+      );
+    }
+
+    return value;
+  })
+  @Type(()=>StringFilterDto)
+  category?: StringFilterDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => NumberFilterDto)
+  price?: NumberFilterDto;
+}
 
 /**
  * 페이지 기반 페이지네이션의 예시 쿼리
@@ -58,62 +140,4 @@ export class BasePaginateDto {
   // where__필드명__필터타입 형식의 필터를 동적으로 받을 수 있음
   // 예: where__id__more_than, where__name__like, where__price__between 등
   [key: string]: any;
-}
-
-class PaginateFilterDto {
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => NumberFilterDto)
-  rating?: NumberFilterDto;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(()=>StringFilterDto)
-  status?: StringFilterDto;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(()=>StringFilterDto)
-  category?: StringFilterDto;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => NumberFilterDto)
-  price?: NumberFilterDto;
-}
-class NumberFilterDto {
-  @IsOptional()
-  @IsNumber()
-  equals?: number;
-
-  @IsOptional()
-  @IsNumber()
-  gt?: number;
-
-  @IsOptional()
-  @IsNumber()
-  gte?: number;
-
-  @IsOptional()
-  @IsNumber()
-  lt?: number;
-
-  @IsOptional()
-  @IsNumber()
-  lte?: number;
-}
-
-class StringFilterDto {
-  @IsOptional()
-  @IsString()
-  equals?: string;
-
-  @IsOptional()
-  @IsString()
-  contains?: string;
-
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
-  in?: string[];
 }
