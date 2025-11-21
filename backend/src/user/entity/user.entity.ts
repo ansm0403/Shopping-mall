@@ -9,7 +9,7 @@ export enum Role {
 }
 
 @Entity('users')
-export class UserEntity extends BaseModel {
+export class UserModel extends BaseModel {
     @Column()
     email: string;
 

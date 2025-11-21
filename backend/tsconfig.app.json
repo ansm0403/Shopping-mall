@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": true,
     "target": "es2021"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/intrastructure/redis/redis.service.ts"],
   "exclude": [
     "out-tsc",
     "dist",
