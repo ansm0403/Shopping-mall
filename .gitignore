@@ -52,3 +52,9 @@ test-output
 
 # environment
 .env
+
+# 로그 파일
+logs/
+claude_logs/
+*.log
+*.log.bak

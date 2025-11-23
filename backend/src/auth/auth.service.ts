@@ -17,6 +17,8 @@ import { AuditAction } from '../audit/entity/audit-log.entity';
 import { RedisService } from '../intrastructure/redis/redis.service';
 import { AuditService } from '../audit/audit.service';
 import { UserModel } from '../user/entity/user.entity';
+import { RegisterDto } from './dto/register.dto';
+import { EmailService } from '../intrastructure/emailVerify/email.service';
 
 interface JwtPayload {
   sub: number;
@@ -44,6 +46,7 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly redisService: RedisService,
     private readonly auditLogService: AuditService,
+    private readonly emailService: EmailService,
     @InjectRepository(UserModel)
     private readonly usersRepository: Repository<UserModel>,
     @InjectRepository(RefreshTokenEntity)
@@ -52,7 +55,7 @@ export class AuthService {
 
   // ===== 회원가입 =====
   async register(
-    dto: { email: string; name: string; password: string; phoneNumber: string; address: string },
+    dto: RegisterDto,
     context: LoginContext,
   ) {
     // 이메일 중복 확인
@@ -94,9 +97,14 @@ export class AuthService {
       userAgent: context.userAgent,
     });
 
+    // 이메일 인증 메일 전송
+    await this.emailService.sendVerificationEmail(
+      savedUser.email,
+      verificationToken,
+    );
+
     return {
       message: '회원가입이 완료되었습니다. 이메일을 확인해주세요.',
-      verificationToken, // 실제로는 이메일로 전송
     };
   }
 

@@ -33,6 +33,18 @@ dev-down: ## 개발 환경을 중지합니다
 logs: ## 모든 서비스의 로그를 확인합니다
 	docker-compose logs -f
 
+claude-logs: ## Claude Code 대화 로그를 확인합니다 (UTF-8 변환 후)
+	@powershell -Command "if (Test-Path ./logs) { Get-ChildItem ./logs/*.log | ForEach-Object { try { $$c = Get-Content $$_.FullName -Encoding Unicode -ErrorAction Stop; $$c | Out-File $$_.FullName -Encoding UTF8 -Force } catch {} }; $$latest = Get-ChildItem ./logs/session-*.log -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 1; if ($$latest) { Get-Content $$latest.FullName } else { Write-Host 'No session logs found' } } else { Write-Host 'No logs directory' }"
+
+convert-logs: ## 모든 로그 파일을 UTF-8로 변환합니다
+	@powershell -File ./convert-logs-to-utf8.ps1
+
+start-log: ## PowerShell 터미널 로깅을 시작합니다
+	@powershell -File ./start-logging.ps1
+
+stop-log: ## PowerShell 터미널 로깅을 종료합니다 (UTF-8 자동 변환)
+	@powershell -File ./stop-logging.ps1
+
 logs-backend: ## 백엔드 로그만 확인합니다
 	docker-compose logs -f backend
 
