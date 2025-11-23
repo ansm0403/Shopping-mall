@@ -7,12 +7,13 @@ import { AuthController } from './auth.controller';
 import { RefreshTokenEntity } from './entity/refresh-token.entity';
 import { RedisModule } from '../intrastructure/redis/redis.module';
 import { UserModel } from '../user/entity/user.entity';
-
+import { EmailModule } from '../intrastructure/emailVerify/email.module';
 
 @Module({
   imports: [
     ConfigModule,
     RedisModule,
+    EmailModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
