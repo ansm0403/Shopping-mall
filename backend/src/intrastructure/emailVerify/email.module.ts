@@ -18,3 +18,4 @@ import { SmtpEmailProvider } from './providers/smtp-email.provider';
   exports: [EmailService],
 })
 export class EmailModule {}
+

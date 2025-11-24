@@ -1,1 +1,0 @@
-export type ProductType = 'CLOTHING' | 'BEAUTY' | 'SPORTS' | 'SHOES' | 'BOOK' | 'FOOD' | 'TOYS' | 'OTHER' | 'LIVING'
