@@ -5,15 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { RefreshTokenEntity } from './entity/refresh-token.entity';
-import { RedisModule } from '../intrastructure/redis/redis.module';
 import { UserModel } from '../user/entity/user.entity';
 import { EmailModule } from '../intrastructure/emailVerify/email.module';
+import { AuditModule } from '../audit/audit.module';
+import { RedisModule } from '../intrastructure/redis/redis.module';
 
 @Module({
   imports: [
     ConfigModule,
-    RedisModule,
+    RedisModule.forRoot(),
     EmailModule,
+    AuditModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({

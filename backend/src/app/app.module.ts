@@ -6,6 +6,7 @@ import { ProductModule } from '../product/product.module';
 import { WishListModule } from '../wish-list/wish-list.module';
 import { UserModule } from '../user/user.module';
 import { ReviewModule } from '../review/review.module';
+import { AuthModule } from '../auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -24,6 +25,7 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadEntities: true, // 자동으로 엔티티 로드
       synchronize: true,
     }),
+    AuthModule,
     ProductModule,
     ReviewModule,
     UserModule,

@@ -85,7 +85,7 @@ export class RedisService {
   async storeEmailVerificationToken(
     userId: number,
     token: string,
-    expiresIn: number = 3600,
+    expiresIn = 3600,
   ): Promise<void> {
     const key = `email:verify:${token}`;
     await this.redis.setex(key, expiresIn, userId.toString());
@@ -104,7 +104,7 @@ export class RedisService {
   }
 
   // ===== OTP (2FA) 관리 =====
-  async storeOTP(userId: number, code: string, expiresIn: number = 300): Promise<void> {
+  async storeOTP(userId: number, code: string, expiresIn = 300): Promise<void> {
     const key = `otp:${userId}`;
     await this.redis.setex(key, expiresIn, code);
   }

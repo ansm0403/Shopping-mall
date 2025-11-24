@@ -1,14 +1,14 @@
 import { ProductEntity } from "../../product/entity/product.entity";
 import { BaseModel } from "../../common/entity/base.entity";
 import { Entity, OneToOne, OneToMany, JoinColumn } from "typeorm";
-import { UserEntity } from "../../user/entity/user.entity";
+import { UserModel } from "../../user/entity/user.entity";
 
 @Entity('wishLists')
 export class WishListEntity extends BaseModel {
     @OneToMany(() => ProductEntity, (product) => product.wishList)
     products: ProductEntity[];
 
-    @OneToOne(() => UserEntity, (user) => user.wishList)
+    @OneToOne(() => UserModel, (user) => user.wishList)
     @JoinColumn()
-    user: UserEntity;
+    user: UserModel;
 }

@@ -1,6 +1,6 @@
 import { BaseModel } from '../base.model.js';
 import { Review } from '../review/review.js';
-import { ProductType } from './product-type.js';
+import { Category } from './category.js';
 
 export const ProductStatus = {
   DRAFT: 'draft',
@@ -13,7 +13,7 @@ export const ProductStatus = {
 export type ProductStatus = typeof ProductStatus[keyof typeof ProductStatus];
 
 export interface Product extends BaseModel {
-  category: ProductType;
+  category: Category;
   name: string;
   description: string;
   price: number;

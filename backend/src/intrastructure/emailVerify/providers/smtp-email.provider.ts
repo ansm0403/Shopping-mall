@@ -47,7 +47,7 @@ export class SmtpEmailProvider implements IEmailProvider {
       console.error('이메일 전송 실패:', error);
       return {
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       };
     }
   }

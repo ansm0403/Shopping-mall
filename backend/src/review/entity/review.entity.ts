@@ -1,6 +1,6 @@
 import { BaseModel } from "../../common/entity/base.entity";
 import { Column, Entity, ManyToOne, JoinColumn } from "typeorm";
-import { UserEntity } from "../../user/entity/user.entity";
+import { UserModel } from "../../user/entity/user.entity";
 import { ProductEntity } from "../../product/entity/product.entity";
 
 @Entity('reviews')
@@ -9,9 +9,9 @@ export class ReviewEntity extends BaseModel {
     @JoinColumn()
     product: ProductEntity;
 
-    @ManyToOne(() => UserEntity, (user) => user.reviews)
+    @ManyToOne(() => UserModel, (user) => user.reviews)
     @JoinColumn()
-    user: UserEntity;
+    user: UserModel;
 
     @Column()
     rating: number;

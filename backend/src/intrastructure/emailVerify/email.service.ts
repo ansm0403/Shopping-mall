@@ -18,8 +18,8 @@ export class EmailService {
     token: string,
   ): Promise<EmailSendResult> {
     const frontendUrl =
-      this.configService.get('FRONTEND_URL') || 'http://localhost:3000';
-    const verificationUrl = `${frontendUrl}/auth/verify-email?token=${token}`;
+      this.configService.get('FRONTEND_URL') || 'http://localhost:4000';
+    const verificationUrl = `${frontendUrl}/v1/auth/verify-email?token=${token}`;
 
     const template =
       this.emailTemplateService.generateVerificationEmail(verificationUrl);
