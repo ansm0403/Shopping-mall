@@ -1,3 +1,5 @@
+import Banner from "./components/banner/Banner";
+
 export default function Index() {
   /*
    * Replace the elements below with your own.
@@ -6,6 +8,7 @@ export default function Index() {
    */
   return (
     <div>
+      <Banner />
     </div>
   );
 }
