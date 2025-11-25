@@ -1,4 +1,5 @@
 import Navbar from './components/navbar/Navbar';
+import MaxWidthContainer from './components/layout/MaxWidthContainer';
 import './global.css';
 
 export const metadata = {
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
+        <MaxWidthContainer>
+          <Navbar />
+        </MaxWidthContainer>
         {children}
       </body>
     </html>

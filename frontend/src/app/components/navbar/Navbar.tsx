@@ -1,43 +1,45 @@
 'use client'
 
-import styled from "@emotion/styled"
-import Category from "./Category"
+import styled from "@emotion/styled";
+import Category from "./Category";
+import { NavbarButton } from "./NavbarButton";
 
-const navbarMenus = [카테고리]
-
-export default function navbar() {
+export default function Navbar() {
     return (
-        <Navbar>
-            <div>SHOPPING MALL</div>
+        <NavbarContainer>
+            <Logo>SHOPPING MALL</Logo>
+
             <Category />
-            <div>검색</div>
-            <div>추천</div>
-            <div>이벤트/세일</div>
-            <div>로그인/마이페이지</div>
-            <div>장바구니</div>
-        </Navbar>
+
+            <NavbarButton>추천</NavbarButton>
+            <NavbarButton>이벤트/세일</NavbarButton>
+
+            <Spacer />
+
+            <NavbarButton>로그인/회원가입</NavbarButton>
+            <NavbarButton>장바구니</NavbarButton>
+            <NavbarButton>마이쇼핑</NavbarButton>
+        </NavbarContainer>
     )
 }
 
-const Navbar = styled.div`
+const NavbarContainer = styled.nav`
     display: flex;
     flex-direction: row;
+    align-items: center;
+    opacity: 0.7;
     gap: 20px;
-`
-
-const Wrapper = styled.div`
-  position: relative;
+    padding: 1rem 2rem;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
 `;
 
-const CategoryButton = styled.button`
-  padding: 0.5rem 1rem; /* px-4 py-2 */
-  font-weight: 500; /* font-medium */
-  border-radius: 0.375rem; /* rounded-md 정도 */
-  background: transparent;
-  border: none;
-  cursor: pointer;
+const Logo = styled.div`
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-right: 1rem;
+`;
 
-  &:hover {
-    background-color: #f3f4f6; /* hover:bg-gray-100 */
-  }
+const Spacer = styled.div`
+    flex: 1;
 `;
