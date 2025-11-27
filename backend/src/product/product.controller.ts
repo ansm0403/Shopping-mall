@@ -27,7 +27,7 @@ export class ProductController {
   }
 
   @Get()
-  getPaginateProducts(@Query() query: BasePaginateDto) {
+  getPaginateProducts(@Query() query: PaginateProductDto) {
     console.log("페이지네이션 가동, 쿼리 : ", query);
     console.log(query instanceof BasePaginateDto);
     return this.productService.paginateProduct(query);

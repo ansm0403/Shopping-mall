@@ -16,7 +16,7 @@ const nextConfig = {
   transpilePackages: ['@shopping-mall/shared'],
 
   // Webpack 설정: .js 확장자를 .ts로도 resolve + customConditions 추가
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.extensionAlias = {
       '.js': ['.js', '.ts', '.tsx'],
       '.jsx': ['.jsx', '.tsx'],
@@ -29,6 +29,26 @@ const nextConfig = {
       'require',
       'default',
     ];
+
+    // 클라이언트 사이드에서 axios 브라우저 빌드 강제 사용
+    if (!isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        axios: require.resolve('axios/dist/browser/axios.cjs'),
+      };
+
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        dns: false,
+        child_process: false,
+        http2: false,
+        zlib: false,
+      };
+    }
+
     return config;
   },
 

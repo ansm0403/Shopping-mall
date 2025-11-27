@@ -12,8 +12,10 @@ export default function MaxWidthContainer({ children }: MaxWidthContainerProps) 
 }
 
 const Container = styled.div`
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
     width: 100%;
+    z-index: 100;
 `;

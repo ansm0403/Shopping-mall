@@ -480,36 +480,4 @@ export class CommonService {
       });
     }
   }
-
-  /**
-   * 사용자 입력 필터를 엔티티 스키마에 맞도록 정규화
-   * - enum 컬럼 등 대소문자가 고정된 필드는 여기서 맞춰준다.
-   */
-  // private normalizeFilter(filter?: PaginateFilterDto): PaginateFilterDto | undefined {
-  //   if (!filter) {
-  //     return filter;
-  //   }
-
-  //   const normalizedFilter: PaginateFilterDto = { ...filter };
-
-  //   if (filter.category) {
-  //     normalizedFilter.category = { ...filter.category };
-
-  //     if (typeof filter.category.equals === 'string') {
-  //       normalizedFilter.category.equals = filter.category.equals.toUpperCase();
-  //     }
-
-  //     if (typeof filter.category.contains === 'string') {
-  //       normalizedFilter.category.contains = filter.category.contains.toUpperCase();
-  //     }
-
-  //     if (Array.isArray(filter.category.in)) {
-  //       normalizedFilter.category.in = filter.category.in.map((value) =>
-  //         typeof value === 'string' ? value.toUpperCase() : value
-  //       );
-  //     }
-  //   }
-
-  //   return normalizedFilter;
-  // }
 }
