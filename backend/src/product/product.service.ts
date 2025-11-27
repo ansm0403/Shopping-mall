@@ -48,9 +48,11 @@ export class ProductService {
         return books;
     }
 
-    async paginateProduct(query: BasePaginateDto) {
+    async paginateProduct(query: PaginateProductDto) {
+        const { category, ...basePaginateDto } = query;
+
         return this.commonService.paginate(
-            query,
+            basePaginateDto,
             this.productRepository,
             'product',
             {}

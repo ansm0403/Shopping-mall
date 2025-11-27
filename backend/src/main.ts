@@ -11,6 +11,14 @@ import qs from 'qs';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // CORS 설정
+  app.enableCors({
+    origin: 'http://localhost:3000', // Next.js 개발 서버 주소
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
+
   const expressApp = app.getHttpAdapter().getInstance();
   expressApp.set('query parser', (str: string) => {
     return qs.parse(str, {

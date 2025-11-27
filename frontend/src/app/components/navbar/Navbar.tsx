@@ -6,32 +6,42 @@ import { NavbarButton } from "./NavbarButton";
 
 export default function Navbar() {
     return (
-        <NavbarContainer>
-            <Logo>SHOPPING MALL</Logo>
+        <NavbarWrapper>
+            <NavbarContent>
+                <Logo>SHOPPING MALL</Logo>
 
-            <Category />
+                <Category />
 
-            <NavbarButton>추천</NavbarButton>
-            <NavbarButton>이벤트/세일</NavbarButton>
+                <NavbarButton>추천</NavbarButton>
+                <NavbarButton>이벤트/세일</NavbarButton>
 
-            <Spacer />
+                <Spacer />
 
-            <NavbarButton>로그인/회원가입</NavbarButton>
-            <NavbarButton>장바구니</NavbarButton>
-            <NavbarButton>마이쇼핑</NavbarButton>
-        </NavbarContainer>
+                <NavbarButton>로그인/회원가입</NavbarButton>
+                <NavbarButton>장바구니</NavbarButton>
+                <NavbarButton>마이쇼핑</NavbarButton>
+            </NavbarContent>
+        </NavbarWrapper>
     )
 }
 
-const NavbarContainer = styled.nav`
+const NavbarWrapper = styled.nav`
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    z-index: 100;
+`;
+
+const NavbarContent = styled.div`
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     opacity: 0.7;
     gap: 20px;
-    padding: 1rem 2rem;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
 `;
 
 const Logo = styled.div`
