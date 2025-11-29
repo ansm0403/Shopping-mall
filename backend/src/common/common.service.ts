@@ -20,6 +20,7 @@ export class CommonService {
   /**
    * 범용 페이지네이션 함수
    * page가 있으면 페이지 기반, 없으면 커서 기반(무한 스크롤)
+   * 쿼리 예시) /product?filter[category][equals]=BEAUTY&page=1&take=20
    */
   async paginate<T extends BaseModel>(
     dto: BasePaginateDto,

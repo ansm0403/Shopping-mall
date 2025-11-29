@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import useProducts from '../../hook/useProduct'
+import { useProducts } from '../../hook/useProduct'
 
 export default function Products() {
 
-  const { data, isLoading, isError } = useProducts();
+  const { data, isLoading, isError } = useProducts.Paginate({ page: 1, limit: 10, sortBy: "price" });
 
   useEffect(()=>{
     console.log(data);

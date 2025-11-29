@@ -8,7 +8,6 @@ import { shoesProductsData } from '../data/shoes-products';
 import { bookProductsData } from '../data/book-products';
 import { foodProductsData } from '../data/food-products';
 import { livingProductsData } from '../data/living-products';
-import { PaginateProductDto } from './dto/paginate-product.dto';
 import { CommonService } from '../common/common.service';
 import { BasePaginateDto } from '../common/dto/paginate.dto';
 
@@ -48,11 +47,9 @@ export class ProductService {
         return books;
     }
 
-    async paginateProduct(query: PaginateProductDto) {
-        const { category, ...basePaginateDto } = query;
-
+    async paginateProduct(query: BasePaginateDto) {
         return this.commonService.paginate(
-            basePaginateDto,
+            query,
             this.productRepository,
             'product',
             {}

@@ -1,6 +1,5 @@
 import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { PaginateProductDto } from './dto/paginate-product.dto';
 import { CommonService } from '../common/common.service';
 import { BasePaginateDto } from '../common/dto/paginate.dto';
 
@@ -27,7 +26,7 @@ export class ProductController {
   }
 
   @Get()
-  getPaginateProducts(@Query() query: PaginateProductDto) {
+  getPaginateProducts(@Query() query: BasePaginateDto) {
     console.log("페이지네이션 가동, 쿼리 : ", query);
     console.log(query instanceof BasePaginateDto);
     return this.productService.paginateProduct(query);
