@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getAllProducts, getPaginateProducts } from "../../app/service/products";
-import { PaginateParam } from "../../app/model/paginate-param";
+import { getAllProducts, getPaginateProducts } from "../../service/products";
+import { PaginateParam } from "../../model/paginate-param";
 
 export const productsQueryOptions = {
     all: () => queryOptions({

@@ -130,6 +130,7 @@
     "@nestjs/platform-express": "*",
     "@nestjs/typeorm": "^11.0.0",
     "@shopping-mall/mocks": "*",
+    "@shopping-mall/shared": "*",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "pg": "^8.16.3",

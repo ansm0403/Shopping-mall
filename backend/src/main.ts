@@ -7,9 +7,30 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import qs from 'qs';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // 보안 헤더 설정 (CSP 포함)
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'", "'unsafe-inline'"], // emotion, styled-components 등을 위해
+          imgSrc: ["'self'", 'data:', 'https:'],
+          connectSrc: ["'self'", 'http://localhost:4000'], // API 서버
+          fontSrc: ["'self'", 'data:'],
+          objectSrc: ["'none'"],
+          mediaSrc: ["'self'"],
+          frameSrc: ["'none'"],
+        },
+      },
+      crossOriginEmbedderPolicy: false, // 개발 환경에서 CORS 문제 방지
+    })
+  );
 
   // CORS 설정
   app.enableCors({

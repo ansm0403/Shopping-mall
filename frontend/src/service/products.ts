@@ -1,10 +1,10 @@
-import { httpClient } from "../../../src/lib/axios/axios-http-client";
+import { publicClient } from "../lib/axios/axios-http-client";
 import { PaginateParam } from "../model/paginate-param";
 
 const productBaseUrl = "/product";
 
 export function getAllProducts(){
-    return httpClient.get(`${productBaseUrl}/all`);
+    return publicClient.get(`${productBaseUrl}/all`);
 }
 
 export function getPaginateProducts(param: PaginateParam){
@@ -46,5 +46,6 @@ export function getPaginateProducts(param: PaginateParam){
     }
 
     const query = `${productBaseUrl}?${queryParams.toString()}`;
-    return httpClient.get(query);
+    return publicClient.get(query);
 }
+

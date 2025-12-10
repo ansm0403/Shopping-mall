@@ -23,10 +23,11 @@ type FormContainerProps = {
 };
 
 const FormContainer = styled.form<FormContainerProps>`
-  width: 360px;
+  max-width: 520px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   padding: 24px;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
@@ -36,6 +37,7 @@ const FormContainer = styled.form<FormContainerProps>`
     variant === "login" &&
     css`
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+      margin: 100px auto 10px;
     `}
 
   ${({ variant }) =>
@@ -43,6 +45,7 @@ const FormContainer = styled.form<FormContainerProps>`
     css`
       border-color: #2563eb;
       box-shadow: 0 20px 45px rgba(37, 99, 235, 0.25);
+      margin: 20px auto 40px;
     `}
 `;
 
@@ -65,13 +68,13 @@ const Description = styled.p`
 const FieldsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 `;
 
 const FieldWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 12px;
 `;
 
 const Label = styled.label`
@@ -134,12 +137,13 @@ const SelectBase = styled.select`
   }
 `;
 
+
 const SubmitButton = styled.button`
   margin-top: 4px;
   padding: 9px 12px;
-  border-radius: 999px;
+  border-radius: 10px;
   border: none;
-  background-color: #2563eb;
+  background-color: #50acd6ff;
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;

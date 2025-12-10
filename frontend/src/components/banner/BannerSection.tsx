@@ -26,7 +26,9 @@ export default function BannerSection({
 
 const FullWidthBackground = styled.div<{ backgroundColor: string }>`
     position: relative;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
     background-color: ${props => props.backgroundColor};
     overflow: hidden;
 `;

@@ -12,6 +12,9 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
+import { CheckEmailDto } from './dto/check-email.dto';
+import { CheckNicknameDto } from './dto/check-nickname.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { User } from './decorators/user.decorator';
 
@@ -49,7 +52,7 @@ export class AuthController {
 
   @Post('login')
   login(
-    @Body() body: { email: string; password: string },
+    @Body() body: LoginDto,
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent?: string,
     @Headers('x-device-id') deviceId?: string,
@@ -126,5 +129,21 @@ export class AuthController {
       userAgent,
       deviceId,
     });
+  }
+
+  @Get('check-email')
+  checkEmail(
+    @Query() query: CheckEmailDto,
+    @Ip() ipAddress: string,
+  ) {
+    return this.authService.checkEmailDuplicate(query.email, ipAddress);
+  }
+
+  @Get('check-nickname')
+  checkNickname(
+    @Query() query: CheckNicknameDto,
+    @Ip() ipAddress: string,
+  ) {
+    return this.authService.checkNicknameDuplicate(query.nickName, ipAddress);
   }
 }

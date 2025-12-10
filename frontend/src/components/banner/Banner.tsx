@@ -10,7 +10,7 @@ export default function Banner() {
       backgroundImage="/images/banner/bannerbackground.png"
     >
       <BannerGrid>
-        <MainBanner>
+        {/* <MainBanner>
           <BannerContent bannerImg={'/images/banner/main_banner.jpg'}>
             메인 배너zzzz
           </BannerContent>
@@ -22,6 +22,19 @@ export default function Banner() {
 
         <SubBannerBottom>
           <BannerContent bannerImg={'/images/banner/sub_banner2.jpg'}>서브 배너 2</BannerContent>
+        </SubBannerBottom> */}
+        <MainBanner>
+          <BannerContent bannerImg={''}>
+            메인 배너
+          </BannerContent>
+        </MainBanner>
+
+        <SubBannerTop>
+          <BannerContent bannerImg={''}>서브 배너 1</BannerContent>
+        </SubBannerTop>
+
+        <SubBannerBottom>
+          <BannerContent bannerImg={''}>서브 배너 2</BannerContent>
         </SubBannerBottom>
       </BannerGrid>
     </BannerSection>
@@ -34,12 +47,13 @@ const BannerGrid = styled.div`
   grid-template-rows: 1fr 1.5fr; /* 위:아래 = 1:1 비율 */
   gap: 16px;
   padding: 2rem 0;
-  min-height: 600px;
+  min-height: 500px;
 `;
 
 const MainBanner = styled.div`
   grid-column: 1; /* 첫 번째 열 */
   grid-row: 1 / 3; /* 1번 행부터 3번 행 전까지 (두 행 차지) */
+  background: linear-gradient(135deg, #d2f9a0ff 0%, #dffd5bff 100%);
   border-radius: 8px;
   overflow: hidden;
 `;

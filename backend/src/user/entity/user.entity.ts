@@ -17,7 +17,7 @@ export class UserModel extends BaseModel {
     password: string;
 
     @Column()
-    name: string;
+    nickName: string;
 
     @Column()
     phoneNumber: string;

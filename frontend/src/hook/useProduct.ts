@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { productsQueryOptions } from "../../../src/lib/react-query/products-query-options";
+import { productsQueryOptions } from "../lib/react-query/products-query-options";
 import { PaginateParam } from "../model/paginate-param";
 
 

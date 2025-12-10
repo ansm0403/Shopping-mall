@@ -73,7 +73,7 @@ export class AuthService {
     // 사용자 생성
     const user = this.usersRepository.create({
       email: dto.email,
-      name: dto.name,
+      nickName: dto.nickName,
       password: hashedPassword,
       phoneNumber: dto.phoneNumber,
       address: dto.address,
@@ -281,7 +281,7 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name,
+        nickName: user.nickName,
         role: user.role,
       },
     };
@@ -503,5 +503,57 @@ export class AuthService {
     });
 
     return { message: '세션이 무효화되었습니다.' };
+  }
+
+  // ===== 이메일 중복 검증 =====
+  async checkEmailDuplicate(email: string, ipAddress: string) {
+    // Rate Limiting: 1분에 20회 제한
+    const canAttempt = await this.redisService.checkRateLimit(
+      `check-email:${ipAddress}`,
+      20, // IP당 20회
+      60, // 1분
+    );
+
+    if (!canAttempt) {
+      throw new HttpException(
+        '너무 많은 요청입니다. 잠시 후 다시 시도해주세요.',
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
+    }
+
+    const exists = await this.usersRepository.exists({
+      where: { email },
+    });
+
+    return {
+      available: !exists,
+      message: exists ? '이미 사용 중인 이메일입니다.' : '사용 가능한 이메일입니다.',
+    };
+  }
+
+  // ===== 닉네임 중복 검증 =====
+  async checkNicknameDuplicate(nickName: string, ipAddress: string) {
+    // Rate Limiting: 1분에 20회 제한
+    const canAttempt = await this.redisService.checkRateLimit(
+      `check-nickname:${ipAddress}`,
+      20, // IP당 20회
+      60, // 1분
+    );
+
+    if (!canAttempt) {
+      throw new HttpException(
+        '너무 많은 요청입니다. 잠시 후 다시 시도해주세요.',
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
+    }
+
+    const exists = await this.usersRepository.exists({
+      where: { nickName },
+    });
+
+    return {
+      available: !exists,
+      message: exists ? '이미 사용 중인 닉네임입니다.' : '사용 가능한 닉네임입니다.',
+    };
   }
 }

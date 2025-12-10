@@ -15,6 +15,54 @@ const nextConfig = {
   // 모노레포 패키지 transpile 설정
   transpilePackages: ['@shopping-mall/shared'],
 
+  // 보안 헤더 설정 (CSP 포함)
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // Next.js 개발 서버용
+              "style-src 'self' 'unsafe-inline'", // emotion/styled-components용
+              "img-src 'self' data: https:",
+              "font-src 'self' data:",
+              "connect-src 'self' http://localhost:4000 ws://localhost:3000", // API + HMR
+              "frame-src 'none'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+              "upgrade-insecure-requests",
+            ].join('; '),
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+    ];
+  },
+
   // Webpack 설정: .js 확장자를 .ts로도 resolve + customConditions 추가
   webpack: (config, { isServer }) => {
     config.resolve.extensionAlias = {

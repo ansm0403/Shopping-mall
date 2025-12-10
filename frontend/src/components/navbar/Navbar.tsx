@@ -3,8 +3,17 @@
 import styled from "@emotion/styled";
 import Category from "./Category";
 import { NavbarButton } from "./NavbarButton";
+import Link from 'next/link';
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+    const pathname = usePathname();
+
+    // 로그인/회원가입 페이지에서는 Navbar 숨기기
+    if (pathname === '/login' || pathname === '/register') {
+        return null;
+    }
+
     return (
         <NavbarWrapper>
             <NavbarContent>
@@ -17,7 +26,9 @@ export default function Navbar() {
 
                 <Spacer />
 
-                <NavbarButton>로그인/회원가입</NavbarButton>
+                <Link href={"/login"}>
+                    <NavbarButton>로그인/회원가입</NavbarButton>
+                </Link>
                 <NavbarButton>장바구니</NavbarButton>
                 <NavbarButton>마이쇼핑</NavbarButton>
             </NavbarContent>

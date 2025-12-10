@@ -1,6 +1,7 @@
-import Navbar from './components/navbar/Navbar';
+import Navbar from '../components/navbar/Navbar';
 import './global.css';
-import ReactQueryProvider from './providers/reactQuery-provider';
+import ReactQueryProvider from '../providers/reactQuery-provider';
+import MaxWidthContainer from '../components/layout/MaxWidthContainer';
 
 export const metadata = {
   title: 'Welcome to frontend',
@@ -17,7 +18,9 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <Navbar />
-          {children}
+          <MaxWidthContainer>
+            {children}
+          </MaxWidthContainer>
         </ReactQueryProvider>
       </body>
     </html>
