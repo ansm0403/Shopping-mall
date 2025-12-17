@@ -2,6 +2,7 @@ import Navbar from '../components/navbar/Navbar';
 import './global.css';
 import ReactQueryProvider from '../providers/reactQuery-provider';
 import MaxWidthContainer from '../components/layout/MaxWidthContainer';
+import AuthContextProvider from '../contexts/AuthContext';
 
 export const metadata = {
   title: 'Welcome to frontend',
@@ -17,10 +18,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReactQueryProvider>
-          <Navbar />
-          <MaxWidthContainer>
-            {children}
-          </MaxWidthContainer>
+          <AuthContextProvider>
+            <Navbar />
+            <MaxWidthContainer>
+              {children}
+            </MaxWidthContainer>
+          </AuthContextProvider>
         </ReactQueryProvider>
       </body>
     </html>

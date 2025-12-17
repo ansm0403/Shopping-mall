@@ -53,6 +53,19 @@ export class AuthService {
     private readonly refreshTokenRepository: Repository<RefreshTokenEntity>,
   ) {}
 
+  async getMe(id: number) {
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      select: ['id', 'email', 'nickName', 'role', 'phoneNumber', 'address', 'createdAt'],
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('사용자를 찾을 수 없습니다.');
+    }
+
+    return user;
+  }
+
   // ===== 회원가입 =====
   async register(
     dto: RegisterDto,

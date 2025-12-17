@@ -5,6 +5,7 @@ import Category from "./Category";
 import { NavbarButton } from "./NavbarButton";
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
+import NavbarUserSection from "./NavbarUserSection";
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -25,10 +26,7 @@ export default function Navbar() {
                 <NavbarButton>이벤트/세일</NavbarButton>
 
                 <Spacer />
-
-                <Link href={"/login"}>
-                    <NavbarButton>로그인/회원가입</NavbarButton>
-                </Link>
+                <NavbarUserSection />
                 <NavbarButton>장바구니</NavbarButton>
                 <NavbarButton>마이쇼핑</NavbarButton>
             </NavbarContent>

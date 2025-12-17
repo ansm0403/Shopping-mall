@@ -8,9 +8,13 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import qs from 'qs';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Cookie Parser 미들웨어 (쿠키 읽기 위해 필요)
+  app.use(cookieParser());
 
   // 보안 헤더 설정 (CSP 포함)
   app.use(

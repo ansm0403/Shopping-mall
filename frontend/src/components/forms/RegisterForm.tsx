@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useRegisterMutation } from "../../hook/useAuthMutation";
 import type { RegisterRequest } from "@shopping-mall/shared";
 
@@ -43,6 +44,7 @@ const signupSchema = z
 export type SignupFormValues = z.infer<typeof signupSchema>;
 
 export function SignupForm() {
+  const router = useRouter();
   const registerMutation = useRegisterMutation();
 
   const defaultValues: SignupFormValues = {
@@ -62,7 +64,10 @@ export function SignupForm() {
 
       const response = await registerMutation.mutateAsync(registerData as RegisterRequest);
       console.log("회원가입 성공:", response.data);
-      // TODO: 회원가입 후 로그인 페이지로 리다이렉트
+
+      // 회원가입 성공 후 로그인 페이지로 리다이렉트
+      router.push("/login");
+
     } catch (error) {
       console.error("회원가입 실패:", error);
       // TODO: 에러 처리 (토스트 메시지 등)

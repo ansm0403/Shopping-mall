@@ -5,12 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { useLoginMutation } from "../../hook/useAuthMutation";
-
 import {
   Form,
   TextField,
   CheckboxField,
 } from "./BaseForm";
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   email: z
@@ -24,6 +24,7 @@ const loginSchema = z.object({
 export type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
+  const router = useRouter();
   const loginMutation = useLoginMutation();
 
   const defaultValues: LoginFormValues = {
@@ -34,19 +35,14 @@ export function LoginForm() {
 
   const handleSubmit = async (values: LoginFormValues) => {
     try {
-      const response = await loginMutation.mutateAsync({
+      await loginMutation.mutateAsync({
         email: values.email,
         password: values.password,
       });
 
-      // rememberMe 처리: 토큰 저장 위치 결정
-      const storage = values.rememberMe ? localStorage : sessionStorage;
+      console.log('로그인 성공');
 
-      storage.setItem('accessToken', response.data.accessToken);
-      storage.setItem('refreshToken', response.data.refreshToken);
-
-      console.log('로그인 성공:', response.data);
-      // TODO: 로그인 후 리다이렉트 (예: router.push('/'))
+      router.push('/')
     } catch (error) {
       console.error('로그인 실패:', error);
       // TODO: 에러 처리 (토스트 메시지 등)

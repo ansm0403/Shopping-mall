@@ -9,7 +9,10 @@ import {
   Ip,
   Headers,
   UseGuards,
+  Res,
+  Req,
 } from '@nestjs/common';
+import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -21,6 +24,12 @@ import { User } from './decorators/user.decorator';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  getMe(@User('sub') userId: number) {
+    return this.authService.getMe(userId);
+  }
 
   @Post('register')
   register(
@@ -37,61 +46,138 @@ export class AuthController {
   }
 
   @Get('verify-email')
-  verifyEmail(
+  async verifyEmail(
+    @Res({ passthrough: true }) res: Response,
     @Query('token') token: string,
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent?: string,
     @Headers('x-device-id') deviceId?: string,
   ) {
-    return this.authService.verifyEmail(token, {
+    const result = await this.authService.verifyEmail(token, {
       ipAddress,
       userAgent,
       deviceId,
     });
+
+    // refreshToken은 httpOnly 쿠키로 설정
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
+      path: '/',
+    });
+
+    // accessToken만 응답으로 반환
+    return {
+      accessToken: result.accessToken,
+      expiresIn: result.expiresIn,
+      tokenType: result.tokenType,
+      user: result.user,
+    };
   }
 
   @Post('login')
-  login(
+  async login(
+    @Res({ passthrough: true }) res: Response,
     @Body() body: LoginDto,
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent?: string,
     @Headers('x-device-id') deviceId?: string,
   ) {
-    return this.authService.login(body, {
+    const result = await this.authService.login(body, {
       ipAddress,
       userAgent,
       deviceId,
     });
+
+    // refreshToken은 httpOnly 쿠키로 설정
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
+      path: '/',
+    });
+
+    // accessToken만 응답으로 반환 (refreshToken 제외)
+    return {
+      accessToken: result.accessToken,
+      expiresIn: result.expiresIn,
+      tokenType: result.tokenType,
+      user: result.user,
+    };
   }
 
   @Post('refresh')
-  refresh(
-    @Body() body: { refreshToken: string },
+  async refresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent?: string,
     @Headers('x-device-id') deviceId?: string,
   ) {
-    return this.authService.refresh(body.refreshToken, {
+    // 쿠키에서 refreshToken 읽기
+    const refreshToken = req.cookies?.refreshToken;
+
+    if (!refreshToken) {
+      throw new Error('Refresh token not found');
+    }
+
+    const result = await this.authService.refresh(refreshToken, {
       ipAddress,
       userAgent,
       deviceId,
     });
+
+    // 새로운 refreshToken을 httpOnly 쿠키로 설정
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
+      path: '/',
+    });
+
+    // accessToken만 응답으로 반환
+    return {
+      accessToken: result.accessToken,
+      expiresIn: result.expiresIn,
+      tokenType: result.tokenType,
+      user: result.user,
+    };
   }
+
 
   @Post('logout')
   @UseGuards(JwtAuthGuard)
-  logout(
+  async logout(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @User('sub') userId: number,
-    @Body() body: { accessToken: string; refreshToken: string },
+    @Body() body: { accessToken: string },
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent?: string,
     @Headers('x-device-id') deviceId?: string,
   ) {
-    return this.authService.logout(userId, body.accessToken, body.refreshToken, {
+    // 쿠키에서 refreshToken 읽기
+    const refreshToken = req.cookies?.refreshToken || '';
+
+    const result = await this.authService.logout(userId, body.accessToken, refreshToken, {
       ipAddress,
       userAgent,
       deviceId,
     });
+
+    // refreshToken 쿠키 삭제
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
+    });
+
+    return result;
   }
 
   @Post('logout-all')
