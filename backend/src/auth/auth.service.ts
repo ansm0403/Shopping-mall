@@ -110,6 +110,7 @@ export class AuthService {
       userAgent: context.userAgent,
     });
 
+    
     // 이메일 인증 메일 전송
     await this.emailService.sendVerificationEmail(
       savedUser.email,
