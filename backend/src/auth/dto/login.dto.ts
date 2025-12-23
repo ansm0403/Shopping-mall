@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import type { LoginRequest } from '@shopping-mall/shared';
 
 /**
@@ -14,4 +14,8 @@ export class LoginDto implements LoginRequest {
   @IsString({ message: '비밀번호는 문자열이어야 합니다' })
   @IsNotEmpty({ message: '비밀번호는 필수 항목입니다' })
   password: string;
+
+  @IsOptional()
+  @IsBoolean()
+  rememberMe?: boolean;
 }

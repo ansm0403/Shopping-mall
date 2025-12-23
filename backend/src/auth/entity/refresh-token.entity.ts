@@ -47,4 +47,7 @@ export class RefreshTokenEntity {
   // 이 Refresh Token으로 마지막으로 재발급 요청을 보낸 시각 → 토큰 회전(RTR) 구현에 중요.
   @Column({ nullable: true })
   lastUsedAt: Date;
+  
+  @Column({ default: false })
+  isPersistent: boolean;
 }
