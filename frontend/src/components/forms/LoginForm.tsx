@@ -38,6 +38,7 @@ export function LoginForm() {
       await loginMutation.mutateAsync({
         email: values.email,
         password: values.password,
+        rememberMe: values.rememberMe
       });
 
       console.log('로그인 성공');

@@ -12,8 +12,8 @@ export function useLoginMutation() {
     return useMutation({
         mutationKey: ["auth", "login"],
         mutationFn: (data: LoginRequest) => login(data),
-        onSuccess: (response) => {
-            authStorage.setTokens(response.data.accessToken);
+        onSuccess: (response, variables) => {
+            authStorage.setAccessToken(response.data.accessToken, variables.rememberMe);
 
             // user 정보를 React Query 캐시에 저장
             queryClient.setQueryData(['auth', 'user'], response.data.user);

@@ -1,4 +1,5 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { authStorage } from '../../../src/service/auth-storage';
 
 const baseConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -32,7 +33,7 @@ export const authClient = axios.create(baseConfig);
 authClient.interceptors.request.use(
   (config) => {
     // localStorage와 sessionStorage 둘 다 확인
-    const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+    const token = authStorage.getAccessToken();
 
     if (token) {
       config.headers = config.headers ?? {};
@@ -69,17 +70,12 @@ const refreshAccessToken = async (): Promise<string | null> => {
       const { accessToken } = response.data;
 
       // localStorage 또는 sessionStorage에 저장 (기존에 저장된 위치에)
-      if (localStorage.getItem('accessToken')) {
-        localStorage.setItem('accessToken', accessToken);
-      } else {
-        sessionStorage.setItem('accessToken', accessToken);
-      }
+      authStorage.setAccessToken(accessToken, authStorage.isRememberMe())
 
       return accessToken;
     } catch {
       // Refresh Token도 만료된 경우
-      localStorage.removeItem('accessToken');
-      sessionStorage.removeItem('accessToken');
+      authStorage.clearToken();
 
       // 로그인 페이지로 리다이렉트
       window.location.href = '/login';
@@ -115,8 +111,7 @@ authClient.interceptors.response.use(
         console.error('[Auth API] 최대 재시도 횟수 초과');
 
         // 로그인 페이지로 리다이렉트
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        authStorage.clearToken();
 
         if (typeof window !== 'undefined') {
           window.location.href = '/login';
@@ -134,7 +129,7 @@ authClient.interceptors.response.use(
 
         // 재시도 횟수 증가
         originalRequest._retry = retryCount + 1;
-
+        originalRequest.headers = originalRequest.headers ?? {};
         // 새로운 토큰으로 헤더 업데이트
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 

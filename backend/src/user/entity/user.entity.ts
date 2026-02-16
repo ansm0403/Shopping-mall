@@ -25,9 +25,12 @@ export class UserModel extends BaseModel {
     @Column()
     address: string;
 
+    @Column({ default: false })
+    isEmailVerified: boolean;
+
     @Column({
         type: 'enum',
-        enum: Role, 
+        enum: Role,
         default: Role.USER
     })
     role: Role;

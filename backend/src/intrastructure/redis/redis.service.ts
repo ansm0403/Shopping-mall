@@ -103,6 +103,18 @@ export class RedisService {
     return null;
   }
 
+  // ===== 이메일 인증 쿨다운 =====
+  async setEmailVerificationCooldown(userId: number, cooldownSeconds = 180): Promise<void> {
+    const key = `email:cooldown:${userId}`;
+    await this.redis.setex(key, cooldownSeconds, '1');
+  }
+
+  async getEmailVerificationCooldown(userId: number): Promise<number> {
+    const key = `email:cooldown:${userId}`;
+    const ttl = await this.redis.ttl(key);
+    return ttl > 0 ? ttl : 0;
+  }
+
   // ===== OTP (2FA) 관리 =====
   async storeOTP(userId: number, code: string, expiresIn = 300): Promise<void> {
     const key = `otp:${userId}`;

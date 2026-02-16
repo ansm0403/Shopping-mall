@@ -41,7 +41,7 @@ async function bootstrap() {
     origin: 'http://localhost:3000', // Next.js 개발 서버 주소
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-device-id'],
   });
 
   const expressApp = app.getHttpAdapter().getInstance();

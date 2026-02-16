@@ -118,6 +118,9 @@ export class AuthService {
       verificationToken,
     );
 
+    // 재발송 쿨다운 설정 (3분)
+    await this.redisService.setEmailVerificationCooldown(savedUser.id);
+
     return {
       message: '회원가입이 완료되었습니다. 이메일을 확인해주세요.',
     };
@@ -144,18 +147,22 @@ export class AuthService {
       throw new BadRequestException('사용자를 찾을 수 없습니다.');
     }
 
-    return this.generateTokens(user, context);
+    // 이메일 인증 완료 처리
+    user.isEmailVerified = true;
+    await this.usersRepository.save(user);
+
+    return this.generateTokens(user, context, false);
   }
 
   // ===== 로그인 =====
   async login(
-    dto: { email: string; password: string },
+    dto: { email: string; password: string, rememberMe?: boolean },
     context: LoginContext,
   ) {
     // Rate Limiting 체크
     const canAttempt = await this.redisService.checkRateLimit(
       `login:${context.ipAddress}`,
-      10, // IP당 10회
+      10, // IP당 10회`
       300, // 5분
     );
 
@@ -223,6 +230,13 @@ export class AuthService {
       throw new UnauthorizedException('이메일 또는 비밀번호가 올바르지 않습니다.');
     }
 
+    // 이메일 인증 여부 확인
+    if (!user.isEmailVerified) {
+      throw new ForbiddenException(
+        '이메일 인증이 완료되지 않았습니다. 이메일을 확인하거나 인증 메일을 재발송해주세요.',
+      );
+    }
+
     // 로그인 성공 - 시도 횟수 초기화
     await this.redisService.resetLoginAttempts(dto.email);
 
@@ -234,11 +248,13 @@ export class AuthService {
       metadata: { deviceId: context.deviceId },
     });
 
-    return this.generateTokens(user, context);
+    const rememberMe = !!dto.rememberMe;
+
+    return this.generateTokens(user, context, rememberMe);
   }
 
   // ===== 토큰 생성 =====
-  private async generateTokens(user: UserModel, context: LoginContext) {
+  private async generateTokens(user: UserModel, context: LoginContext, isPersistent: boolean) {
     const tokenId = crypto.randomUUID();
 
     // Access Token
@@ -279,6 +295,7 @@ export class AuthService {
       userAgent: context.userAgent,
       ipAddress: context.ipAddress,
       deviceId: context.deviceId,
+      isPersistent,
     });
 
     // Redis에도 저장 (빠른 검증용)
@@ -299,6 +316,7 @@ export class AuthService {
         nickName: user.nickName,
         role: user.role,
       },
+      isPersistent,
     };
   }
 
@@ -384,8 +402,10 @@ export class AuthService {
       userAgent: context.userAgent,
     });
 
+    const isPersistent = storedToken.isPersistent;
+
     // 새 토큰 생성
-    return this.generateTokens(user, context);
+    return this.generateTokens(user, context, isPersistent);
   }
 
   // ===== 로그아웃 =====
@@ -518,6 +538,61 @@ export class AuthService {
     });
 
     return { message: '세션이 무효화되었습니다.' };
+  }
+
+  // ===== 인증 메일 재발송 =====
+  async resendVerificationEmail(email: string, ipAddress: string) {
+    // Rate Limiting: 1분에 3회 제한
+    const canAttempt = await this.redisService.checkRateLimit(
+      `resend-verify:${ipAddress}`,
+      3,
+      60,
+    );
+
+    if (!canAttempt) {
+      throw new HttpException(
+        '너무 많은 요청입니다. 잠시 후 다시 시도해주세요.',
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
+    }
+
+    const user = await this.usersRepository.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      // 보안상 사용자 존재 여부를 노출하지 않음
+      return { message: '해당 이메일로 인증 메일이 발송되었습니다.' };
+    }
+
+    if (user.isEmailVerified) {
+      throw new BadRequestException('이미 인증된 이메일입니다.');
+    }
+
+    // 쿨다운 확인 (이전 발송 후 3분 이내면 차단)
+    const remainingCooldown = await this.redisService.getEmailVerificationCooldown(user.id);
+    if (remainingCooldown > 0) {
+      throw new BadRequestException(
+        `인증 메일이 이미 발송되었습니다. ${Math.ceil(remainingCooldown / 60)}분 후 재발송할 수 있습니다.`,
+      );
+    }
+
+    const verificationToken = this.generateSecureToken();
+    await this.redisService.storeEmailVerificationToken(
+      user.id,
+      verificationToken,
+      3600, // 1시간
+    );
+
+    await this.emailService.sendVerificationEmail(
+      user.email,
+      verificationToken,
+    );
+
+    // 재발송 쿨다운 설정 (3분)
+    await this.redisService.setEmailVerificationCooldown(user.id);
+
+    return { message: '해당 이메일로 인증 메일이 발송되었습니다.' };
   }
 
   // ===== 이메일 중복 검증 =====

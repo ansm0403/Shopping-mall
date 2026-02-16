@@ -25,6 +25,20 @@ import { User } from './decorators/user.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  private setRefreshCookie(res: Response, refreshToken: string, isPersistent: boolean) {
+    const base = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict' as const,
+      path: '/',
+    }
+
+    res.cookie('refreshToken', refreshToken, isPersistent 
+      ? { ...base, maxAge: 7 * 24 * 60 * 60 * 1000 }
+      : { ...base }
+    );
+  }
+
   @Get('me')
   @UseGuards(JwtAuthGuard)
   getMe(@User('sub') userId: number) {
@@ -60,13 +74,7 @@ export class AuthController {
     });
 
     // refreshToken은 httpOnly 쿠키로 설정
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
-      path: '/',
-    });
+    this.setRefreshCookie(res, result.refreshToken, false);
 
     // accessToken만 응답으로 반환
     return {
@@ -75,6 +83,14 @@ export class AuthController {
       tokenType: result.tokenType,
       user: result.user,
     };
+  }
+
+  @Post('resend-verification')
+  resendVerificationEmail(
+    @Body('email') email: string,
+    @Ip() ipAddress: string,
+  ) {
+    return this.authService.resendVerificationEmail(email, ipAddress);
   }
 
   @Post('login')
@@ -92,13 +108,7 @@ export class AuthController {
     });
 
     // refreshToken은 httpOnly 쿠키로 설정
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
-      path: '/',
-    });
+    this.setRefreshCookie(res, result.refreshToken, result.isPersistent);
 
     // accessToken만 응답으로 반환 (refreshToken 제외)
     return {
@@ -131,13 +141,7 @@ export class AuthController {
     });
 
     // 새로운 refreshToken을 httpOnly 쿠키로 설정
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
-      path: '/',
-    });
+    this.setRefreshCookie(res, result.refreshToken, result.isPersistent);
 
     // accessToken만 응답으로 반환
     return {

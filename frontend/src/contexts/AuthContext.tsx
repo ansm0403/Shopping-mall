@@ -20,32 +20,38 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export default function AuthContextProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
   const [isHydrated, setIsHydrated] = useState(false);
-  const [hasToken, setHasToken] = useState(false);
 
   // 클라이언트에서만 토큰 확인
   useEffect(() => {
-    setHasToken(!!authStorage.getAccessToken());
     setIsHydrated(true);
   }, []);
+
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if(e.key === 'accessToken' || e.key === 'auth:persist') {
+        queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
+      }
+
+      window.addEventListener('storage', onStorage);
+
+      return () => window.removeEventListener('storage', onStorage);
+    }
+  }, [queryClient]);
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['auth', 'user'],
     queryFn: async () => {
-      const token = authStorage.getAccessToken();
-      if (!token) return null;
-
       try {
         const response = await getMe();
         return response.data;
-      } catch (error) {
+      } catch {
         // 토큰이 만료되었거나 유효하지 않으면 null 반환
-        authStorage.clearToken();
         return null;
       }
     },
     staleTime: 5 * 60 * 1000,
     retry: false,
-    enabled: isHydrated && hasToken,
+    enabled: isHydrated,
   });
 
   return (
