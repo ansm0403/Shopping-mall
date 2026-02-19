@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { authStorage } from '../service/auth-storage';
 import { getMe } from '../service/auth';
+import { getAuthChannel } from '../service/auth-channel';
 
 type UserType = Omit<User, 'password'>;
 
@@ -26,21 +27,44 @@ export default function AuthContextProvider({ children }: { children: React.Reac
     setIsHydrated(true);
   }, []);
 
+
+  useEffect(() => {
+  const channel = getAuthChannel();
+  if (!channel) return;
+
+  const onMessage = (event: MessageEvent) => {
+    const { type } = event.data ?? {};
+
+    if (type === 'LOGIN' || type === 'LOGOUT' || type === 'TOKEN_REFRESHED') {
+      queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
+    }
+  };
+
+  channel.addEventListener('message', onMessage);
+  return () => channel.removeEventListener('message', onMessage);
+  }, [queryClient]);
+
+
   useEffect(() => {
     const onStorage = (e: StorageEvent) => {
       if(e.key === 'accessToken' || e.key === 'auth:persist') {
         queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
       }
+    };
 
-      window.addEventListener('storage', onStorage);
-
-      return () => window.removeEventListener('storage', onStorage);
-    }
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
   }, [queryClient]);
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['auth', 'user'],
     queryFn: async () => {
+      // 토큰이 없으면 API 요청하지 않고 null 반환
+      const token = authStorage.getAccessToken();
+      if (!token) {
+        return null;
+      }
+
       try {
         const response = await getMe();
         return response.data;

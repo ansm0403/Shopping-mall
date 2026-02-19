@@ -11,6 +11,7 @@ const baseConfig = {
 // Refresh Token 관리를 위한 전역 상태
 let isRefreshing = false;
 let refreshPromise: Promise<string | null> | null = null;
+let isLoggingOut = false; // 로그아웃 처리 중 플래그
 const MAX_RETRY_COUNT = 3;
 const REFRESH_API_ENDPOINT = '/auth/refresh';
 
@@ -32,6 +33,11 @@ export const authClient = axios.create(baseConfig);
 
 authClient.interceptors.request.use(
   (config) => {
+    // 로그아웃 처리 중이면 요청 차단
+    if (isLoggingOut) {
+      return Promise.reject(new Error('Logging out...'));
+    }
+
     // localStorage와 sessionStorage 둘 다 확인
     const token = authStorage.getAccessToken();
 
@@ -55,6 +61,11 @@ authClient.interceptors.request.use(
  * refreshToken은 httpOnly 쿠키에 저장되어 자동으로 전송됨
  */
 const refreshAccessToken = async (): Promise<string | null> => {
+  // 이미 로그아웃 처리 중이면 null 반환
+  if (isLoggingOut) {
+    return null;
+  }
+
   // 이미 refresh 중이면 기존 Promise 반환 (Race Condition 방지)
   if (isRefreshing && refreshPromise) {
     return refreshPromise;
@@ -70,15 +81,24 @@ const refreshAccessToken = async (): Promise<string | null> => {
       const { accessToken } = response.data;
 
       // localStorage 또는 sessionStorage에 저장 (기존에 저장된 위치에)
-      authStorage.setAccessToken(accessToken, authStorage.isRememberMe())
+      authStorage.refreshAccessToken(accessToken);
 
       return accessToken;
     } catch {
-      // Refresh Token도 만료된 경우
+      // 로그아웃 처리 중 플래그 설정 (무한 루프 방지)
+      if (isLoggingOut) {
+        return null;
+      }
+
+      isLoggingOut = true;
+
+      // Refresh Token도 만료된 경우 - 토큰 삭제
       authStorage.clearToken();
 
-      // 로그인 페이지로 리다이렉트
-      window.location.href = '/login';
+      // 로그인 페이지로 리다이렉트 (한 번만 실행)
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
+      }
       return null;
     } finally {
       isRefreshing = false;
