@@ -25,6 +25,16 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   // 클라이언트에서만 토큰 확인
   useEffect(() => {
     setIsHydrated(true);
+
+    // 새 탭이 열렸을 때 토큰이 없으면 다른 탭에 요청
+    const token = authStorage.getAccessToken();
+    const isRememberMe = authStorage.isRememberMe();
+
+    if (!token && !isRememberMe) {
+      // sessionStorage 모드이고 토큰이 없으면 다른 탭에 요청
+      const channel = getAuthChannel();
+      channel?.postMessage({ type: 'REQUEST_TOKEN' });
+    }
   }, []);
 
 
@@ -33,9 +43,16 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   if (!channel) return;
 
   const onMessage = (event: MessageEvent) => {
-    const { type } = event.data ?? {};
+    const { type, accessToken } = event.data ?? {};
 
     if (type === 'LOGIN' || type === 'LOGOUT' || type === 'TOKEN_REFRESHED') {
+      queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
+    } else if (type === 'REQUEST_TOKEN') {
+      // 다른 탭에서 토큰 요청 시 응답
+      authStorage.respondWithToken();
+    } else if (type === 'TOKEN_RESPONSE' && accessToken) {
+      // 다른 탭으로부터 토큰 받음
+      authStorage.setTokenFromBroadcast(accessToken);
       queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
     }
   };

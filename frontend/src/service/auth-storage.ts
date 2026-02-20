@@ -62,4 +62,24 @@ export const authStorage = {
   isRememberMe() {
     return localStorage.getItem(PERSIST) === '1';
   },
+
+  // 다른 탭에서 토큰 요청 시 응답
+  respondWithToken() {
+    if (typeof window === 'undefined') return;
+
+    const token = this.getAccessToken();
+    if (token && !this.isRememberMe()) {
+      // sessionStorage 모드일 때만 응답 (localStorage는 이미 공유됨)
+      const ch = getAuthChannel();
+      ch?.postMessage({ type: 'TOKEN_RESPONSE', accessToken: token });
+    }
+  },
+
+  // 다른 탭에서 받은 토큰을 sessionStorage에 저장
+  setTokenFromBroadcast(token: string) {
+    if (typeof window === 'undefined') return;
+    if (!this.isRememberMe()) {
+      sessionStorage.setItem(ACCESS, token);
+    }
+  },
 };

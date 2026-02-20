@@ -446,7 +446,7 @@ export class AuthService {
       userAgent: context.userAgent,
     });
 
-    return { message: '로그아웃되었습니다.' };
+    return { message: '로그아웃 되었습니다.' };
   }
 
   // ===== 모든 세션 로그아웃 =====

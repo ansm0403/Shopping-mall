@@ -1,7 +1,9 @@
 export type AuthBroadcastMessage =
   | { type: 'LOGIN' }
   | { type: 'LOGOUT' }
-  | { type: 'TOKEN_REFRESHED' };
+  | { type: 'TOKEN_REFRESHED' }
+  | { type: 'REQUEST_TOKEN' }
+  | { type: 'TOKEN_RESPONSE'; accessToken: string };
 
 let channel: BroadcastChannel | null = null;
 
