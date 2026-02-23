@@ -1,7 +1,8 @@
 import { ReviewEntity } from '../../review/entity/review.entity';
 import { WishListEntity } from '../../wish-list/entity/wishList.entity';
 import { BaseModel } from '../../common/entity/base.entity';
-import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToOne, ManyToMany, JoinTable, JoinColumn } from 'typeorm';
+import { TagEntity } from './tag.entity';
 
 export enum ProductCategory {
   BEAUTY = 'BEAUTY',
@@ -80,4 +81,12 @@ export class ProductEntity extends BaseModel{
     default: {},
   })
   specs: Record<string, any>;
+
+  @ManyToMany(() => TagEntity, (tag) => tag.products, { cascade: true })
+  @JoinTable({
+    name: 'product_tags',
+    joinColumn: { name: 'product_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tag_id', referencedColumnName: 'id' },
+  })
+  tags: TagEntity[];
 }

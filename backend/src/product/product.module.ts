@@ -10,11 +10,13 @@ import { ProductEntity } from './entity/product.entity';
 import { ProductService } from './product.service';
 import { ShoesEntity } from './entity/shoes/shoes.entity';
 import { FoodEntity } from './entity/food/food.entity';
+import { TagEntity } from './entity/tag.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       ProductEntity,
+      TagEntity,
       BeautyEntity,
       ClothingEntity,
       FoodEntity,
