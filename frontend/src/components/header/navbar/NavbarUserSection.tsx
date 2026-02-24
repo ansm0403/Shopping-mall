@@ -1,10 +1,10 @@
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthContext';
 import Link from 'next/link';
 import { NavbarButton } from './NavbarButton';
 import React from 'react';
-import { authStorage } from '../../service/auth-storage';
+import { authStorage } from '../../../service/auth-storage';
 import { useRouter } from 'next/navigation';
-import { logout } from '../../service/auth';
+import { logout } from '../../../service/auth';
 
 export default function NavbarUserSection() {
   const { user, isLoading, isAuthenticated, isHydrated } = useAuth();

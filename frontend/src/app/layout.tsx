@@ -1,4 +1,6 @@
-import Navbar from '../components/navbar/Navbar';
+
+import './global.css';
+import Header from '../components/header/Header';
 import './global.css';
 import ReactQueryProvider from '../providers/reactQuery-provider';
 import MaxWidthContainer from '../components/layout/MaxWidthContainer';
@@ -19,7 +21,7 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <AuthContextProvider>
-            <Navbar />
+            <Header />
             <MaxWidthContainer>
               {children}
             </MaxWidthContainer>
