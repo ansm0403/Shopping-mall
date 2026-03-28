@@ -4,7 +4,8 @@ import { Column, Entity, OneToMany, OneToOne } from "typeorm";
 import { ReviewEntity } from "../../review/entity/review.entity";
 
 export enum Role {
-    USER = 'user',
+    BUYER = 'buyer',
+    SELLER = 'seller',
     ADMIN = 'admin',
 }
 
