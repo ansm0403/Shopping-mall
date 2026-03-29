@@ -22,14 +22,14 @@ async function bootstrap() {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: ["'self'"],
+          scriptSrc: ["'self'", 'https://cdn.iamport.kr'],
           styleSrc: ["'self'", "'unsafe-inline'"], // emotion, styled-components 등을 위해
           imgSrc: ["'self'", 'data:', 'https:'],
-          connectSrc: ["'self'", 'http://localhost:4000'], // API 서버
+          connectSrc: ["'self'", 'http://localhost:4000', 'https://api.iamport.kr'],
           fontSrc: ["'self'", 'data:'],
           objectSrc: ["'none'"],
           mediaSrc: ["'self'"],
-          frameSrc: ["'none'"],
+          frameSrc: ['https://*.iamport.kr'],
         },
       },
       crossOriginEmbedderPolicy: false, // 개발 환경에서 CORS 문제 방지
@@ -41,7 +41,7 @@ async function bootstrap() {
     origin: 'http://localhost:3000', // Next.js 개발 서버 주소
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-device-id'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-device-id', 'x-idempotency-key'],
   });
 
   const expressApp = app.getHttpAdapter().getInstance();

@@ -1,4 +1,5 @@
 import type { WishListEntity } from "../../wish-list/entity/wishList.entity";
+import type { CartEntity } from "../../cart/entity/cart.entity";
 import { BaseModel } from "../../common/entity/base.entity";
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne } from "typeorm";
 import type { ReviewEntity } from "../../review/entity/review.entity";
@@ -34,6 +35,9 @@ export class UserModel extends BaseModel {
 
     @OneToOne(() => WishListEntity, (wishList) => wishList.user)
     wishList: WishListEntity;
+
+    @OneToOne('CartEntity', 'user')
+    cart: CartEntity;
 
     @OneToMany(() => ReviewEntity, (review) => review.user)
     reviews: ReviewEntity[];

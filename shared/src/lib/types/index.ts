@@ -3,4 +3,6 @@ export * from './product/index.js';
 export * from './review/index.js';
 export * from './wishList/index.js';
 export * from './auth/index.js';
+export * from './cart/index.js';
+export * from './order/index.js';
 export * from './base.model.js';

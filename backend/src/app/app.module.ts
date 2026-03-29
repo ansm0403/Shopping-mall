@@ -13,6 +13,9 @@ import { RoleEntity } from '../user/entity/role.entity';
 import { RolesSeedService } from '../common/seeds/roles.seed';
 import { SellerModule } from '../seller/seller.module';
 import { CategoryModule } from '../category/category.module';
+import { CartModule } from '../cart/cart.module';
+import { OrderModule } from '../order/order.module';
+import { PaymentModule } from '../payment/payment.module';
 
 @Module({
   imports: [
@@ -39,6 +42,9 @@ import { CategoryModule } from '../category/category.module';
     ReviewModule,
     UserModule,
     WishListModule,
+    CartModule,
+    OrderModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService, RolesSeedService],

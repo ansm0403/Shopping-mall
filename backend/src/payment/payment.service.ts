@@ -1,0 +1,337 @@
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { HttpService } from '@nestjs/axios';
+import { InjectRepository } from '@nestjs/typeorm';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DataSource, Repository } from 'typeorm';
+import { firstValueFrom } from 'rxjs';
+import { AxiosError } from 'axios';
+import { PaymentEntity, PaymentStatus } from './entity/payment.entity';
+import { OrderEntity, OrderStatus } from '../order/entity/order.entity';
+import { ProductEntity } from '../product/entity/product.entity';
+import { OrderItemEntity } from '../order/entity/order-item.entity';
+import { RedisService } from '../intrastructure/redis/redis.service';
+import { VerifyPaymentDto } from './dto/verify-payment.dto';
+import { CancelPaymentDto } from './dto/cancel-payment.dto';
+import { OrderPaidEvent, OrderCancelledEvent } from '../order/events/order.events';
+
+@Injectable()
+export class PaymentService {
+  private readonly logger = new Logger(PaymentService.name);
+  private static readonly PORTONE_API_URL = 'https://api.iamport.kr';
+  private static readonly TOKEN_CACHE_KEY = 'portone:access_token';
+
+  constructor(
+    @InjectRepository(PaymentEntity)
+    private readonly paymentRepository: Repository<PaymentEntity>,
+    @InjectRepository(OrderEntity)
+    private readonly orderRepository: Repository<OrderEntity>,
+    @InjectRepository(OrderItemEntity)
+    private readonly orderItemRepository: Repository<OrderItemEntity>,
+    @InjectRepository(ProductEntity)
+    private readonly productRepository: Repository<ProductEntity>,
+    private readonly dataSource: DataSource,
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+    private readonly redisService: RedisService,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
+
+  // ──────────── 포트원 API 통신 ────────────
+
+  /** 포트원 V1 액세스 토큰 발급 (Redis 캐싱) */
+  private async getPortOneAccessToken(): Promise<string> {
+    const cached = await this.redisService.getCache<string>(PaymentService.TOKEN_CACHE_KEY);
+    if (cached) return cached;
+
+    const impKey = this.configService.get<string>('PORTONE_IMP_KEY');
+    const impSecret = this.configService.get<string>('PORTONE_IMP_SECRET');
+
+    if (!impKey || !impSecret) {
+      throw new InternalServerErrorException('포트원 API 키가 설정되지 않았습니다.');
+    }
+
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.post(`${PaymentService.PORTONE_API_URL}/users/getToken`, {
+          imp_key: impKey,
+          imp_secret: impSecret,
+        }),
+      );
+
+      if (data.code !== 0) {
+        throw new InternalServerErrorException(`포트원 토큰 발급 실패: ${data.message}`);
+      }
+
+      const token = data.response.access_token;
+      // 토큰 유효시간은 30분이지만 안전하게 25분으로 캐싱
+      await this.redisService.setCache(PaymentService.TOKEN_CACHE_KEY, token, 25 * 60);
+
+      return token;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        this.logger.error(`포트원 토큰 API 통신 실패: ${error.message}`);
+        throw new InternalServerErrorException('결제 서비스에 일시적으로 연결할 수 없습니다. 잠시 후 다시 시도해주세요.');
+      }
+      throw error;
+    }
+  }
+
+  /** 포트원에서 결제 정보 조회 */
+  private async getPaymentFromPortOne(impUid: string): Promise<any> {
+    const token = await this.getPortOneAccessToken();
+
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.get(
+          `${PaymentService.PORTONE_API_URL}/payments/${impUid}`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        ),
+      );
+
+      if (data.code !== 0) {
+        throw new BadRequestException(`포트원 결제 조회 실패: ${data.message}`);
+      }
+
+      return data.response;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        this.logger.error(`포트원 결제 조회 API 통신 실패: ${error.message}, impUid: ${impUid}`);
+        throw new InternalServerErrorException('결제 정보 조회에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      }
+      throw error;
+    }
+  }
+
+  /** 포트원에 결제 취소 요청 */
+  private async cancelPaymentOnPortOne(
+    impUid: string,
+    reason: string,
+    amount?: number,
+  ): Promise<any> {
+    const token = await this.getPortOneAccessToken();
+
+    const body: any = {
+      imp_uid: impUid,
+      reason,
+    };
+    if (amount !== undefined) {
+      body.amount = amount;
+    }
+
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.post(
+          `${PaymentService.PORTONE_API_URL}/payments/cancel`,
+          body,
+          { headers: { Authorization: `Bearer ${token}` } },
+        ),
+      );
+
+      if (data.code !== 0) {
+        throw new InternalServerErrorException(`포트원 결제 취소 실패: ${data.message}`);
+      }
+
+      return data.response;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        this.logger.error(`포트원 결제 취소 API 통신 실패: ${error.message}, impUid: ${impUid}`);
+        throw new InternalServerErrorException('결제 취소 요청에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      }
+      throw error;
+    }
+  }
+
+  // ──────────── 공개 메서드 ────────────
+
+  /**
+   * 결제 검증 (핵심)
+   * 1. 포트원에서 실제 결제 정보 조회
+   * 2. DB 주문 금액과 비교 (위변조 방지)
+   * 3. 멱등성: 이미 PAID면 기존 결과 반환
+   * 4. 트랜잭션: Payment → PAID, Order → PAID
+   */
+  async verifyPayment(userId: number, dto: VerifyPaymentDto) {
+    // Payment 조회
+    const payment = await this.paymentRepository.findOne({
+      where: { merchantUid: dto.merchantUid },
+      relations: ['order'],
+    });
+    if (!payment) {
+      throw new NotFoundException(`결제 정보를 찾을 수 없습니다: ${dto.merchantUid}`);
+    }
+
+    // 본인 주문 확인
+    if (payment.order.userId !== userId) {
+      throw new ForbiddenException('본인의 주문만 결제할 수 있습니다.');
+    }
+
+    // 멱등성: 이미 결제 완료된 경우
+    if (payment.status === PaymentStatus.PAID) {
+      this.logger.log(`중복 결제 검증 요청 — merchantUid: ${dto.merchantUid}`);
+      return payment;
+    }
+
+    // 이미 취소/실패된 주문 (Cron 타임아웃 또는 수동 취소)
+    if (payment.status === PaymentStatus.FAILED || payment.status === PaymentStatus.CANCELLED) {
+      this.logger.warn(
+        `만료/취소된 주문에 결제 검증 시도 — merchantUid: ${dto.merchantUid}, paymentStatus: ${payment.status}`,
+      );
+
+      // 포트원에서 실제로 결제가 되었다면 자동 환불 처리
+      try {
+        const portonePayment = await this.getPaymentFromPortOne(dto.impUid);
+        if (portonePayment.status === 'paid') {
+          this.logger.warn(`만료된 주문에 대한 포트원 결제 감지 — 자동 취소 진행. impUid: ${dto.impUid}`);
+          await this.cancelPaymentOnPortOne(dto.impUid, '주문 만료 후 결제 건 자동 취소');
+        }
+      } catch (e) {
+        this.logger.error(`만료 주문 자동 취소 처리 실패: ${e instanceof Error ? e.message : e}`);
+      }
+
+      throw new BadRequestException(
+        '이미 취소되었거나 만료된 주문입니다. 주문을 다시 생성해주세요.',
+      );
+    }
+
+    // 1. 포트원 결제 정보 조회
+    const portonePayment = await this.getPaymentFromPortOne(dto.impUid);
+
+    // 2. 결제 상태 확인
+    if (portonePayment.status !== 'paid') {
+      throw new BadRequestException(
+        `결제가 완료되지 않았습니다. 상태: ${portonePayment.status}`,
+      );
+    }
+
+    // 3. 금액 위변조 검증
+    const expectedAmount = Number(payment.amount);
+    if (portonePayment.amount !== expectedAmount) {
+      this.logger.error(
+        `금액 위변조 감지! expected: ${expectedAmount}, actual: ${portonePayment.amount}, ` +
+        `impUid: ${dto.impUid}, merchantUid: ${dto.merchantUid}`,
+      );
+
+      // 포트원에 자동 취소
+      try {
+        await this.cancelPaymentOnPortOne(dto.impUid, '결제 금액 위변조 감지');
+      } catch (e) {
+        this.logger.error(`위변조 건 자동 취소 실패: ${e instanceof Error ? e.message : e}`);
+      }
+
+      throw new BadRequestException('결제 금액이 일치하지 않습니다. 결제가 취소되었습니다.');
+    }
+
+    // 4. 트랜잭션: Payment + Order 상태 갱신
+    await this.dataSource.transaction(async (manager) => {
+      await manager.update(PaymentEntity, payment.id, {
+        impUid: dto.impUid,
+        status: PaymentStatus.PAID,
+        paymentMethod: portonePayment.pay_method ?? null,
+        pgProvider: portonePayment.pg_provider ?? null,
+        receiptUrl: portonePayment.receipt_url ?? null,
+        paidAt: new Date(portonePayment.paid_at * 1000),
+        rawResponse: portonePayment,
+      });
+
+      await manager.update(OrderEntity, payment.orderId, {
+        status: OrderStatus.PAID,
+        paidAt: new Date(portonePayment.paid_at * 1000),
+      });
+    });
+
+    // 이벤트 발행
+    this.eventEmitter.emit(
+      'order.paid',
+      new OrderPaidEvent(
+        payment.orderId,
+        userId,
+        payment.merchantUid,
+        dto.impUid,
+      ),
+    );
+
+    return this.paymentRepository.findOne({
+      where: { id: payment.id },
+      relations: ['order'],
+    });
+  }
+
+  /**
+   * 결제 취소 (결제 완료 후 취소 = 환불)
+   */
+  async cancelPayment(userId: number, orderNumber: string, dto: CancelPaymentDto) {
+    const order = await this.orderRepository.findOne({
+      where: { orderNumber },
+      relations: ['items', 'payment'],
+    });
+    if (!order) {
+      throw new NotFoundException(`주문번호 ${orderNumber}를 찾을 수 없습니다.`);
+    }
+
+    if (order.userId !== userId) {
+      throw new ForbiddenException('본인의 주문만 취소할 수 있습니다.');
+    }
+
+    if (order.status !== OrderStatus.PAID) {
+      throw new BadRequestException('결제 완료 상태의 주문만 취소할 수 있습니다.');
+    }
+
+    if (!order.payment || !order.payment.impUid) {
+      throw new BadRequestException('결제 정보를 찾을 수 없습니다.');
+    }
+
+    // 포트원에 환불 요청
+    const cancelResult = await this.cancelPaymentOnPortOne(
+      order.payment.impUid,
+      dto.reason,
+    );
+
+    // 트랜잭션: 상태 변경 + 재고 복원
+    await this.dataSource.transaction(async (manager) => {
+      await manager.update(PaymentEntity, order.payment.id, {
+        status: PaymentStatus.CANCELLED,
+        cancelledAt: new Date(),
+        cancelAmount: cancelResult.cancel_amount,
+        cancelReason: dto.reason,
+        rawResponse: cancelResult,
+      });
+
+      await manager.update(OrderEntity, order.id, {
+        status: OrderStatus.CANCELLED,
+        cancelledAt: new Date(),
+        cancellationReason: dto.reason,
+      });
+
+      // 재고 복원
+      for (const item of order.items) {
+        await manager
+          .createQueryBuilder()
+          .update(ProductEntity)
+          .set({ stockQuantity: () => `"stockQuantity" + :restoreQty` })
+          .setParameter('restoreQty', item.quantity)
+          .where('id = :id', { id: item.productId })
+          .execute();
+      }
+    });
+
+    this.eventEmitter.emit(
+      'order.cancelled',
+      new OrderCancelledEvent(
+        order.id, userId, orderNumber, dto.reason, true,
+      ),
+    );
+
+    return this.paymentRepository.findOne({
+      where: { id: order.payment.id },
+      relations: ['order'],
+    });
+  }
+}
