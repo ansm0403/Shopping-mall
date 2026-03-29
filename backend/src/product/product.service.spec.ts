@@ -127,7 +127,7 @@ describe('ProductService', () => {
       const products = [mockProduct({ approvalStatus: ApprovalStatus.APPROVED, status: ProductStatus.PUBLISHED })];
       createQueryBuilder.getManyAndCount.mockResolvedValue([products, 1]);
 
-      const result = await service.findAll({ page: 1, take: 20 });
+      const result = await service.findAll({ page: 1, take: 20 }) as any;
 
       expect(result.data).toEqual(products);
       expect(result.meta.total).toBe(1);
@@ -260,6 +260,51 @@ describe('ProductService', () => {
 
       await expect(service.update(999, {}, 100)).rejects.toThrow(NotFoundException);
     });
+
+    // EC1: 승인된 상품 수정 시 재검토 로직
+    it('[EC1] 승인된 상품을 수정하면 approvalStatus가 PENDING으로 초기화된다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({
+        sellerId: 1,
+        approvalStatus: ApprovalStatus.APPROVED,
+        approvedAt: new Date(),
+      });
+      mockProductRepository.findOne.mockResolvedValue(product);
+      mockProductRepository.save.mockImplementation(async (p: any) => p);
+
+      const result = await service.update(1, { price: 9000 }, 100);
+
+      expect(result.approvalStatus).toBe(ApprovalStatus.PENDING);
+      expect(result.approvedAt).toBeNull();
+    });
+
+    it('[EC1] 승인된 상품 수정 후 상세 캐시가 무효화된다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({ sellerId: 1, approvalStatus: ApprovalStatus.APPROVED });
+      mockProductRepository.findOne.mockResolvedValue(product);
+      mockProductRepository.save.mockImplementation(async (p: any) => p);
+
+      await service.update(1, { name: '변경' }, 100);
+
+      expect(mockRedisService.delCache).toHaveBeenCalledWith('products:detail:1');
+    });
+
+    it('[EC1] PENDING 상품은 수정해도 approvalStatus가 변경되지 않는다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({ sellerId: 1, approvalStatus: ApprovalStatus.PENDING });
+      mockProductRepository.findOne.mockResolvedValue(product);
+      mockProductRepository.save.mockImplementation(async (p: any) => p);
+
+      const result = await service.update(1, { price: 9000 }, 100);
+
+      expect(result.approvalStatus).toBe(ApprovalStatus.PENDING);
+    });
   });
 
   // ──────────── 셀러: 상품 삭제 ────────────
@@ -285,6 +330,77 @@ describe('ProductService', () => {
       mockProductRepository.findOne.mockResolvedValue(product);
 
       await expect(service.remove(1, 200)).rejects.toThrow(ForbiddenException);
+    });
+
+    // EC4: PUBLISHED 상품 삭제 차단
+    it('[EC4] PUBLISHED 상태의 상품은 삭제할 수 없다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({ sellerId: 1, status: ProductStatus.PUBLISHED });
+      mockProductRepository.findOne.mockResolvedValue(product);
+
+      await expect(service.remove(1, 100)).rejects.toThrow(BadRequestException);
+      expect(mockProductRepository.remove).not.toHaveBeenCalled();
+    });
+
+    it('[EC4] 삭제 후 상세 캐시가 무효화된다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({ sellerId: 1, status: ProductStatus.DRAFT });
+      mockProductRepository.findOne.mockResolvedValue(product);
+      mockProductRepository.remove.mockResolvedValue(undefined);
+
+      await service.remove(1, 100);
+
+      expect(mockRedisService.delCache).toHaveBeenCalledWith('products:detail:1');
+    });
+  });
+
+  // ──────────── 셀러: 이미지 추가 ────────────
+
+  describe('addImage', () => {
+    const mockFile = { filename: 'test.jpg' } as any;
+
+    it('[EC2] file이 undefined이면 BadRequestException을 던진다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      await expect(
+        service.addImage(1, 100, undefined as any),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('[EC3] 이미지가 10장이면 추가 시 BadRequestException을 던진다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const images = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
+      const product = mockProduct({ sellerId: 1, images: images as any });
+      mockProductRepository.findOne.mockResolvedValue(product);
+
+      await expect(service.addImage(1, 100, mockFile)).rejects.toThrow(BadRequestException);
+      expect(mockImageRepository.save).not.toHaveBeenCalled();
+    });
+
+    it('이미지가 없으면 첫 번째 이미지는 isPrimary=true로 저장된다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({ sellerId: 1, images: [] });
+      mockProductRepository.findOne.mockResolvedValue(product);
+
+      const savedImage = { id: 1, url: '/uploads/test.jpg', isPrimary: true, sortOrder: 0 };
+      mockImageRepository.create.mockReturnValue(savedImage);
+      mockImageRepository.save.mockResolvedValue(savedImage);
+
+      const result = await service.addImage(1, 100, mockFile);
+
+      expect(mockImageRepository.create).toHaveBeenCalledWith(
+        expect.objectContaining({ isPrimary: true, sortOrder: 0 }),
+      );
+      expect(result.isPrimary).toBe(true);
     });
   });
 

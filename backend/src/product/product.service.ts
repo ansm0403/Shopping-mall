@@ -32,6 +32,7 @@ export class ProductService {
 
   private static readonly CACHE_TTL_LIST = 60;      // 목록 60초
   private static readonly CACHE_TTL_DETAIL = 300;   // 상세 5분
+  private static readonly MAX_IMAGES_PER_PRODUCT = 10;
 
   /** 승인된 셀러 조회 — 미승인이면 ForbiddenException */
   private async getApprovedSeller(userId: number): Promise<SellerEntity> {
@@ -193,7 +194,18 @@ export class ProductService {
       ...(dto.salesType !== undefined && { salesType: dto.salesType }),
     });
 
-    return this.productRepository.save(product);
+    // EC1: 승인된 상품을 수정하면 재검토가 필요하므로 approvalStatus를 PENDING으로 초기화
+    if (product.approvalStatus === ApprovalStatus.APPROVED) {
+      product.approvalStatus = ApprovalStatus.PENDING;
+      product.approvedAt = null;
+    }
+
+    const saved = await this.productRepository.save(product);
+
+    // 캐시 무효화 (상세 캐시)
+    await this.redisService.delCache(`products:detail:${id}`);
+
+    return saved;
   }
 
   /** 셀러: 본인 상품 삭제 */
@@ -206,11 +218,27 @@ export class ProductService {
     if (product.sellerId !== seller.id) {
       throw new ForbiddenException('본인의 상품만 삭제할 수 있습니다.');
     }
+
+    // EC4: 판매 중인 상품은 즉시 삭제 불가 — 먼저 HIDDEN/DISCONTINUED로 변경해야 함
+    if (product.status === ProductStatus.PUBLISHED) {
+      throw new BadRequestException(
+        '판매 중인 상품은 삭제할 수 없습니다. 먼저 상품을 숨김 처리하거나 판매 중지 상태로 변경해주세요.',
+      );
+    }
+
     await this.productRepository.remove(product);
+
+    // 캐시 무효화
+    await this.redisService.delCache(`products:detail:${id}`);
   }
 
   /** 셀러: 본인 상품 이미지 추가 */
   async addImage(productId: number, userId: number, file: Express.Multer.File): Promise<ProductImageEntity> {
+    // EC2: Multer 파이프라인 실패 등으로 file이 undefined인 경우 방어
+    if (!file) {
+      throw new BadRequestException('업로드할 이미지 파일이 없습니다.');
+    }
+
     const seller = await this.getApprovedSeller(userId);
     const product = await this.productRepository.findOne({
       where: { id: productId },
@@ -221,6 +249,13 @@ export class ProductService {
     }
     if (product.sellerId !== seller.id) {
       throw new ForbiddenException('본인의 상품에만 이미지를 추가할 수 있습니다.');
+    }
+
+    // EC3: 상품당 최대 이미지 수 제한
+    if (product.images.length >= ProductService.MAX_IMAGES_PER_PRODUCT) {
+      throw new BadRequestException(
+        `이미지는 상품당 최대 ${ProductService.MAX_IMAGES_PER_PRODUCT}장까지 등록할 수 있습니다.`,
+      );
     }
 
     const isPrimary = product.images.length === 0;
