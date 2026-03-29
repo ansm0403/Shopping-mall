@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ProductModule } from '../product/product.module';
 import { WishListModule } from '../wish-list/wish-list.module';
 import { UserModule } from '../user/user.module';
@@ -19,6 +20,7 @@ import { CategoryModule } from '../category/category.module';
       envFilePath: '.env',
       isGlobal: true,
     }),
+    EventEmitterModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

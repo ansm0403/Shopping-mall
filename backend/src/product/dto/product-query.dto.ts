@@ -1,6 +1,6 @@
 import { IsEnum, IsInt, IsOptional, Min } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ProductStatus } from '../entity/product.entity';
+import { ApprovalStatus, ProductStatus } from '../entity/product.entity';
 
 export class ProductQueryDto {
   @IsOptional()
@@ -23,6 +23,10 @@ export class ProductQueryDto {
   @IsOptional()
   @IsEnum(ProductStatus)
   status?: ProductStatus;
+
+  @IsOptional()
+  @IsEnum(ApprovalStatus)
+  approvalStatus?: ApprovalStatus;
 
   @IsOptional()
   @Type(() => Number)
