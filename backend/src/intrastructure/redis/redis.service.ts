@@ -148,4 +148,26 @@ export class RedisService {
 
     return current <= limit;
   }
+
+  // ===== 캐싱 =====
+  async getCache<T>(key: string): Promise<T | null> {
+    const data = await this.redis.get(key);
+    if (!data) return null;
+    return JSON.parse(data) as T;
+  }
+
+  async setCache(key: string, value: unknown, ttlSeconds: number): Promise<void> {
+    await this.redis.setex(key, ttlSeconds, JSON.stringify(value));
+  }
+
+  async delCache(key: string): Promise<void> {
+    await this.redis.del(key);
+  }
+
+  async delCacheByPattern(pattern: string): Promise<void> {
+    const keys = await this.redis.keys(pattern);
+    if (keys.length > 0) {
+      await this.redis.del(...keys);
+    }
+  }
 }

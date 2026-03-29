@@ -10,9 +10,12 @@ import { LivingProductEntity } from './entity/living-product/living-product.enti
 import { ClothingEntity } from './entity/clothing/clothing.entity';
 import { ShoesEntity } from './entity/shoes/shoes.entity';
 import { FoodEntity } from './entity/food/food.entity';
-import { ProductController } from './product.controller';
+import { SellerEntity } from '../seller/entity/seller.entity';
+import { ProductController, AdminProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { ProductSeedService } from '../common/seeds/product.seed';
+import { ProductEventListener } from './listeners/product-event.listener';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -26,11 +29,13 @@ import { ProductSeedService } from '../common/seeds/product.seed';
       BookEntity,
       LivingProductEntity,
       ShoesEntity,
+      SellerEntity,
     ]),
     CommonModule,
+    AuthModule,
   ],
-  controllers: [ProductController],
-  providers: [ProductService, ProductSeedService],
+  controllers: [ProductController, AdminProductController],
+  providers: [ProductService, ProductSeedService, ProductEventListener],
   exports: [TypeOrmModule, ProductService],
 })
 export class ProductModule {}

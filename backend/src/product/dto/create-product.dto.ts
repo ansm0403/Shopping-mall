@@ -1,5 +1,6 @@
 import {
   IsBoolean,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -8,6 +9,7 @@ import {
   Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { SalesType } from '../entity/product.entity';
 
 export class CreateProductDto {
   @IsNotEmpty()
@@ -46,4 +48,8 @@ export class CreateProductDto {
   @Type(() => Number)
   @IsInt()
   categoryId?: number;
+
+  @IsOptional()
+  @IsEnum(SalesType)
+  salesType?: SalesType;
 }

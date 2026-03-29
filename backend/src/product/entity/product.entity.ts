@@ -24,6 +24,18 @@ export enum ProductStatus {
   DISCONTINUED = 'discontinued'  // 단종
 }
 
+export enum ApprovalStatus {
+  PENDING = 'pending',       // 관리자 승인 대기
+  APPROVED = 'approved',     // 승인됨
+  REJECTED = 'rejected',     // 거절됨
+}
+
+export enum SalesType {
+  NORMAL = 'normal',         // 일반 판매
+  PRE_ORDER = 'pre_order',   // 예약 판매
+  GROUP_BUY = 'group_buy',   // 공동구매
+}
+
 @Entity('products')
 export class ProductEntity extends BaseModel {
   @Column()
@@ -44,9 +56,31 @@ export class ProductEntity extends BaseModel {
   @Column({
     type: 'enum',
     enum: ProductStatus,
-    default: ProductStatus.PUBLISHED,
+    default: ProductStatus.DRAFT,
   })
   status: ProductStatus;
+
+  @Column({
+    type: 'enum',
+    enum: ApprovalStatus,
+    default: ApprovalStatus.PENDING,
+    name: 'approval_status',
+  })
+  approvalStatus: ApprovalStatus;
+
+  @Column({
+    type: 'enum',
+    enum: SalesType,
+    default: SalesType.NORMAL,
+    name: 'sales_type',
+  })
+  salesType: SalesType;
+
+  @Column({ nullable: true, type: 'text', name: 'rejection_reason' })
+  rejectionReason: string | null;
+
+  @Column({ nullable: true, name: 'approved_at' })
+  approvedAt: Date | null;
 
   @Column({ type: 'int', default: 0 })
   salesCount: number;

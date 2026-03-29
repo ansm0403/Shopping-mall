@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { BaseModel } from '../../common/entity/base.entity';
 import { UserModel } from '../../user/entity/user.entity';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
@@ -36,12 +37,15 @@ export class SellerEntity extends BaseModel {
     @Column({ nullable: true })
     contactPhone: string;
 
+    @Exclude()
     @Column()
     bankName: string;
 
+    @Exclude()
     @Column()
     bankAccountNumber: string;
 
+    @Exclude()
     @Column()
     bankAccountHolder: string;
 
