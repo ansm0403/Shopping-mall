@@ -1,0 +1,191 @@
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Like, Repository } from 'typeorm';
+import { CategoryEntity } from './entity/category.entity';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+
+export interface CategoryTreeNode {
+  id: number;
+  name: string;
+  slug: string;
+  depth: number;
+  sortOrder: number;
+  children: CategoryTreeNode[];
+}
+
+@Injectable()
+export class CategoryService {
+  constructor(
+    @InjectRepository(CategoryEntity)
+    private readonly categoryRepository: Repository<CategoryEntity>,
+  ) {}
+
+  // ─── 공개 API ─────────────────────────────────────────
+
+  /**
+   * 전체 카테고리 트리 조회 (is_visible = true만)
+   * DB에서 flat하게 꺼낸 후 메모리에서 트리 조립
+   */
+  async getCategoryTree(): Promise<CategoryTreeNode[]> {
+    const all = await this.categoryRepository.find({
+      where: { isVisible: true },
+      order: { depth: 'ASC', sortOrder: 'ASC', name: 'ASC' },
+    });
+    return this.buildTree(all);
+  }
+
+  /**
+   * slug로 단일 카테고리 조회 + 하위 카테고리 전체 (path LIKE)
+   */
+  async findBySlug(slug: string): Promise<{ category: CategoryEntity; descendants: CategoryEntity[] }> {
+    const category = await this.categoryRepository.findOne({ where: { slug } });
+    if (!category) {
+      throw new NotFoundException(`카테고리 '${slug}'를 찾을 수 없습니다.`);
+    }
+
+    const descendants = await this.categoryRepository.find({
+      where: { path: Like(`${category.path}%`), isVisible: true },
+      order: { depth: 'ASC', sortOrder: 'ASC' },
+    });
+
+    // 자기 자신 제외
+    const children = descendants.filter((d) => d.id !== category.id);
+
+    return { category, descendants: children };
+  }
+
+  // ─── 어드민 API ────────────────────────────────────────
+
+  /**
+   * 카테고리 생성 — path 자동 생성
+   *
+   * 1. parentId가 있으면 부모의 path 조회
+   * 2. INSERT로 새 id 확보
+   * 3. path = 부모path + id + '/' 로 UPDATE
+   */
+  async create(dto: CreateCategoryDto): Promise<CategoryEntity> {
+    let parentPath = '/';
+    let depth = 0;
+
+    if (dto.parentId) {
+      const parent = await this.categoryRepository.findOne({
+        where: { id: dto.parentId },
+      });
+      if (!parent) {
+        throw new NotFoundException(`부모 카테고리 ID ${dto.parentId}를 찾을 수 없습니다.`);
+      }
+      parentPath = parent.path;
+      depth = parent.depth + 1;
+    }
+
+    // 1단계: INSERT (path는 임시값)
+    const category = this.categoryRepository.create({
+      name: dto.name,
+      slug: dto.slug,
+      parentId: dto.parentId ?? null,
+      depth,
+      sortOrder: dto.sortOrder ?? 0,
+      path: '/', // 임시
+    });
+    const saved = await this.categoryRepository.save(category);
+
+    // 2단계: path 확정 (부모path + 새id + '/')
+    saved.path = `${parentPath}${saved.id}/`;
+    await this.categoryRepository.save(saved);
+
+    return saved;
+  }
+
+  /**
+   * 카테고리 수정 (이름, slug, sortOrder만)
+   * parentId 변경(카테고리 이동)은 path 재계산이 필요하므로 별도 기능으로 분리
+   */
+  async update(id: number, dto: UpdateCategoryDto): Promise<CategoryEntity> {
+    const category = await this.categoryRepository.findOne({ where: { id } });
+    if (!category) {
+      throw new NotFoundException(`카테고리 ID ${id}를 찾을 수 없습니다.`);
+    }
+
+    if (dto.name !== undefined) category.name = dto.name;
+    if (dto.slug !== undefined) category.slug = dto.slug;
+    if (dto.sortOrder !== undefined) category.sortOrder = dto.sortOrder;
+
+    return this.categoryRepository.save(category);
+  }
+
+  /**
+   * 노출 여부 변경
+   */
+  async updateVisibility(id: number, isVisible: boolean): Promise<CategoryEntity> {
+    const category = await this.categoryRepository.findOne({ where: { id } });
+    if (!category) {
+      throw new NotFoundException(`카테고리 ID ${id}를 찾을 수 없습니다.`);
+    }
+
+    category.isVisible = isVisible;
+    return this.categoryRepository.save(category);
+  }
+
+  /**
+   * 카테고리 삭제 — 하위 카테고리 존재 시 삭제 불가
+   */
+  async remove(id: number): Promise<void> {
+    const category = await this.categoryRepository.findOne({ where: { id } });
+    if (!category) {
+      throw new NotFoundException(`카테고리 ID ${id}를 찾을 수 없습니다.`);
+    }
+
+    // path LIKE로 하위 카테고리 존재 여부 확인 (자기 자신 포함이므로 > 1)
+    const descendantCount = await this.categoryRepository.count({
+      where: { path: Like(`${category.path}%`) },
+    });
+
+    if (descendantCount > 1) {
+      throw new BadRequestException(
+        '하위 카테고리가 존재하여 삭제할 수 없습니다. 하위 카테고리를 먼저 삭제해주세요.',
+      );
+    }
+
+    await this.categoryRepository.remove(category);
+  }
+
+  // ─── 유틸리티 ──────────────────────────────────────────
+
+  /**
+   * flat 배열 → 트리 구조로 변환
+   */
+  private buildTree(flatCategories: CategoryEntity[]): CategoryTreeNode[] {
+    const map = new Map<number, CategoryTreeNode>();
+    const roots: CategoryTreeNode[] = [];
+
+    for (const cat of flatCategories) {
+      map.set(cat.id, {
+        id: cat.id,
+        name: cat.name,
+        slug: cat.slug,
+        depth: cat.depth,
+        sortOrder: cat.sortOrder,
+        children: [],
+      });
+    }
+
+    for (const cat of flatCategories) {
+      const node = map.get(cat.id);
+      if (!node) continue;
+
+      const parent = cat.parentId ? map.get(cat.parentId) : undefined;
+      if (parent) {
+        parent.children.push(node);
+      } else {
+        roots.push(node);
+      }
+    }
+
+    return roots;
+  }
+}

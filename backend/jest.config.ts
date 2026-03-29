@@ -18,4 +18,8 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: 'test-output/jest/coverage',
+  // 단위 테스트와 통합 테스트 분리
+  // 단위 테스트만: nx test backend
+  // 통합 테스트만: nx test backend --testPathPattern=integration
+  testPathIgnorePatterns: ['/node_modules/', '/dist/', '\\.integration\\.spec\\.ts$'],
 };

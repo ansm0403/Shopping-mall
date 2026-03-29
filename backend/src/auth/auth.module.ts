@@ -6,6 +6,8 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { RefreshTokenEntity } from './entity/refresh-token.entity';
 import { UserModel } from '../user/entity/user.entity';
+import { RoleEntity } from '../user/entity/role.entity';
+import { RolesGuard } from './guards/roles.guard';
 import { EmailModule } from '../intrastructure/emailVerify/email.module';
 import { AuditModule } from '../audit/audit.module';
 import { RedisModule } from '../intrastructure/redis/redis.module';
@@ -26,10 +28,10 @@ import { RedisModule } from '../intrastructure/redis/redis.module';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([RefreshTokenEntity, UserModel]),
+    TypeOrmModule.forFeature([RefreshTokenEntity, UserModel, RoleEntity]),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [AuthService, RolesGuard],
+  exports: [AuthService, RolesGuard],
 })
 export class AuthModule {}

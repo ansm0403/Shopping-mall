@@ -8,7 +8,7 @@ export interface User extends BaseModel {
     name: string;
     phoneNumber: string;
     address: string;
-    role: 'user' | 'admin';
+    roles: ('buyer' | 'seller' | 'admin')[];
     wishList?: WishList;
 }
 

@@ -1,8 +1,11 @@
-import { ReviewEntity } from '../../review/entity/review.entity';
-import { WishListEntity } from '../../wish-list/entity/wishList.entity';
+import type { ReviewEntity } from '../../review/entity/review.entity';
+import type { WishListEntity } from '../../wish-list/entity/wishList.entity';
+import type { SellerEntity } from '../../seller/entity/seller.entity';
+import type { CategoryEntity } from '../../category/entity/category.entity';
 import { BaseModel } from '../../common/entity/base.entity';
 import { Entity, Column, OneToMany, ManyToOne, ManyToMany, JoinTable, JoinColumn } from 'typeorm';
 import { TagEntity } from './tag.entity';
+import { ProductImageEntity } from './product-image.entity';
 
 export enum ProductCategory {
   BEAUTY = 'BEAUTY',
@@ -22,7 +25,7 @@ export enum ProductStatus {
 }
 
 @Entity('products')
-export class ProductEntity extends BaseModel{
+export class ProductEntity extends BaseModel {
   @Column()
   name: string;
 
@@ -31,15 +34,6 @@ export class ProductEntity extends BaseModel{
 
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
-
-  @Column({
-    type: 'enum',
-    enum: ProductCategory,
-  })
-  category: ProductCategory;
-
-  @Column()
-  imageUrl: string;
 
   @Column()
   brand: string;
@@ -69,18 +63,38 @@ export class ProductEntity extends BaseModel{
   @Column('decimal', { precision: 3, scale: 1, nullable: true })
   rating?: number;
 
-  @OneToMany(() => ReviewEntity, (review) => review.product)
-  reviews: ReviewEntity[];
-
-  @ManyToOne(() => WishListEntity, (wishList) => wishList.products)
-  @JoinColumn()
-  wishList: WishListEntity;
-
   @Column({
     type: 'jsonb',
     default: {},
   })
   specs: Record<string, any>;
+
+  // 셀러 연결
+  @Column({ name: 'seller_id', nullable: true })
+  sellerId: number | null;
+
+  @ManyToOne('SellerEntity', 'products', { nullable: true })
+  @JoinColumn({ name: 'seller_id' })
+  seller: SellerEntity | null;
+
+  // 카테고리 연결 (CategoryEntity 트리)
+  @Column({ name: 'category_id', nullable: true })
+  categoryId: number | null;
+
+  @ManyToOne('CategoryEntity', 'products', { nullable: true })
+  @JoinColumn({ name: 'category_id' })
+  category: CategoryEntity | null;
+
+  // 이미지
+  @OneToMany(() => ProductImageEntity, (img) => img.product, { cascade: true })
+  images: ProductImageEntity[];
+
+  @OneToMany('ReviewEntity', 'product')
+  reviews: ReviewEntity[];
+
+  @ManyToOne('WishListEntity', 'products')
+  @JoinColumn()
+  wishList: WishListEntity;
 
   @ManyToMany(() => TagEntity, (tag) => tag.products, { cascade: true })
   @JoinTable({
