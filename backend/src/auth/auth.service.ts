@@ -17,15 +17,16 @@ import { AuditAction } from '../audit/entity/audit-log.entity';
 import { RedisService } from '../intrastructure/redis/redis.service';
 import { AuditService } from '../audit/audit.service';
 import { UserModel } from '../user/entity/user.entity';
+import { RoleEntity, Role } from '../user/entity/role.entity';
 import { RegisterDto } from './dto/register.dto';
 import { EmailService } from '../intrastructure/emailVerify/email.service';
 
 interface JwtPayload {
   sub: number;
   email: string;
+  roles?: Role[];
   type: 'access' | 'refresh';
   tokenId?: string;
-  role?: string;
 }
 
 interface LoginContext {
@@ -51,19 +52,22 @@ export class AuthService {
     private readonly usersRepository: Repository<UserModel>,
     @InjectRepository(RefreshTokenEntity)
     private readonly refreshTokenRepository: Repository<RefreshTokenEntity>,
+    @InjectRepository(RoleEntity)
+    private readonly roleRepository: Repository<RoleEntity>,
   ) {}
 
   async getMe(id: number) {
     const user = await this.usersRepository.findOne({
       where: { id },
-      select: ['id', 'email', 'nickName', 'role', 'phoneNumber', 'address', 'createdAt'],
+      relations: ['roles'],
     });
 
     if (!user) {
       throw new UnauthorizedException('사용자를 찾을 수 없습니다.');
     }
 
-    return user;
+    const { password, ...result } = user;
+    return result;
   }
 
   // ===== 회원가입 =====
@@ -91,6 +95,9 @@ export class AuthService {
       phoneNumber: dto.phoneNumber,
       address: dto.address,
     });
+
+    const buyerRole = await this.roleRepository.findOne({ where: { name: Role.BUYER } });
+    user.roles = buyerRole ? [buyerRole] : [];
 
     const savedUser = await this.usersRepository.save(user);
 
@@ -141,7 +148,10 @@ export class AuthService {
       userAgent: context.userAgent,
     });
 
-    const user = await this.usersRepository.findOne({ where: { id: userId } });
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['roles'],
+    });
 
     if (!user) {
       throw new BadRequestException('사용자를 찾을 수 없습니다.');
@@ -196,6 +206,7 @@ export class AuthService {
     // 사용자 조회
     const user = await this.usersRepository.findOne({
       where: { email: dto.email },
+      relations: ['roles'],
     });
 
     if (!user) {
@@ -262,7 +273,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       type: 'access',
-      role: user.role,
+      roles: user.roles?.map((r) => r.name) ?? [],
     };
 
     const accessToken = this.jwtService.sign(accessPayload, {
@@ -314,7 +325,7 @@ export class AuthService {
         id: user.id,
         email: user.email,
         nickName: user.nickName,
-        role: user.role,
+        roles: user.roles?.map((r) => r.name) ?? [],
       },
       isPersistent,
     };
@@ -381,6 +392,7 @@ export class AuthService {
     // 사용자 조회
     const user = await this.usersRepository.findOne({
       where: { id: payload.sub },
+      relations: ['roles'],
     });
 
     if (!user) {

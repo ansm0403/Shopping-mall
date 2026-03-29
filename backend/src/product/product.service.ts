@@ -1,58 +1,141 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductCategory, ProductEntity } from './entity/product.entity';
 import { Repository } from 'typeorm';
-import { beautyProductsData } from '../data/beauty-products';
-import { clothingProductsData } from '../data/clothing-products';
-import { shoesProductsData } from '../data/shoes-products';
-import { bookProductsData } from '../data/book-products';
-import { foodProductsData } from '../data/food-products';
-import { livingProductsData } from '../data/living-products';
-import { CommonService } from '../common/common.service';
-import { BasePaginateDto } from '../common/dto/paginate.dto';
-
+import { ProductEntity, ProductStatus } from './entity/product.entity';
+import { ProductImageEntity } from './entity/product-image.entity';
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductQueryDto } from './dto/product-query.dto';
 
 @Injectable()
 export class ProductService {
-    constructor(
-        @InjectRepository(ProductEntity)
-        private readonly productRepository: Repository<ProductEntity>,
-        private readonly commonService: CommonService,
-    ) {}
+  constructor(
+    @InjectRepository(ProductEntity)
+    private readonly productRepository: Repository<ProductEntity>,
+    @InjectRepository(ProductImageEntity)
+    private readonly productImageRepository: Repository<ProductImageEntity>,
+  ) {}
 
-    async createProducts() {
-        await this.productRepository.save(beautyProductsData);
+  async findAll(query: ProductQueryDto) {
+    const { page = 1, take = 20, categoryId, status, sellerId } = query;
 
-        await this.productRepository.save(clothingProductsData);
+    const qb = this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.images', 'images')
+      .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.seller', 'seller')
+      .orderBy('product.createdAt', 'DESC')
+      .take(take)
+      .skip((page - 1) * take);
 
-        await this.productRepository.save(shoesProductsData);
-
-        await this.productRepository.save(bookProductsData);
-
-        await this.productRepository.save(foodProductsData);
-
-        await this.productRepository.save(livingProductsData);
-
-        return { message: `${beautyProductsData.length}개의 뷰티 제품, ${clothingProductsData.length}개의 의류 제품, ${shoesProductsData.length}개의 신발 제품, ${bookProductsData.length}개의 책 제품, ${foodProductsData.length}개의 음식 제품, ${livingProductsData.length}개의 생활용품이 성공적으로 삽입되었습니다.` };
+    if (categoryId) {
+      qb.andWhere('product.categoryId = :categoryId', { categoryId });
+    }
+    if (status) {
+      qb.andWhere('product.status = :status', { status });
+    } else {
+      qb.andWhere('product.status = :status', { status: ProductStatus.PUBLISHED });
+    }
+    if (sellerId) {
+      qb.andWhere('product.sellerId = :sellerId', { sellerId });
     }
 
-    async getAllProducts() {
-        const books = this.productRepository.find({
-            where: {
-                category: ProductCategory.BOOK
-            }
-        });
+    const [data, total] = await qb.getManyAndCount();
+    const lastPage = Math.ceil(total / take);
 
-        console.log(books);
-        return books;
+    return {
+      data,
+      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
+    };
+  }
+
+  async findOne(id: number): Promise<ProductEntity> {
+    const product = await this.productRepository.findOne({
+      where: { id },
+      relations: ['images', 'category', 'seller', 'tags'],
+    });
+    if (!product) {
+      throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
+    }
+    await this.productRepository.increment({ id }, 'viewCount', 1);
+    return product;
+  }
+
+  async create(dto: CreateProductDto, sellerId: number): Promise<ProductEntity> {
+    const product = this.productRepository.create({
+      name: dto.name,
+      description: dto.description,
+      price: dto.price,
+      brand: dto.brand,
+      stockQuantity: dto.stockQuantity ?? 0,
+      isEvent: dto.isEvent ?? false,
+      discountRate: dto.discountRate,
+      categoryId: dto.categoryId ?? null,
+      sellerId,
+      status: ProductStatus.PUBLISHED,
+    });
+    return this.productRepository.save(product);
+  }
+
+  async update(id: number, dto: UpdateProductDto, sellerId: number): Promise<ProductEntity> {
+    const product = await this.productRepository.findOne({ where: { id } });
+    if (!product) {
+      throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
+    }
+    if (product.sellerId !== sellerId) {
+      throw new ForbiddenException('본인의 상품만 수정할 수 있습니다.');
     }
 
-    async paginateProduct(query: BasePaginateDto) {
-        return this.commonService.paginate(
-            query,
-            this.productRepository,
-            'product',
-            {}
-        )
+    Object.assign(product, {
+      ...(dto.name !== undefined && { name: dto.name }),
+      ...(dto.description !== undefined && { description: dto.description }),
+      ...(dto.price !== undefined && { price: dto.price }),
+      ...(dto.brand !== undefined && { brand: dto.brand }),
+      ...(dto.stockQuantity !== undefined && { stockQuantity: dto.stockQuantity }),
+      ...(dto.isEvent !== undefined && { isEvent: dto.isEvent }),
+      ...(dto.discountRate !== undefined && { discountRate: dto.discountRate }),
+      ...(dto.categoryId !== undefined && { categoryId: dto.categoryId }),
+    });
+
+    return this.productRepository.save(product);
+  }
+
+  async remove(id: number, sellerId: number): Promise<void> {
+    const product = await this.productRepository.findOne({ where: { id } });
+    if (!product) {
+      throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
     }
+    if (product.sellerId !== sellerId) {
+      throw new ForbiddenException('본인의 상품만 삭제할 수 있습니다.');
+    }
+    await this.productRepository.remove(product);
+  }
+
+  async addImage(productId: number, sellerId: number, file: Express.Multer.File): Promise<ProductImageEntity> {
+    const product = await this.productRepository.findOne({
+      where: { id: productId },
+      relations: ['images'],
+    });
+    if (!product) {
+      throw new NotFoundException(`상품 ID ${productId}를 찾을 수 없습니다.`);
+    }
+    if (product.sellerId !== sellerId) {
+      throw new ForbiddenException('본인의 상품에만 이미지를 추가할 수 있습니다.');
+    }
+
+    const isPrimary = product.images.length === 0;
+    const sortOrder = product.images.length;
+
+    const image = this.productImageRepository.create({
+      url: `/uploads/${file.filename}`,
+      isPrimary,
+      sortOrder,
+      product,
+    });
+    return this.productImageRepository.save(image);
+  }
 }

@@ -1,21 +1,24 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommonModule } from '../common/common.module';
+import { ProductEntity } from './entity/product.entity';
+import { ProductImageEntity } from './entity/product-image.entity';
+import { TagEntity } from './entity/tag.entity';
 import { BookEntity } from './entity/book/book.entity';
 import { BeautyEntity } from './entity/beauty/beauty.entity';
 import { LivingProductEntity } from './entity/living-product/living-product.entity';
 import { ClothingEntity } from './entity/clothing/clothing.entity';
-import { ProductController } from './product.controller';
-import { ProductEntity } from './entity/product.entity';
-import { ProductService } from './product.service';
 import { ShoesEntity } from './entity/shoes/shoes.entity';
 import { FoodEntity } from './entity/food/food.entity';
-import { TagEntity } from './entity/tag.entity';
+import { ProductController } from './product.controller';
+import { ProductService } from './product.service';
+import { ProductSeedService } from '../common/seeds/product.seed';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       ProductEntity,
+      ProductImageEntity,
       TagEntity,
       BeautyEntity,
       ClothingEntity,
@@ -27,7 +30,7 @@ import { TagEntity } from './entity/tag.entity';
     CommonModule,
   ],
   controllers: [ProductController],
-  providers: [ProductService],
-  exports: [TypeOrmModule], // 다른 모듈에서 사용할 수 있도록 export
+  providers: [ProductService, ProductSeedService],
+  exports: [TypeOrmModule, ProductService],
 })
 export class ProductModule {}

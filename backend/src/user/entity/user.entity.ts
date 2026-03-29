@@ -1,13 +1,8 @@
-import { WishListEntity } from "../../wish-list/entity/wishList.entity";
+import type { WishListEntity } from "../../wish-list/entity/wishList.entity";
 import { BaseModel } from "../../common/entity/base.entity";
-import { Column, Entity, OneToMany, OneToOne } from "typeorm";
-import { ReviewEntity } from "../../review/entity/review.entity";
-
-export enum Role {
-    BUYER = 'buyer',
-    SELLER = 'seller',
-    ADMIN = 'admin',
-}
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne } from "typeorm";
+import type { ReviewEntity } from "../../review/entity/review.entity";
+import { RoleEntity } from "./role.entity";
 
 @Entity('users')
 export class UserModel extends BaseModel {
@@ -22,19 +17,20 @@ export class UserModel extends BaseModel {
 
     @Column()
     phoneNumber: string;
-    
+
     @Column()
     address: string;
 
     @Column({ default: false })
     isEmailVerified: boolean;
 
-    @Column({
-        type: 'enum',
-        enum: Role,
-        default: Role.USER
+    @ManyToMany(() => RoleEntity, { eager: false })
+    @JoinTable({
+        name: 'user_roles',
+        joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
     })
-    role: Role;
+    roles: RoleEntity[];
 
     @OneToOne(() => WishListEntity, (wishList) => wishList.user)
     wishList: WishListEntity;

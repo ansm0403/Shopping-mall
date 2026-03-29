@@ -8,6 +8,10 @@ import { UserModule } from '../user/user.module';
 import { ReviewModule } from '../review/review.module';
 import { AuthModule } from '../auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { RoleEntity } from '../user/entity/role.entity';
+import { RolesSeedService } from '../common/seeds/roles.seed';
+import { SellerModule } from '../seller/seller.module';
+import { CategoryModule } from '../category/category.module';
 
 @Module({
   imports: [
@@ -25,13 +29,16 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadEntities: true, // 자동으로 엔티티 로드
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([RoleEntity]),
     AuthModule,
+    SellerModule,
+    CategoryModule,
     ProductModule,
     ReviewModule,
     UserModule,
     WishListModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RolesSeedService],
 })
 export class AppModule {}
