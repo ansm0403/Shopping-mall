@@ -100,12 +100,21 @@ export class ProductService {
     const cacheKey = `products:detail:${id}`;
     const cached = await this.redisService.getCache<ProductEntity>(cacheKey);
     if (cached) {
-      // 캐시 유령 방어: 실제 DB에 존재하는지 경량 검증
+      // 캐시 유령 방어 + EC7: 비공개 상품 노출 방어
       const exists = await this.productRepository.findOne({
         where: { id },
         select: ['id', 'status', 'approvalStatus'],
       });
       if (!exists) {
+        await this.redisService.delCache(cacheKey);
+        throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
+      }
+      // EC7: 승인되지 않았거나 비공개 상태인 상품은 구매자에게 노출 차단
+      if (
+        exists.approvalStatus !== ApprovalStatus.APPROVED ||
+        exists.status === ProductStatus.HIDDEN ||
+        exists.status === ProductStatus.DISCONTINUED
+      ) {
         await this.redisService.delCache(cacheKey);
         throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
       }
@@ -119,6 +128,14 @@ export class ProductService {
       relations: ['images', 'category', 'seller', 'tags'],
     });
     if (!product) {
+      throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
+    }
+    // EC7: 비승인/비공개 상품 조회 차단 (DB 직접 조회 경로)
+    if (
+      product.approvalStatus !== ApprovalStatus.APPROVED ||
+      product.status === ProductStatus.HIDDEN ||
+      product.status === ProductStatus.DISCONTINUED
+    ) {
       throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
     }
     await this.productRepository.increment({ id }, 'viewCount', 1);

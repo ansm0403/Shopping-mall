@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { DataSource, Like, Repository } from 'typeorm';
 import { CategoryEntity } from './entity/category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -23,6 +23,7 @@ export class CategoryService {
   constructor(
     @InjectRepository(CategoryEntity)
     private readonly categoryRepository: Repository<CategoryEntity>,
+    private readonly dataSource: DataSource,
   ) {}
 
   // ─── 공개 API ─────────────────────────────────────────
@@ -69,6 +70,14 @@ export class CategoryService {
    * 3. path = 부모path + id + '/' 로 UPDATE
    */
   async create(dto: CreateCategoryDto): Promise<CategoryEntity> {
+    // EC6: slug 중복 방어 — unique constraint 위반 시 500 대신 명확한 400 응답
+    const existingSlug = await this.categoryRepository.findOne({
+      where: { slug: dto.slug },
+    });
+    if (existingSlug) {
+      throw new BadRequestException(`slug '${dto.slug}'는 이미 사용 중입니다.`);
+    }
+
     let parentPath = '/';
     let depth = 0;
 
@@ -83,22 +92,28 @@ export class CategoryService {
       depth = parent.depth + 1;
     }
 
-    // 1단계: INSERT (path는 임시값)
-    const category = this.categoryRepository.create({
-      name: dto.name,
-      slug: dto.slug,
-      parentId: dto.parentId ?? null,
-      depth,
-      sortOrder: dto.sortOrder ?? 0,
-      path: '/', // 임시
+    // EC8: 2-step path 생성을 트랜잭션으로 감싸 원자성 보장
+    // INSERT 후 UPDATE 전에 실패하면 path='/'인 고아 레코드가 남는 것을 방지
+    return this.dataSource.transaction(async (manager) => {
+      const repo = manager.getRepository(CategoryEntity);
+
+      // 1단계: INSERT (path는 임시값)
+      const category = repo.create({
+        name: dto.name,
+        slug: dto.slug,
+        parentId: dto.parentId ?? null,
+        depth,
+        sortOrder: dto.sortOrder ?? 0,
+        path: '/', // 임시
+      });
+      const saved = await repo.save(category);
+
+      // 2단계: path 확정 (부모path + 새id + '/')
+      saved.path = `${parentPath}${saved.id}/`;
+      await repo.save(saved);
+
+      return saved;
     });
-    const saved = await this.categoryRepository.save(category);
-
-    // 2단계: path 확정 (부모path + 새id + '/')
-    saved.path = `${parentPath}${saved.id}/`;
-    await this.categoryRepository.save(saved);
-
-    return saved;
   }
 
   /**

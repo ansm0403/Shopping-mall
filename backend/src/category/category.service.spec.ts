@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 import { CategoryService } from './category.service';
 import { CategoryEntity } from './entity/category.entity';
 
@@ -31,15 +32,31 @@ const mockRepository = {
   count: jest.fn(),
 };
 
+/** 트랜잭션 내부 repository mock */
+const mockTxRepository = {
+  create: jest.fn(),
+  save: jest.fn(),
+};
+
+const mockDataSource = {
+  transaction: jest.fn((cb: (manager: any) => Promise<any>) =>
+    cb({ getRepository: () => mockTxRepository }),
+  ),
+};
+
 describe('CategoryService', () => {
   let service: CategoryService;
 
   beforeEach(async () => {
     jest.clearAllMocks();
+    mockDataSource.transaction.mockImplementation((cb: (manager: any) => Promise<any>) =>
+      cb({ getRepository: () => mockTxRepository }),
+    );
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CategoryService,
         { provide: getRepositoryToken(CategoryEntity), useValue: mockRepository },
+        { provide: DataSource, useValue: mockDataSource },
       ],
     }).compile();
 
@@ -107,15 +124,17 @@ describe('CategoryService', () => {
       const saved = mockCategory({ id: 5, name: '신발', slug: 'shoes', path: '/' });
       const withPath = { ...saved, path: '/5/' };
 
-      mockRepository.create.mockReturnValue(saved);
-      mockRepository.save
+      // EC6: slug 중복 체크 — 중복 없음
+      mockRepository.findOne.mockResolvedValue(null);
+      mockTxRepository.create.mockReturnValue(saved);
+      mockTxRepository.save
         .mockResolvedValueOnce(saved)    // 1단계: INSERT
         .mockResolvedValueOnce(withPath); // 2단계: path UPDATE
 
       const result = await service.create(dto);
 
       expect(result.path).toBe('/5/');
-      expect(mockRepository.save).toHaveBeenCalledTimes(2);
+      expect(mockTxRepository.save).toHaveBeenCalledTimes(2);
     });
 
     it('하위 카테고리를 생성한다 — path = 부모path + id/', async () => {
@@ -124,9 +143,12 @@ describe('CategoryService', () => {
       const saved = mockCategory({ id: 10, name: '스니커즈', slug: 'sneakers', parentId: 1, path: '/' });
       const withPath = { ...saved, path: '/1/10/' };
 
-      mockRepository.findOne.mockResolvedValue(parent);
-      mockRepository.create.mockReturnValue(saved);
-      mockRepository.save
+      // slug 중복 체크 → 없음, parentId 조회 → parent
+      mockRepository.findOne
+        .mockResolvedValueOnce(null)    // slug 중복 체크
+        .mockResolvedValueOnce(parent); // parent 조회
+      mockTxRepository.create.mockReturnValue(saved);
+      mockTxRepository.save
         .mockResolvedValueOnce(saved)
         .mockResolvedValueOnce(withPath);
 
@@ -139,22 +161,35 @@ describe('CategoryService', () => {
       const parent = mockCategory({ id: 1, path: '/1/', depth: 0 });
       const dto = { name: '하위', slug: 'child', parentId: 1 };
 
-      mockRepository.findOne.mockResolvedValue(parent);
-      mockRepository.create.mockImplementation((data) => ({ ...mockCategory(), ...data }));
-      mockRepository.save.mockImplementation(async (entity) => entity);
+      mockRepository.findOne
+        .mockResolvedValueOnce(null)    // slug 중복 체크
+        .mockResolvedValueOnce(parent); // parent 조회
+      mockTxRepository.create.mockImplementation((data) => ({ ...mockCategory(), ...data }));
+      mockTxRepository.save.mockImplementation(async (entity) => entity);
 
       await service.create(dto);
 
-      expect(mockRepository.create).toHaveBeenCalledWith(
+      expect(mockTxRepository.create).toHaveBeenCalledWith(
         expect.objectContaining({ depth: 1 }),
       );
     });
 
     it('존재하지 않는 parentId → NotFoundException', async () => {
-      mockRepository.findOne.mockResolvedValue(null);
+      mockRepository.findOne
+        .mockResolvedValueOnce(null)   // slug 중복 체크
+        .mockResolvedValueOnce(null);  // parent 조회 → 없음
 
       await expect(service.create({ name: '하위', slug: 'child', parentId: 999 }))
         .rejects.toThrow(NotFoundException);
+    });
+
+    // EC6: slug 중복 방어
+    it('[EC6] 이미 존재하는 slug로 생성하면 BadRequestException을 던진다', async () => {
+      const existing = mockCategory({ slug: 'shoes' });
+      mockRepository.findOne.mockResolvedValue(existing);
+
+      await expect(service.create({ name: '신발', slug: 'shoes' }))
+        .rejects.toThrow(BadRequestException);
     });
   });
 

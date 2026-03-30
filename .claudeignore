@@ -26,3 +26,11 @@ postgres_data/
 # Backend 전용 작업 시 불필요한 폴더
 frontend/
 mocks/
+
+# Frontend 전용 작업 시 불필요한 폴더
+
+# shopping_mall/
+
+# 모든 하위 폴더의 spec.ts 및 e2e spec 파일 제외
+# **/*.spec.ts
+# **/*.e2e-spec.ts

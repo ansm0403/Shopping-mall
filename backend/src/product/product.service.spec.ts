@@ -3,9 +3,17 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { BadRequestException, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+
+// circular dependency 방지: OrderEntity → ShipmentEntity → OrderEntity 순환 차단
+jest.mock('../order/entity/order.entity', () => ({
+  OrderEntity: class OrderEntity {},
+  OrderStatus: { PENDING: 'pending', PREPARING: 'preparing', SHIPPED: 'shipped', DELIVERED: 'delivered', COMPLETED: 'completed', CANCELLED: 'cancelled' },
+}));
+
 import { ProductService } from './product.service';
 import { ProductEntity, ProductStatus, ApprovalStatus, SalesType } from './entity/product.entity';
 import { ProductImageEntity } from './entity/product-image.entity';
+import { OrderItemEntity } from '../order/entity/order-item.entity';
 import { SellerEntity, SellerStatus } from '../seller/entity/seller.entity';
 import { RedisService } from '../intrastructure/redis/redis.service';
 
@@ -73,6 +81,10 @@ const mockSellerRepository = {
   findOne: jest.fn(),
 };
 
+const mockOrderItemRepository = {
+  count: jest.fn(),
+};
+
 /** 트랜잭션 내부에서 사용되는 EntityManager mock */
 const mockManager = {
   create: jest.fn(),
@@ -111,6 +123,7 @@ describe('ProductService', () => {
         { provide: getRepositoryToken(ProductEntity), useValue: mockProductRepository },
         { provide: getRepositoryToken(ProductImageEntity), useValue: mockImageRepository },
         { provide: getRepositoryToken(SellerEntity), useValue: mockSellerRepository },
+        { provide: getRepositoryToken(OrderItemEntity), useValue: mockOrderItemRepository },
         { provide: DataSource, useValue: mockDataSource },
         { provide: EventEmitter2, useValue: mockEventEmitter },
         { provide: RedisService, useValue: mockRedisService },
@@ -147,7 +160,10 @@ describe('ProductService', () => {
 
   describe('findOne', () => {
     it('존재하는 상품을 반환하고 viewCount를 증가시킨다', async () => {
-      const product = mockProduct();
+      const product = mockProduct({
+        approvalStatus: ApprovalStatus.APPROVED,
+        status: ProductStatus.PUBLISHED,
+      });
       mockProductRepository.findOne.mockResolvedValue(product);
       mockProductRepository.increment.mockResolvedValue(undefined);
 
@@ -161,6 +177,24 @@ describe('ProductService', () => {
       mockProductRepository.findOne.mockResolvedValue(null);
 
       await expect(service.findOne(999)).rejects.toThrow(NotFoundException);
+    });
+
+    // EC7: 비승인/비공개 상품 조회 차단
+    it('[EC7] 미승인(PENDING) 상품은 NotFoundException을 던진다', async () => {
+      const product = mockProduct({ approvalStatus: ApprovalStatus.PENDING });
+      mockProductRepository.findOne.mockResolvedValue(product);
+
+      await expect(service.findOne(1)).rejects.toThrow(NotFoundException);
+    });
+
+    it('[EC7] HIDDEN 상품은 NotFoundException을 던진다', async () => {
+      const product = mockProduct({
+        approvalStatus: ApprovalStatus.APPROVED,
+        status: ProductStatus.HIDDEN,
+      });
+      mockProductRepository.findOne.mockResolvedValue(product);
+
+      await expect(service.findOne(1)).rejects.toThrow(NotFoundException);
     });
   });
 
@@ -235,8 +269,8 @@ describe('ProductService', () => {
 
       const product = mockProduct({ sellerId: 1 });
       const updated = mockProduct({ name: '수정됨', sellerId: 1 });
-      mockProductRepository.findOne.mockResolvedValue(product);
-      mockProductRepository.save.mockResolvedValue(updated);
+      mockManager.findOne.mockResolvedValue(product);
+      mockManager.save.mockResolvedValue(updated);
 
       const result = await service.update(1, { name: '수정됨' }, 100);
 
@@ -248,7 +282,7 @@ describe('ProductService', () => {
       mockSellerRepository.findOne.mockResolvedValue(seller);
 
       const product = mockProduct({ sellerId: 1 });
-      mockProductRepository.findOne.mockResolvedValue(product);
+      mockManager.findOne.mockResolvedValue(product);
 
       await expect(service.update(1, { name: '수정' }, 200)).rejects.toThrow(ForbiddenException);
     });
@@ -256,7 +290,7 @@ describe('ProductService', () => {
     it('존재하지 않는 상품은 NotFoundException을 던진다', async () => {
       const seller = mockSeller({ id: 1, userId: 100 });
       mockSellerRepository.findOne.mockResolvedValue(seller);
-      mockProductRepository.findOne.mockResolvedValue(null);
+      mockManager.findOne.mockResolvedValue(null);
 
       await expect(service.update(999, {}, 100)).rejects.toThrow(NotFoundException);
     });
@@ -271,8 +305,8 @@ describe('ProductService', () => {
         approvalStatus: ApprovalStatus.APPROVED,
         approvedAt: new Date(),
       });
-      mockProductRepository.findOne.mockResolvedValue(product);
-      mockProductRepository.save.mockImplementation(async (p: any) => p);
+      mockManager.findOne.mockResolvedValue(product);
+      mockManager.save.mockImplementation(async (p: any) => p);
 
       const result = await service.update(1, { price: 9000 }, 100);
 
@@ -285,8 +319,8 @@ describe('ProductService', () => {
       mockSellerRepository.findOne.mockResolvedValue(seller);
 
       const product = mockProduct({ sellerId: 1, approvalStatus: ApprovalStatus.APPROVED });
-      mockProductRepository.findOne.mockResolvedValue(product);
-      mockProductRepository.save.mockImplementation(async (p: any) => p);
+      mockManager.findOne.mockResolvedValue(product);
+      mockManager.save.mockImplementation(async (p: any) => p);
 
       await service.update(1, { name: '변경' }, 100);
 
@@ -298,8 +332,8 @@ describe('ProductService', () => {
       mockSellerRepository.findOne.mockResolvedValue(seller);
 
       const product = mockProduct({ sellerId: 1, approvalStatus: ApprovalStatus.PENDING });
-      mockProductRepository.findOne.mockResolvedValue(product);
-      mockProductRepository.save.mockImplementation(async (p: any) => p);
+      mockManager.findOne.mockResolvedValue(product);
+      mockManager.save.mockImplementation(async (p: any) => p);
 
       const result = await service.update(1, { price: 9000 }, 100);
 
@@ -316,6 +350,7 @@ describe('ProductService', () => {
 
       const product = mockProduct({ sellerId: 1 });
       mockProductRepository.findOne.mockResolvedValue(product);
+      mockOrderItemRepository.count.mockResolvedValue(0);
       mockProductRepository.remove.mockResolvedValue(undefined);
 
       await expect(service.remove(1, 100)).resolves.toBeUndefined();
@@ -344,12 +379,39 @@ describe('ProductService', () => {
       expect(mockProductRepository.remove).not.toHaveBeenCalled();
     });
 
+    // EC5: 주문 이력이 있는 상품 삭제 차단
+    it('[EC5] 주문 이력이 있는 상품은 삭제할 수 없다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({ sellerId: 1, status: ProductStatus.DRAFT });
+      mockProductRepository.findOne.mockResolvedValue(product);
+      mockOrderItemRepository.count.mockResolvedValue(3);
+
+      await expect(service.remove(1, 100)).rejects.toThrow(BadRequestException);
+      expect(mockProductRepository.remove).not.toHaveBeenCalled();
+    });
+
+    it('[EC5] 주문 이력이 없으면 정상 삭제된다', async () => {
+      const seller = mockSeller({ id: 1, userId: 100 });
+      mockSellerRepository.findOne.mockResolvedValue(seller);
+
+      const product = mockProduct({ sellerId: 1, status: ProductStatus.DRAFT });
+      mockProductRepository.findOne.mockResolvedValue(product);
+      mockOrderItemRepository.count.mockResolvedValue(0);
+      mockProductRepository.remove.mockResolvedValue(undefined);
+
+      await expect(service.remove(1, 100)).resolves.toBeUndefined();
+      expect(mockProductRepository.remove).toHaveBeenCalledWith(product);
+    });
+
     it('[EC4] 삭제 후 상세 캐시가 무효화된다', async () => {
       const seller = mockSeller({ id: 1, userId: 100 });
       mockSellerRepository.findOne.mockResolvedValue(seller);
 
       const product = mockProduct({ sellerId: 1, status: ProductStatus.DRAFT });
       mockProductRepository.findOne.mockResolvedValue(product);
+      mockOrderItemRepository.count.mockResolvedValue(0);
       mockProductRepository.remove.mockResolvedValue(undefined);
 
       await service.remove(1, 100);
