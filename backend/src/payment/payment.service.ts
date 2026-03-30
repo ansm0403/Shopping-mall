@@ -231,8 +231,23 @@ export class PaymentService {
       throw new BadRequestException('결제 금액이 일치하지 않습니다. 결제가 취소되었습니다.');
     }
 
-    // 4. 트랜잭션: Payment + Order 상태 갱신
-    await this.dataSource.transaction(async (manager) => {
+    // 4. 트랜잭션: SELECT FOR UPDATE → 상태 재검증 → 갱신 (동시 요청 방지)
+    const updated = await this.dataSource.transaction(async (manager) => {
+      const locked = await manager
+        .createQueryBuilder(PaymentEntity, 'p')
+        .setLock('pessimistic_write')
+        .where('p.id = :id', { id: payment.id })
+        .getOne();
+
+      if (!locked) {
+        throw new NotFoundException('결제 정보가 삭제되었습니다.');
+      }
+
+      // 트랜잭션 내 재검증: 웹훅이 먼저 처리했을 수 있음
+      if (locked.status === PaymentStatus.PAID) {
+        return null; // 이미 처리됨
+      }
+
       await manager.update(PaymentEntity, payment.id, {
         impUid: dto.impUid,
         status: PaymentStatus.PAID,
@@ -247,18 +262,22 @@ export class PaymentService {
         status: OrderStatus.PAID,
         paidAt: new Date(portonePayment.paid_at * 1000),
       });
+
+      return locked;
     });
 
-    // 이벤트 발행
-    this.eventEmitter.emit(
-      'order.paid',
-      new OrderPaidEvent(
-        payment.orderId,
-        userId,
-        payment.merchantUid,
-        dto.impUid,
-      ),
-    );
+    // 이미 다른 요청(웹훅)이 처리한 경우 — 이벤트 중복 발행 방지
+    if (updated) {
+      this.eventEmitter.emit(
+        'order.paid',
+        new OrderPaidEvent(
+          payment.orderId,
+          userId,
+          payment.merchantUid,
+          dto.impUid,
+        ),
+      );
+    }
 
     return this.paymentRepository.findOne({
       where: { id: payment.id },
@@ -422,11 +441,29 @@ export class PaymentService {
    * PortOne 웹훅 처리
    * 클라이언트가 verifyPayment를 호출하지 못하는 경우(네트워크 끊김, 브라우저 닫힘 등)를 보완.
    * 기존 verifyPayment 로직을 재사용하되, userId 검증 없이 서버 간 통신으로 처리.
+   *
+   * 중요: PortOne은 5xx 응답 시 재시도하므로, 내부 에러가 발생해도
+   * 항상 200 + 에러 메시지로 응답하여 무한 재시도를 방지합니다.
    */
   async handleWebhook(dto: WebhookPaymentDto) {
     const { imp_uid, merchant_uid, status } = dto;
 
     this.logger.log(`PortOne 웹훅 수신 — impUid: ${imp_uid}, merchantUid: ${merchant_uid}, status: ${status}`);
+
+    try {
+      return await this.processWebhook(imp_uid, merchant_uid, status);
+    } catch (error) {
+      this.logger.error(
+        `웹훅 처리 중 예외 발생 — impUid: ${imp_uid}, merchantUid: ${merchant_uid}, ` +
+        `error: ${error instanceof Error ? error.message : error}`,
+        error instanceof Error ? error.stack : undefined,
+      );
+      // 500 대신 200으로 응답 — PortOne 무한 재시도 방지
+      return { message: 'internal error', error: error instanceof Error ? error.message : String(error) };
+    }
+  }
+
+  private async processWebhook(imp_uid: string, merchant_uid: string, status: string | undefined) {
 
     // paid 상태만 처리 (취소 등은 별도 로직 불필요 — 우리 서버에서 취소를 먼저 발행하므로)
     if (status !== 'paid') {
@@ -484,8 +521,26 @@ export class PaymentService {
       return { message: 'amount mismatch - refunded' };
     }
 
-    // 트랜잭션: Payment + Order 상태 갱신
-    await this.dataSource.transaction(async (manager) => {
+    // 트랜잭션: SELECT FOR UPDATE → 상태 재검증 → 갱신 (verifyPayment 동시 호출 방지)
+    const updated = await this.dataSource.transaction(async (manager) => {
+      const locked = await manager
+        .createQueryBuilder(PaymentEntity, 'p')
+        .setLock('pessimistic_write')
+        .where('p.id = :id', { id: payment.id })
+        .getOne();
+
+      if (!locked) return null;
+
+      // 트랜잭션 내 재검증: verifyPayment가 먼저 처리했을 수 있음
+      if (locked.status === PaymentStatus.PAID) {
+        return null;
+      }
+
+      // 잠금 후 상태가 FAILED/CANCELLED로 변경되었을 수 있음 (Cron 만료)
+      if (locked.status === PaymentStatus.FAILED || locked.status === PaymentStatus.CANCELLED) {
+        return 'expired' as const;
+      }
+
       await manager.update(PaymentEntity, payment.id, {
         impUid: imp_uid,
         status: PaymentStatus.PAID,
@@ -500,20 +555,37 @@ export class PaymentService {
         status: OrderStatus.PAID,
         paidAt: new Date(portonePayment.paid_at * 1000),
       });
+
+      return 'processed' as const;
     });
 
-    // 이벤트 발행
-    this.eventEmitter.emit(
-      'order.paid',
-      new OrderPaidEvent(
-        payment.orderId,
-        payment.order.userId,
-        payment.merchantUid,
-        imp_uid,
-      ),
-    );
+    // 잠금 후 만료 감지 → 자동 환불
+    if (updated === 'expired') {
+      this.logger.warn(`웹훅: 잠금 후 만료/취소 감지 — 자동 환불. impUid: ${imp_uid}`);
+      try {
+        await this.cancelPaymentOnPortOne(imp_uid, '주문 만료/취소 후 결제 건 자동 환불 (웹훅)');
+      } catch (e) {
+        this.logger.error(`웹훅: 자동 환불 실패 — ${e instanceof Error ? e.message : e}`);
+      }
+      return { message: 'refunded - order expired' };
+    }
 
-    this.logger.log(`웹훅: 결제 검증 완료 — merchantUid: ${merchant_uid}`);
+    // 이미 verifyPayment가 처리한 경우 — 이벤트 중복 발행 방지
+    if (updated === 'processed') {
+      this.eventEmitter.emit(
+        'order.paid',
+        new OrderPaidEvent(
+          payment.orderId,
+          payment.order.userId,
+          payment.merchantUid,
+          imp_uid,
+        ),
+      );
+      this.logger.log(`웹훅: 결제 검증 완료 — merchantUid: ${merchant_uid}`);
+    } else {
+      this.logger.log(`웹훅: 이미 처리됨 (verifyPayment 선행) — merchantUid: ${merchant_uid}`);
+    }
+
     return { message: 'ok' };
   }
 }
