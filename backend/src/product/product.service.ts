@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,6 +11,7 @@ import { DataSource, Repository } from 'typeorm';
 import { ProductEntity, ProductStatus, ApprovalStatus } from './entity/product.entity';
 import { ProductImageEntity } from './entity/product-image.entity';
 import { SellerEntity, SellerStatus } from '../seller/entity/seller.entity';
+import { OrderItemEntity } from '../order/entity/order-item.entity';
 import { RedisService } from '../intrastructure/redis/redis.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -18,6 +20,8 @@ import { ProductCreatedEvent, ProductApprovedEvent, ProductRejectedEvent } from 
 
 @Injectable()
 export class ProductService {
+  private readonly logger = new Logger(ProductService.name);
+
   constructor(
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
@@ -25,6 +29,8 @@ export class ProductService {
     private readonly productImageRepository: Repository<ProductImageEntity>,
     @InjectRepository(SellerEntity)
     private readonly sellerRepository: Repository<SellerEntity>,
+    @InjectRepository(OrderItemEntity)
+    private readonly orderItemRepository: Repository<OrderItemEntity>,
     private readonly dataSource: DataSource,
     private readonly eventEmitter: EventEmitter2,
     private readonly redisService: RedisService,
@@ -94,9 +100,18 @@ export class ProductService {
     const cacheKey = `products:detail:${id}`;
     const cached = await this.redisService.getCache<ProductEntity>(cacheKey);
     if (cached) {
-      // 캐시 히트여도 viewCount는 증가
+      // 캐시 유령 방어: 실제 DB에 존재하는지 경량 검증
+      const exists = await this.productRepository.findOne({
+        where: { id },
+        select: ['id', 'status', 'approvalStatus'],
+      });
+      if (!exists) {
+        await this.redisService.delCache(cacheKey);
+        throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
+      }
+
       await this.productRepository.increment({ id }, 'viewCount', 1);
-      return cached;
+      return { ...cached, viewCount: (cached.viewCount ?? 0) + 1 };
     }
 
     const product = await this.productRepository.findOne({
@@ -107,6 +122,7 @@ export class ProductService {
       throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
     }
     await this.productRepository.increment({ id }, 'viewCount', 1);
+    product.viewCount += 1;
 
     await this.redisService.setCache(cacheKey, product, ProductService.CACHE_TTL_DETAIL);
     return product;
@@ -174,36 +190,40 @@ export class ProductService {
   /** 셀러: 본인 상품 수정 */
   async update(id: number, dto: UpdateProductDto, userId: number): Promise<ProductEntity> {
     const seller = await this.getApprovedSeller(userId);
-    const product = await this.productRepository.findOne({ where: { id } });
-    if (!product) {
-      throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
-    }
-    if (product.sellerId !== seller.id) {
-      throw new ForbiddenException('본인의 상품만 수정할 수 있습니다.');
-    }
 
-    Object.assign(product, {
-      ...(dto.name !== undefined && { name: dto.name }),
-      ...(dto.description !== undefined && { description: dto.description }),
-      ...(dto.price !== undefined && { price: dto.price }),
-      ...(dto.brand !== undefined && { brand: dto.brand }),
-      ...(dto.stockQuantity !== undefined && { stockQuantity: dto.stockQuantity }),
-      ...(dto.isEvent !== undefined && { isEvent: dto.isEvent }),
-      ...(dto.discountRate !== undefined && { discountRate: dto.discountRate }),
-      ...(dto.categoryId !== undefined && { categoryId: dto.categoryId }),
-      ...(dto.salesType !== undefined && { salesType: dto.salesType }),
+    const saved = await this.dataSource.transaction(async (manager) => {
+      const product = await manager.findOne(ProductEntity, { where: { id } });
+      if (!product) {
+        throw new NotFoundException(`상품 ID ${id}를 찾을 수 없습니다.`);
+      }
+      if (product.sellerId !== seller.id) {
+        throw new ForbiddenException('본인의 상품만 수정할 수 있습니다.');
+      }
+
+      Object.assign(product, {
+        ...(dto.name !== undefined && { name: dto.name }),
+        ...(dto.description !== undefined && { description: dto.description }),
+        ...(dto.price !== undefined && { price: dto.price }),
+        ...(dto.brand !== undefined && { brand: dto.brand }),
+        ...(dto.stockQuantity !== undefined && { stockQuantity: dto.stockQuantity }),
+        ...(dto.isEvent !== undefined && { isEvent: dto.isEvent }),
+        ...(dto.discountRate !== undefined && { discountRate: dto.discountRate }),
+        ...(dto.categoryId !== undefined && { categoryId: dto.categoryId }),
+        ...(dto.salesType !== undefined && { salesType: dto.salesType }),
+      });
+
+      // EC1: 승인된 상품을 수정하면 재검토가 필요하므로 approvalStatus를 PENDING으로 초기화
+      if (product.approvalStatus === ApprovalStatus.APPROVED) {
+        product.approvalStatus = ApprovalStatus.PENDING;
+        product.approvedAt = null;
+      }
+
+      return manager.save(product);
     });
 
-    // EC1: 승인된 상품을 수정하면 재검토가 필요하므로 approvalStatus를 PENDING으로 초기화
-    if (product.approvalStatus === ApprovalStatus.APPROVED) {
-      product.approvalStatus = ApprovalStatus.PENDING;
-      product.approvedAt = null;
-    }
-
-    const saved = await this.productRepository.save(product);
-
-    // 캐시 무효화 (상세 캐시)
+    // 캐시 무효화 (상세 + 목록)
     await this.redisService.delCache(`products:detail:${id}`);
+    await this.redisService.delCacheByPattern('products:list:*');
 
     return saved;
   }
@@ -226,10 +246,21 @@ export class ProductService {
       );
     }
 
+    // EC5: 주문 이력이 있는 상품은 삭제 불가 — FK 제약 위반 방지
+    const orderItemCount = await this.orderItemRepository.count({
+      where: { productId: id },
+    });
+    if (orderItemCount > 0) {
+      throw new BadRequestException(
+        '주문 이력이 있는 상품은 삭제할 수 없습니다. 판매 중지(DISCONTINUED) 상태로 변경해주세요.',
+      );
+    }
+
     await this.productRepository.remove(product);
 
     // 캐시 무효화
     await this.redisService.delCache(`products:detail:${id}`);
+    await this.redisService.delCacheByPattern('products:list:*');
   }
 
   /** 셀러: 본인 상품 이미지 추가 */
@@ -324,6 +355,10 @@ export class ProductService {
       return manager.save(entity);
     });
 
+    // 캐시 무효화: 승인 후 buyer 목록에 노출되어야 함
+    await this.redisService.delCache(`products:detail:${product.id}`);
+    await this.redisService.delCacheByPattern('products:list:*');
+
     this.eventEmitter.emit('product.approved', new ProductApprovedEvent(product.id, product.sellerId ?? 0));
     return product;
   }
@@ -343,6 +378,10 @@ export class ProductService {
       entity.rejectionReason = reason;
       return manager.save(entity);
     });
+
+    // 캐시 무효화: 거절 후 buyer 목록에서 제외되어야 함
+    await this.redisService.delCache(`products:detail:${product.id}`);
+    await this.redisService.delCacheByPattern('products:list:*');
 
     this.eventEmitter.emit('product.rejected', new ProductRejectedEvent(product.id, product.sellerId ?? 0, reason));
     return product;

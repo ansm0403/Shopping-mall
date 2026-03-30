@@ -1,0 +1,480 @@
+Date : 2026-03-30 09:54:47
+Directory : c:\Users\kiria\Desktop\fullstack\shopping_mall
+Total : 295 files,  20868 codes, 722 comments, 2565 blanks, all 24155 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| TypeScript         |        210 |     15,996 |        554 |      1,885 |     18,435 |
+| TypeScript JSX     |         25 |      1,249 |         55 |        199 |      1,503 |
+| JavaScript         |         11 |      1,148 |         25 |        124 |      1,297 |
+| Markdown           |          6 |        747 |          4 |        202 |        953 |
+| JSON               |         18 |        622 |          2 |         18 |        642 |
+| PostCSS            |          2 |        410 |          0 |          3 |        413 |
+| YAML               |          6 |        244 |         22 |         30 |        296 |
+| JSON with Comments |         10 |        225 |          0 |         10 |        235 |
+| PowerShell         |          4 |        112 |         28 |         45 |        185 |
+| Makefile           |          1 |         64 |         12 |         28 |        104 |
+| Docker             |          1 |         47 |         19 |         21 |         87 |
+| Ignore             |          1 |          4 |          1 |          0 |          5 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                   | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                      |        295 |     20,868 |        722 |      2,565 |     24,155 |
+| . (Files)                                                                                                              |         25 |      1,494 |         78 |        318 |      1,890 |
+| .claude                                                                                                                |          1 |          6 |          0 |          1 |          7 |
+| .github                                                                                                                |          1 |         25 |          9 |          8 |         42 |
+| .github\workflows                                                                                                      |          1 |         25 |          9 |          8 |         42 |
+| .yarn                                                                                                                  |          1 |        857 |          5 |         81 |        943 |
+| .yarn\releases                                                                                                         |          1 |        857 |          5 |         81 |        943 |
+| backend                                                                                                                |        159 |      8,570 |        463 |      1,699 |     10,732 |
+| backend (Files)                                                                                                        |          9 |        342 |         12 |         27 |        381 |
+| backend-e2e                                                                                                            |          9 |        108 |         11 |         21 |        140 |
+| backend-e2e (Files)                                                                                                    |          5 |         79 |          3 |          9 |         91 |
+| backend-e2e\src                                                                                                        |          4 |         29 |          8 |         12 |         49 |
+| backend-e2e\src\backend                                                                                                |          1 |          8 |          0 |          3 |         11 |
+| backend-e2e\src\support                                                                                                |          3 |         21 |          8 |          9 |         38 |
+| backend\src                                                                                                            |        150 |      8,228 |        451 |      1,672 |     10,351 |
+| backend\src (Files)                                                                                                    |          1 |         61 |          7 |         11 |         79 |
+| backend\src\app                                                                                                        |          5 |        107 |          0 |         17 |        124 |
+| backend\src\audit                                                                                                      |          6 |        153 |          1 |         34 |        188 |
+| backend\src\audit (Files)                                                                                              |          5 |        117 |          1 |         23 |        141 |
+| backend\src\audit\entity                                                                                               |          1 |         36 |          0 |         11 |         47 |
+| backend\src\auth                                                                                                       |         17 |      1,522 |        116 |        322 |      1,960 |
+| backend\src\auth (Files)                                                                                               |          6 |      1,272 |         90 |        245 |      1,607 |
+| backend\src\auth\decorators                                                                                            |          2 |         12 |          0 |          5 |         17 |
+| backend\src\auth\dto                                                                                                   |          4 |         53 |         16 |         13 |         82 |
+| backend\src\auth\entity                                                                                                |          1 |         31 |         10 |         13 |         54 |
+| backend\src\auth\guards                                                                                                |          4 |        154 |          0 |         46 |        200 |
+| backend\src\cart                                                                                                       |          8 |        285 |         10 |         49 |        344 |
+| backend\src\cart (Files)                                                                                               |          3 |        198 |         10 |         28 |        236 |
+| backend\src\cart\dto                                                                                                   |          3 |         53 |          0 |         11 |         64 |
+| backend\src\cart\entity                                                                                                |          2 |         34 |          0 |         10 |         44 |
+| backend\src\category                                                                                                   |          9 |        555 |         44 |        141 |        740 |
+| backend\src\category (Files)                                                                                           |          5 |        487 |         44 |        119 |        650 |
+| backend\src\category\dto                                                                                               |          3 |         40 |          0 |         11 |         51 |
+| backend\src\category\entity                                                                                            |          1 |         28 |          0 |         11 |         39 |
+| backend\src\common                                                                                                     |         12 |        729 |        101 |        117 |        947 |
+| backend\src\common (Files)                                                                                             |          3 |        401 |         51 |         54 |        506 |
+| backend\src\common\const                                                                                               |          2 |         40 |          0 |          4 |         44 |
+| backend\src\common\dto                                                                                                 |          2 |        143 |         37 |         33 |        213 |
+| backend\src\common\dto (Files)                                                                                         |          1 |         88 |         32 |         23 |        143 |
+| backend\src\common\dto\validators                                                                                      |          1 |         55 |          5 |         10 |         70 |
+| backend\src\common\entity                                                                                              |          1 |          9 |          0 |          3 |         12 |
+| backend\src\common\guards                                                                                              |          1 |         49 |          5 |          9 |         63 |
+| backend\src\common\interceptors                                                                                        |          1 |         37 |          6 |          6 |         49 |
+| backend\src\common\seeds                                                                                               |          2 |         50 |          2 |          8 |         60 |
+| backend\src\data                                                                                                       |          6 |        117 |          0 |          6 |        123 |
+| backend\src\intrastructure                                                                                             |          7 |        538 |          9 |         64 |        611 |
+| backend\src\intrastructure\emailVerify                                                                                 |          5 |        371 |          0 |         28 |        399 |
+| backend\src\intrastructure\emailVerify (Files)                                                                         |          3 |        307 |          0 |         19 |        326 |
+| backend\src\intrastructure\emailVerify\interfaces                                                                      |          1 |         15 |          0 |          3 |         18 |
+| backend\src\intrastructure\emailVerify\providers                                                                       |          1 |         49 |          0 |          6 |         55 |
+| backend\src\intrastructure\redis                                                                                       |          2 |        167 |          9 |         36 |        212 |
+| backend\src\order                                                                                                      |         13 |        999 |         57 |        201 |      1,257 |
+| backend\src\order (Files)                                                                                              |          3 |        643 |         52 |        120 |        815 |
+| backend\src\order\dto                                                                                                  |          4 |         98 |          0 |         19 |        117 |
+| backend\src\order\entity                                                                                               |          3 |        114 |          1 |         42 |        157 |
+| backend\src\order\events                                                                                               |          2 |         53 |          0 |          7 |         60 |
+| backend\src\order\listeners                                                                                            |          1 |         91 |          4 |         13 |        108 |
+| backend\src\payment                                                                                                    |          7 |        475 |         35 |         88 |        598 |
+| backend\src\payment (Files)                                                                                            |          3 |        398 |         35 |         65 |        498 |
+| backend\src\payment\dto                                                                                                |          3 |         33 |          0 |          7 |         40 |
+| backend\src\payment\entity                                                                                             |          1 |         44 |          0 |         16 |         60 |
+| backend\src\product                                                                                                    |         22 |      1,454 |         39 |        321 |      1,814 |
+| backend\src\product (Files)                                                                                            |          5 |      1,004 |         36 |        212 |      1,252 |
+| backend\src\product\dto                                                                                                |          6 |        143 |          0 |         31 |        174 |
+| backend\src\product\entity                                                                                             |          9 |        248 |          3 |         68 |        319 |
+| backend\src\product\entity (Files)                                                                                     |          3 |        135 |          3 |         39 |        177 |
+| backend\src\product\entity\beauty                                                                                      |          1 |         21 |          0 |          4 |         25 |
+| backend\src\product\entity\book                                                                                        |          1 |         14 |          0 |          5 |         19 |
+| backend\src\product\entity\clothing                                                                                    |          1 |         33 |          0 |          8 |         41 |
+| backend\src\product\entity\food                                                                                        |          1 |         13 |          0 |          2 |         15 |
+| backend\src\product\entity\living-product                                                                              |          1 |         22 |          0 |          7 |         29 |
+| backend\src\product\entity\shoes                                                                                       |          1 |         10 |          0 |          3 |         13 |
+| backend\src\product\events                                                                                             |          1 |         19 |          0 |          3 |         22 |
+| backend\src\product\listeners                                                                                          |          1 |         40 |          0 |          7 |         47 |
+| backend\src\review                                                                                                     |         11 |        196 |          0 |         57 |        253 |
+| backend\src\review (Files)                                                                                             |          5 |         51 |          0 |         16 |         67 |
+| backend\src\review\dto                                                                                                 |          3 |         59 |          0 |         20 |         79 |
+| backend\src\review\entity                                                                                              |          1 |         28 |          0 |          9 |         37 |
+| backend\src\review\events                                                                                              |          1 |         13 |          0 |          2 |         15 |
+| backend\src\review\listeners                                                                                           |          1 |         45 |          0 |         10 |         55 |
+| backend\src\seller                                                                                                     |          8 |        600 |         32 |        135 |        767 |
+| backend\src\seller (Files)                                                                                             |          5 |        516 |         32 |        106 |        654 |
+| backend\src\seller\dto                                                                                                 |          2 |         37 |          0 |         12 |         49 |
+| backend\src\seller\entity                                                                                              |          1 |         47 |          0 |         17 |         64 |
+| backend\src\user                                                                                                       |         10 |        221 |          0 |         61 |        282 |
+| backend\src\user (Files)                                                                                               |          5 |        132 |          0 |         32 |        164 |
+| backend\src\user\dto                                                                                                   |          3 |         46 |          0 |         16 |         62 |
+| backend\src\user\entity                                                                                                |          2 |         43 |          0 |         13 |         56 |
+| backend\src\wish-list                                                                                                  |          8 |        216 |          0 |         48 |        264 |
+| backend\src\wish-list (Files)                                                                                          |          5 |        169 |          0 |         32 |        201 |
+| backend\src\wish-list\dto                                                                                              |          2 |         28 |          0 |         11 |         39 |
+| backend\src\wish-list\entity                                                                                           |          1 |         19 |          0 |          5 |         24 |
+| frontend                                                                                                               |         46 |      2,262 |        121 |        322 |      2,705 |
+| frontend (Files)                                                                                                       |          8 |        230 |         18 |         25 |        273 |
+| frontend\specs                                                                                                         |          1 |          9 |          0 |          2 |         11 |
+| frontend\src                                                                                                           |         37 |      2,023 |        103 |        295 |      2,421 |
+| frontend\src\app                                                                                                       |          9 |        501 |          2 |         26 |        529 |
+| frontend\src\app (Files)                                                                                               |          4 |        456 |          2 |         10 |        468 |
+| frontend\src\app\admin                                                                                                 |          1 |          6 |          0 |          2 |          8 |
+| frontend\src\app\api                                                                                                   |          1 |          3 |          0 |          1 |          4 |
+| frontend\src\app\api\hello                                                                                             |          1 |          3 |          0 |          1 |          4 |
+| frontend\src\app\login                                                                                                 |          1 |         14 |          0 |          4 |         18 |
+| frontend\src\app\product                                                                                               |          1 |         15 |          0 |          7 |         22 |
+| frontend\src\app\register                                                                                              |          1 |          7 |          0 |          2 |          9 |
+| frontend\src\components                                                                                                |         16 |      1,042 |         46 |        150 |      1,238 |
+| frontend\src\components\banner                                                                                         |          2 |        120 |         13 |         14 |        147 |
+| frontend\src\components\forms                                                                                          |          3 |        547 |         18 |         77 |        642 |
+| frontend\src\components\header                                                                                         |         10 |        358 |         15 |         54 |        427 |
+| frontend\src\components\header (Files)                                                                                 |          1 |         20 |          0 |          3 |         23 |
+| frontend\src\components\header\categoryBar                                                                             |          1 |          6 |          0 |          2 |          8 |
+| frontend\src\components\header\mainHeader                                                                              |          1 |          6 |          0 |          2 |          8 |
+| frontend\src\components\header\navbar                                                                                  |          5 |        302 |         15 |         42 |        359 |
+| frontend\src\components\header\topbar                                                                                  |          2 |         24 |          0 |          5 |         29 |
+| frontend\src\components\layout                                                                                         |          1 |         17 |          0 |          5 |         22 |
+| frontend\src\contexts                                                                                                  |          1 |         91 |          7 |         20 |        118 |
+| frontend\src\hook                                                                                                      |          2 |         44 |         12 |          9 |         65 |
+| frontend\src\lib                                                                                                       |          3 |        161 |         27 |         38 |        226 |
+| frontend\src\lib\axios                                                                                                 |          1 |        111 |         27 |         33 |        171 |
+| frontend\src\lib\react-query                                                                                           |          2 |         50 |          0 |          5 |         55 |
+| frontend\src\model                                                                                                     |          1 |         28 |          0 |         11 |         39 |
+| frontend\src\providers                                                                                                 |          1 |         19 |          0 |          5 |         24 |
+| frontend\src\service                                                                                                   |          4 |        137 |          9 |         36 |        182 |
+| mocks                                                                                                                  |         16 |      7,028 |          5 |         36 |      7,069 |
+| mocks (Files)                                                                                                          |          8 |        139 |          4 |         17 |        160 |
+| mocks\src                                                                                                              |          8 |      6,889 |          1 |         19 |      6,909 |
+| mocks\src (Files)                                                                                                      |          1 |          1 |          0 |          1 |          2 |
+| mocks\src\lib                                                                                                          |          7 |      6,888 |          1 |         18 |      6,907 |
+| mocks\src\lib (Files)                                                                                                  |          1 |          6 |          0 |          0 |          6 |
+| mocks\src\lib\beauty                                                                                                   |          1 |        884 |          0 |          3 |        887 |
+| mocks\src\lib\book                                                                                                     |          1 |      1,959 |          1 |          2 |      1,962 |
+| mocks\src\lib\clothing                                                                                                 |          1 |      1,030 |          0 |          3 |      1,033 |
+| mocks\src\lib\food                                                                                                     |          1 |        895 |          0 |          3 |        898 |
+| mocks\src\lib\livingProduct                                                                                            |          1 |      1,246 |          0 |          3 |      1,249 |
+| mocks\src\lib\shoes                                                                                                    |          1 |        868 |          0 |          4 |        872 |
+| shared                                                                                                                 |         37 |        518 |         30 |         79 |        627 |
+| shared (Files)                                                                                                         |          8 |        131 |          4 |         17 |        152 |
+| shared\src                                                                                                             |         29 |        387 |         26 |         62 |        475 |
+| shared\src (Files)                                                                                                     |          1 |          1 |          0 |          1 |          2 |
+| shared\src\lib                                                                                                         |         28 |        386 |         26 |         61 |        473 |
+| shared\src\lib (Files)                                                                                                 |          1 |          1 |          0 |          0 |          1 |
+| shared\src\lib\types                                                                                                   |         27 |        385 |         26 |         61 |        472 |
+| shared\src\lib\types (Files)                                                                                           |          2 |         13 |          0 |          0 |         13 |
+| shared\src\lib\types\auth                                                                                              |          3 |         39 |         23 |          8 |         70 |
+| shared\src\lib\types\cart                                                                                              |          2 |         13 |          0 |          4 |         17 |
+| shared\src\lib\types\order                                                                                             |          3 |         65 |          0 |         12 |         77 |
+| shared\src\lib\types\product                                                                                           |         11 |        202 |          2 |         25 |        229 |
+| shared\src\lib\types\product (Files)                                                                                   |          4 |        125 |          2 |         10 |        137 |
+| shared\src\lib\types\product\categories                                                                                |          7 |         77 |          0 |         15 |         92 |
+| shared\src\lib\types\review                                                                                            |          2 |          8 |          0 |          1 |          9 |
+| shared\src\lib\types\user                                                                                              |          2 |         29 |          0 |          6 |         35 |
+| shared\src\lib\types\wishList                                                                                          |          2 |         16 |          1 |          5 |         22 |
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                               | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\.claude\settings.local.json                                             | JSON               |          6 |          0 |          1 |          7 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\.github\workflows\ci.yml                                                | YAML               |         25 |          9 |          8 |         42 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\.mcp.json                                                               | JSON               |         12 |          0 |          1 |         13 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\.prettierignore                                                         | Ignore             |          4 |          1 |          0 |          5 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\.prettierrc                                                             | JSON               |          3 |          0 |          1 |          4 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\.yarn\releases\yarn-4.10.3.cjs                                          | JavaScript         |        857 |          5 |         81 |        943 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\.yarnrc.yml                                                             | YAML               |          8 |          3 |          3 |         14 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\CLAUDE.md                                                               | Markdown           |         13 |          3 |          6 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\CSP_SECURITY_GUIDE.md                                                   | Markdown           |        177 |          1 |         48 |        226 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\Dockerfile                                                              | Docker             |         47 |         19 |         21 |         87 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\Makefile                                                                | Makefile           |         64 |         12 |         28 |        104 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\README.md                                                               | Markdown           |         42 |          0 |         33 |         75 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\SECURITY_RECOMMENDATIONS.md                                             | Markdown           |        503 |          0 |        103 |        606 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\.spec.swcrc                                                 | JSON with Comments |         22 |          0 |          1 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\eslint.config.mjs                                           | JavaScript         |          2 |          0 |          2 |          4 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\jest.config.ts                                              | TypeScript         |         18 |          3 |          4 |         25 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\package.json                                                | JSON               |         26 |          0 |          1 |         27 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\backend\backend.spec.ts                                 | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\support\global-setup.ts                                 | TypeScript         |          9 |          3 |          5 |         17 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\support\global-teardown.ts                              | TypeScript         |          6 |          3 |          2 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\support\test-setup.ts                                   | TypeScript         |          6 |          2 |          2 |         10 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\tsconfig.json                                               | JSON with Comments |         11 |          0 |          1 |         12 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\.spec.swcrc                                                     | JSON with Comments |         22 |          0 |          1 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\eslint.config.mjs                                               | JavaScript         |          2 |          0 |          2 |          4 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\jest.config.ts                                                  | TypeScript         |         16 |          6 |          4 |         26 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\package.json                                                    | JSON               |        144 |          0 |          1 |        145 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.controller.spec.ts                                  | TypeScript         |         18 |          0 |          4 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.controller.ts                                       | TypeScript         |         15 |          0 |          4 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.module.ts                                           | TypeScript         |         51 |          0 |          2 |         53 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.service.spec.ts                                     | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.service.ts                                          | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.controller.spec.ts                              | TypeScript         |         24 |          0 |          5 |         29 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.controller.ts                                   | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.module.ts                                       | TypeScript         |         10 |          0 |          3 |         13 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.service.spec.ts                                 | TypeScript         |         22 |          0 |          5 |         27 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.service.ts                                      | TypeScript         |         55 |          1 |          8 |         64 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\entity\audit-log.entity.ts                            | TypeScript         |         36 |          0 |         11 |         47 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.controller.spec.ts                                | TypeScript         |         34 |          0 |          5 |         39 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.controller.ts                                     | TypeScript         |        203 |          9 |         27 |        239 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.integration.spec.ts                               | TypeScript         |        186 |         19 |         38 |        243 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.module.ts                                         | TypeScript         |         36 |          0 |          2 |         38 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.service.spec.ts                                   | TypeScript         |        309 |         13 |         64 |        386 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.service.ts                                        | TypeScript         |        504 |         49 |        109 |        662 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\decorators\roles.decorator.ts                          | TypeScript         |          4 |          0 |          2 |          6 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\decorators\user.decorator.ts                           | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\check-email.dto.ts                                 | TypeScript         |          6 |          3 |          2 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\check-nickname.dto.ts                              | TypeScript         |          8 |          3 |          2 |         13 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\login.dto.ts                                       | TypeScript         |         13 |          5 |          4 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\register.dto.ts                                    | TypeScript         |         26 |          5 |          5 |         36 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\entity\refresh-token.entity.ts                         | TypeScript         |         31 |         10 |         13 |         54 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\jwt-auth.guard.spec.ts                          | TypeScript         |         42 |          0 |         11 |         53 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\jwt-auth.guard.ts                               | TypeScript         |         26 |          0 |          6 |         32 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\roles.guard.spec.ts                             | TypeScript         |         55 |          0 |         20 |         75 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\roles.guard.ts                                  | TypeScript         |         31 |          0 |          9 |         40 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\cart.controller.ts                                     | TypeScript         |         57 |          0 |          7 |         64 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\cart.module.ts                                         | TypeScript         |         18 |          0 |          2 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\cart.service.ts                                        | TypeScript         |        123 |         10 |         19 |        152 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\dto\add-cart-item.dto.ts                               | TypeScript         |         13 |          0 |          3 |         16 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\dto\cart-response.dto.ts                               | TypeScript         |         31 |          0 |          6 |         37 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\dto\update-cart-item.dto.ts                            | TypeScript         |          9 |          0 |          2 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\entity\cart-item.entity.ts                             | TypeScript         |         20 |          0 |          6 |         26 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\entity\cart.entity.ts                                  | TypeScript         |         14 |          0 |          4 |         18 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.controller.spec.ts                        | TypeScript         |        114 |          1 |         30 |        145 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.controller.ts                             | TypeScript         |         58 |          2 |          9 |         69 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.module.ts                                 | TypeScript         |         12 |          0 |          2 |         14 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.service.spec.ts                           | TypeScript         |        175 |          7 |         48 |        230 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.service.ts                                | TypeScript         |        128 |         34 |         30 |        192 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\dto\create-category.dto.ts                         | TypeScript         |         19 |          0 |          5 |         24 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\dto\update-category.dto.ts                         | TypeScript         |         15 |          0 |          4 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\dto\update-visibility.dto.ts                       | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\entity\category.entity.ts                          | TypeScript         |         28 |          0 |         11 |         39 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\common.controller.ts                                 | TypeScript         |          8 |          0 |          2 |         10 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\common.module.ts                                     | TypeScript         |          9 |          0 |          2 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\common.service.ts                                    | TypeScript         |        384 |         51 |         50 |        485 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\const\env-keys.const.ts                              | TypeScript         |          2 |          0 |          0 |          2 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\const\filter-mapper.const.ts                         | TypeScript         |         38 |          0 |          4 |         42 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\dto\paginate.dto.ts                                  | TypeScript         |         88 |         32 |         23 |        143 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\dto\validators\paginate-query.validator.ts           | TypeScript         |         55 |          5 |         10 |         70 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\entity\base.entity.ts                                | TypeScript         |          9 |          0 |          3 |         12 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\guards\paginate-query.guard.ts                       | TypeScript         |         49 |          5 |          9 |         63 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\interceptors\serialize.interceptor.ts                | TypeScript         |         37 |          6 |          6 |         49 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\seeds\product.seed.ts                                | TypeScript         |         31 |          2 |          5 |         38 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\seeds\roles.seed.ts                                  | TypeScript         |         19 |          0 |          3 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\beauty-products.ts                                     | TypeScript         |         18 |          0 |          1 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\book-products.ts                                       | TypeScript         |         21 |          0 |          1 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\clothing-products.ts                                   | TypeScript         |         21 |          0 |          1 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\food-products.ts                                       | TypeScript         |         17 |          0 |          1 |         18 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\living-products.ts                                     | TypeScript         |         22 |          0 |          1 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\shoes-products.ts                                      | TypeScript         |         18 |          0 |          1 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\email-template.service.ts        | TypeScript         |        242 |          0 |          8 |        250 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\email.module.ts                  | TypeScript         |         19 |          0 |          3 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\email.service.ts                 | TypeScript         |         46 |          0 |          8 |         54 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\interfaces\email.interface.ts    | TypeScript         |         15 |          0 |          3 |         18 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\providers\smtp-email.provider.ts | TypeScript         |         49 |          0 |          6 |         55 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\redis\redis.module.ts                        | TypeScript         |         35 |          0 |          3 |         38 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\redis\redis.service.ts                       | TypeScript         |        132 |          9 |         33 |        174 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\main.ts                                                     | TypeScript         |         61 |          7 |         11 |         79 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\create-order.dto.ts                               | TypeScript         |         19 |          0 |          6 |         25 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\order-query.dto.ts                                | TypeScript         |          8 |          0 |          2 |         10 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\order-response.dto.ts                             | TypeScript         |         62 |          0 |          8 |         70 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\ship-order.dto.ts                                 | TypeScript         |          9 |          0 |          3 |         12 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\entity\order-item.entity.ts                           | TypeScript         |         25 |          1 |         11 |         37 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\entity\order.entity.ts                                | TypeScript         |         56 |          0 |         20 |         76 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\entity\shipment.entity.ts                             | TypeScript         |         33 |          0 |         11 |         44 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\events\order.events.ts                                | TypeScript         |         25 |          0 |          3 |         28 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\events\shipment.events.ts                             | TypeScript         |         28 |          0 |          4 |         32 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\listeners\order-event.listener.ts                     | TypeScript         |         91 |          4 |         13 |        108 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\order.controller.ts                                   | TypeScript         |         96 |          3 |         14 |        113 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\order.module.ts                                       | TypeScript         |         35 |          0 |          2 |         37 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\order.service.ts                                      | TypeScript         |        512 |         49 |        104 |        665 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\dto\cancel-payment.dto.ts                           | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\dto\payment-response.dto.ts                         | TypeScript         |         18 |          0 |          2 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\dto\verify-payment.dto.ts                           | TypeScript         |          9 |          0 |          3 |         12 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\entity\payment.entity.ts                            | TypeScript         |         44 |          0 |         16 |         60 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\payment.controller.ts                               | TypeScript         |         51 |          1 |          6 |         58 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\payment.module.ts                                   | TypeScript         |         28 |          0 |          2 |         30 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\payment.service.ts                                  | TypeScript         |        319 |         34 |         57 |        410 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\create-product.dto.ts                           | TypeScript         |         49 |          0 |         10 |         59 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\paginate-product.dto.ts                         | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\product-query.dto.ts                            | TypeScript         |         29 |          0 |          7 |         36 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\product-response.dto.ts                         | TypeScript         |         50 |          0 |          8 |         58 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\reject-product.dto.ts                           | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\update-product.dto.ts                           | TypeScript         |          3 |          0 |          2 |          5 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\beauty\beauty.entity.ts                      | TypeScript         |         21 |          0 |          4 |         25 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\book\book.entity.ts                          | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\clothing\clothing.entity.ts                  | TypeScript         |         33 |          0 |          8 |         41 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\food\food.entity.ts                          | TypeScript         |         13 |          0 |          2 |         15 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\living-product\living-product.entity.ts      | TypeScript         |         22 |          0 |          7 |         29 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\product-image.entity.ts                      | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\product.entity.ts                            | TypeScript         |        111 |          3 |         31 |        145 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\shoes\shoes.entity.ts                        | TypeScript         |         10 |          0 |          3 |         13 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\tag.entity.ts                                | TypeScript         |         10 |          0 |          3 |         13 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\events\product.events.ts                            | TypeScript         |         19 |          0 |          3 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\listeners\product-event.listener.ts                 | TypeScript         |         40 |          0 |          7 |         47 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.controller.spec.ts                          | TypeScript         |        163 |          0 |         38 |        201 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.controller.ts                               | TypeScript         |        132 |          4 |         14 |        150 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.module.ts                                   | TypeScript         |         40 |          0 |          2 |         42 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.service.spec.ts                             | TypeScript         |        386 |         13 |        109 |        508 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.service.ts                                  | TypeScript         |        283 |         19 |         49 |        351 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\dto\create-review.dto.ts                             | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\dto\review-response.dto.ts                           | TypeScript         |         25 |          0 |         10 |         35 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\dto\update-review.dto.ts                             | TypeScript         |         16 |          0 |          4 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\entity\review.entity.ts                              | TypeScript         |         28 |          0 |          9 |         37 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\events\review.events.ts                              | TypeScript         |         13 |          0 |          2 |         15 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\listeners\review-event.listener.ts                   | TypeScript         |         45 |          0 |         10 |         55 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.controller.spec.ts                            | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.controller.ts                                 | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.module.ts                                     | TypeScript         |         12 |          0 |          2 |         14 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.service.spec.ts                               | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.service.ts                                    | TypeScript         |          3 |          0 |          2 |          5 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\dto\apply-seller.dto.ts                              | TypeScript         |         31 |          0 |         10 |         41 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\dto\reject-seller.dto.ts                             | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\entity\seller.entity.ts                              | TypeScript         |         47 |          0 |         17 |         64 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.controller.ts                                 | TypeScript         |         50 |          5 |          7 |         62 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.integration.spec.ts                           | TypeScript         |        180 |         15 |         35 |        230 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.module.ts                                     | TypeScript         |         18 |          0 |          2 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.service.spec.ts                               | TypeScript         |        166 |          7 |         42 |        215 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.service.ts                                    | TypeScript         |        102 |          5 |         20 |        127 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\dto\change-password.dto.ts                             | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\dto\update-profile.dto.ts                              | TypeScript         |         15 |          0 |          4 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\dto\user-profile-response.dto.ts                       | TypeScript         |         23 |          0 |          9 |         32 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\entity\role.entity.ts                                  | TypeScript         |         12 |          0 |          3 |         15 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\entity\user.entity.ts                                  | TypeScript         |         31 |          0 |         10 |         41 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.controller.spec.ts                                | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.controller.ts                                     | TypeScript         |         33 |          0 |          5 |         38 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.module.ts                                         | TypeScript         |         13 |          0 |          2 |         15 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.service.spec.ts                                   | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.service.ts                                        | TypeScript         |         56 |          0 |         15 |         71 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\dto\toggle-wishlist.dto.ts                        | TypeScript         |          5 |          0 |          2 |          7 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\dto\wishlist-response.dto.ts                      | TypeScript         |         23 |          0 |          9 |         32 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\entity\wishList.entity.ts                         | TypeScript         |         19 |          0 |          5 |         24 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.controller.spec.ts                      | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.controller.ts                           | TypeScript         |         44 |          0 |          5 |         49 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.module.ts                               | TypeScript         |         17 |          0 |          2 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.service.spec.ts                         | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.service.ts                              | TypeScript         |         78 |          0 |         15 |         93 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\tsconfig.app.json                                               | JSON               |         31 |          0 |          1 |         32 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\tsconfig.json                                                   | JSON with Comments |         19 |          0 |          1 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\tsconfig.spec.json                                              | JSON               |         20 |          0 |          1 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\watch-server.js                                                 | JavaScript         |         65 |          6 |         14 |         85 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\webpack.config.js                                               | JavaScript         |         23 |          0 |          2 |         25 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\claude-log.ps1                                                          | PowerShell         |         55 |         12 |         21 |         88 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\convert-logs-to-utf8.ps1                                                | PowerShell         |         26 |          5 |         11 |         42 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.db-only.yaml                                             | YAML               |         25 |          2 |          4 |         31 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.dev.yaml                                                 | YAML               |         72 |          4 |          6 |         82 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.redis-only.yaml                                          | YAML               |         24 |          0 |          4 |         28 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.yaml                                                     | YAML               |         90 |          4 |          5 |         99 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\eslint.config.mjs                                                       | JavaScript         |         40 |          1 |          2 |         43 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\eslint.config.mjs                                              | JavaScript         |         20 |          0 |          2 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\index.d.ts                                                     | TypeScript         |          5 |          1 |          1 |          7 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\jest.config.ts                                                 | TypeScript         |         16 |          0 |          4 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\next-env.d.ts                                                  | TypeScript         |          0 |          4 |          2 |          6 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\next.config.js                                                 | JavaScript         |         95 |         13 |         13 |        121 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\package.json                                                   | JSON               |         11 |          0 |          1 |         12 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\specs\index.spec.tsx                                           | TypeScript JSX     |          9 |          0 |          2 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\admin\page.tsx                                         | TypeScript JSX     |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\api\hello\route.ts                                     | TypeScript         |          3 |          0 |          1 |          4 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\global.css                                             | PostCSS            |        408 |          0 |          2 |        410 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\layout.tsx                                             | TypeScript JSX     |         30 |          0 |          4 |         34 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\login\page.tsx                                         | TypeScript JSX     |         14 |          0 |          4 |         18 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\page.module.css                                        | PostCSS            |          2 |          0 |          1 |          3 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\page.tsx                                               | TypeScript JSX     |         16 |          2 |          3 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\product\Products.tsx                                   | TypeScript JSX     |         15 |          0 |          7 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\register\page.tsx                                      | TypeScript JSX     |          7 |          0 |          2 |          9 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\banner\Banner.tsx                               | TypeScript JSX     |         68 |         13 |          9 |         90 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\banner\BannerSection.tsx                        | TypeScript JSX     |         52 |          0 |          5 |         57 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\forms\BaseForm.tsx                              | TypeScript JSX     |        333 |         14 |         44 |        391 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\forms\LoginForm.tsx                             | TypeScript JSX     |        102 |          1 |         16 |        119 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\forms\RegisterForm.tsx                          | TypeScript JSX     |        112 |          3 |         17 |        132 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\Header.tsx                               | TypeScript JSX     |         20 |          0 |          3 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\categoryBar\CategoryBar.tsx              | TypeScript JSX     |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\mainHeader\MainHeader.tsx                | TypeScript JSX     |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\Category.tsx                      | TypeScript JSX     |        189 |          7 |         18 |        214 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\Navbar.tsx                        | TypeScript JSX     |         52 |          1 |         12 |         65 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\NavbarButton.tsx                  | TypeScript JSX     |         14 |          0 |          2 |         16 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\NavbarUserSection.tsx             | TypeScript JSX     |         47 |          7 |          9 |         63 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\SearchBar.tsx                     | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\topbar\Topbar.tsx                        | TypeScript JSX     |         18 |          0 |          3 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\topbar\UserMenu.tsx                      | TypeScript JSX     |          6 |          0 |          2 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\layout\MaxWidthContainer.tsx                    | TypeScript JSX     |         17 |          0 |          5 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\contexts\AuthContext.tsx                                   | TypeScript JSX     |         91 |          7 |         20 |        118 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\hook\useAuthMutation.ts                                    | TypeScript         |         37 |         12 |          7 |         56 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\hook\useProduct.ts                                         | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\lib\axios\axios-http-client.ts                             | TypeScript         |        111 |         27 |         33 |        171 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\lib\react-query\get-query-client.ts                        | TypeScript         |         26 |          0 |          4 |         30 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\lib\react-query\products-query-options.ts                  | TypeScript         |         24 |          0 |          1 |         25 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\model\paginate-param.ts                                    | TypeScript         |         28 |          0 |         11 |         39 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\providers\reactQuery-provider.tsx                          | TypeScript JSX     |         19 |          0 |          5 |         24 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\auth-channel.ts                                    | TypeScript         |         20 |          0 |          3 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\auth-storage.ts                                    | TypeScript         |         63 |          4 |         18 |         85 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\auth.ts                                            | TypeScript         |         17 |          0 |          5 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\products.ts                                        | TypeScript         |         37 |          5 |         10 |         52 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\tsconfig.json                                                  | JSON with Comments |         56 |          0 |          1 |         57 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\tsconfig.spec.json                                             | JSON               |         27 |          0 |          1 |         28 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\jest.config.ts                                                          | TypeScript         |          5 |          0 |          2 |          7 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\jest.preset.js                                                          | JavaScript         |          2 |          0 |          2 |          4 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\.spec.swcrc                                                       | JSON with Comments |         22 |          0 |          1 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\README.md                                                         | Markdown           |          6 |          0 |          6 |         12 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\eslint.config.mjs                                                 | JavaScript         |         21 |          0 |          2 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\jest.config.ts                                                    | TypeScript         |         15 |          3 |          4 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\package.json                                                      | JSON               |         22 |          0 |          1 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\index.ts                                                      | TypeScript         |          1 |          0 |          1 |          2 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\beauty\beauty.ts                                          | TypeScript         |        884 |          0 |          3 |        887 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\book\book.ts                                              | TypeScript         |      1,959 |          1 |          2 |      1,962 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\clothing\clothing.ts                                      | TypeScript         |      1,030 |          0 |          3 |      1,033 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\food\food.ts                                              | TypeScript         |        895 |          0 |          3 |        898 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\index.ts                                                  | TypeScript         |          6 |          0 |          0 |          6 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\livingProduct\livingProduct.ts                            | TypeScript         |      1,246 |          0 |          3 |      1,249 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\shoes\shoes.ts                                            | TypeScript         |        868 |          0 |          4 |        872 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\tsconfig.json                                                     | JSON with Comments |         16 |          0 |          1 |         17 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\tsconfig.lib.json                                                 | JSON               |         18 |          1 |          1 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\tsconfig.spec.json                                                | JSON               |         19 |          0 |          1 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\nx.json                                                                 | JSON               |         86 |          0 |          1 |         87 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\package.json                                                            | JSON               |        114 |          0 |          1 |        115 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\.spec.swcrc                                                      | JSON with Comments |         22 |          0 |          1 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\README.md                                                        | Markdown           |          6 |          0 |          6 |         12 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\eslint.config.mjs                                                | JavaScript         |         21 |          0 |          2 |         23 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\jest.config.ts                                                   | TypeScript         |         15 |          3 |          4 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\package.json                                                     | JSON               |         21 |          0 |          1 |         22 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\index.ts                                                     | TypeScript         |          1 |          0 |          1 |          2 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\index.ts                                                 | TypeScript         |          1 |          0 |          0 |          1 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\auth\index.ts                                      | TypeScript         |          2 |          0 |          1 |          3 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\auth\login.ts                                      | TypeScript         |         26 |         16 |          5 |         47 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\auth\register.ts                                   | TypeScript         |         11 |          7 |          2 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\base.model.ts                                      | TypeScript         |          5 |          0 |          0 |          5 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\cart\cart.ts                                       | TypeScript         |         12 |          0 |          3 |         15 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\cart\index.ts                                      | TypeScript         |          1 |          0 |          1 |          2 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\index.ts                                           | TypeScript         |          8 |          0 |          0 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\order\index.ts                                     | TypeScript         |          2 |          0 |          1 |          3 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\order\order.ts                                     | TypeScript         |         47 |          0 |          7 |         54 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\order\shipment.ts                                  | TypeScript         |         16 |          0 |          4 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\beauty.ts                       | TypeScript         |         14 |          0 |          3 |         17 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\book.ts                         | TypeScript         |          8 |          0 |          1 |          9 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\clothing.ts                     | TypeScript         |         22 |          0 |          5 |         27 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\food.ts                         | TypeScript         |         10 |          0 |          1 |         11 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\livingProduct.ts                | TypeScript         |         10 |          0 |          3 |         13 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\shoes.ts                        | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\sports.ts                       | TypeScript         |          7 |          0 |          1 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\category.ts                                | TypeScript         |         87 |          2 |          4 |         93 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\index.ts                                   | TypeScript         |          9 |          0 |          0 |          9 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\product.dto.ts                             | TypeScript         |          0 |          0 |          1 |          1 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\product.ts                                 | TypeScript         |         29 |          0 |          5 |         34 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\review\index.ts                                    | TypeScript         |          1 |          0 |          0 |          1 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\review\review.ts                                   | TypeScript         |          7 |          0 |          1 |          8 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\user\index.ts                                      | TypeScript         |          1 |          0 |          0 |          1 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\user\user.ts                                       | TypeScript         |         28 |          0 |          6 |         34 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\wishList\index.ts                                  | TypeScript         |          1 |          0 |          0 |          1 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\wishList\wishList.ts                               | TypeScript         |         15 |          1 |          5 |         21 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\tsconfig.json                                                    | JSON with Comments |         13 |          0 |          1 |         14 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\tsconfig.lib.json                                                | JSON               |         14 |          1 |          1 |         16 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\tsconfig.spec.json                                               | JSON               |         19 |          0 |          1 |         20 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\start-logging.ps1                                                       | PowerShell         |         15 |          5 |          6 |         26 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\stop-logging.ps1                                                        | PowerShell         |         16 |          6 |          7 |         29 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\tsconfig.base.json                                                      | JSON               |         29 |          0 |          1 |         30 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\tsconfig.json                                                           | JSON with Comments |         22 |          0 |          1 |         23 |
+| Total                                                                                                                  |                    |     20,868 |        722 |      2,565 |     24,155 |
++------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

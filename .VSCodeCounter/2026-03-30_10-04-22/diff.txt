@@ -1,0 +1,50 @@
+Date : 2026-03-30 10:04:22
+Directory : c:\Users\kiria\Desktop\fullstack\shopping_mall
+Total : 12 files,  451 codes, 8 comments, 95 blanks, all 554 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| TypeScript |         12 |        451 |          8 |         95 |        554 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                           | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                              |         12 |        451 |          8 |         95 |        554 |
+| backend                                                                                        |          9 |        422 |          8 |         90 |        520 |
+| backend\src                                                                                    |          9 |        422 |          8 |         90 |        520 |
+| backend\src\app                                                                                |          1 |          2 |          0 |          0 |          2 |
+| backend\src\inquiry                                                                            |          6 |        335 |          6 |         78 |        419 |
+| backend\src\inquiry (Files)                                                                    |          2 |        240 |          6 |         44 |        290 |
+| backend\src\inquiry\dto                                                                        |          3 |         49 |          0 |         20 |         69 |
+| backend\src\inquiry\entity                                                                     |          1 |         46 |          0 |         14 |         60 |
+| backend\src\settlement                                                                         |          2 |         85 |          2 |         12 |         99 |
+| shared                                                                                         |          3 |         29 |          0 |          5 |         34 |
+| shared\src                                                                                     |          3 |         29 |          0 |          5 |         34 |
+| shared\src\lib                                                                                 |          3 |         29 |          0 |          5 |         34 |
+| shared\src\lib\types                                                                           |          3 |         29 |          0 |          5 |         34 |
+| shared\src\lib\types (Files)                                                                   |          1 |          1 |          0 |          0 |          1 |
+| shared\src\lib\types\settlement                                                                |          2 |         28 |          0 |          5 |         33 |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                       | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.module.ts                   | TypeScript |          2 |          0 |          0 |          2 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\dto\answer-inquiry.dto.ts   | TypeScript |          5 |          0 |          2 |          7 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\dto\create-inquiry.dto.ts   | TypeScript |         13 |          0 |          5 |         18 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\dto\inquiry-response.dto.ts | TypeScript |         31 |          0 |         13 |         44 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\entity\inquiry.entity.ts    | TypeScript |         46 |          0 |         14 |         60 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\inquiry.controller.ts       | TypeScript |         88 |          3 |         11 |        102 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\inquiry.service.ts          | TypeScript |        152 |          3 |         33 |        188 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\settlement.controller.ts | TypeScript |         57 |          2 |         10 |         69 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\settlement.module.ts     | TypeScript |         28 |          0 |          2 |         30 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\index.ts                   | TypeScript |          1 |          0 |          0 |          1 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\settlement\index.ts        | TypeScript |          1 |          0 |          1 |          2 |
+| c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\settlement\settlement.ts   | TypeScript |         27 |          0 |          4 |         31 |
+| Total                                                                                          |            |        451 |          8 |         95 |        554 |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

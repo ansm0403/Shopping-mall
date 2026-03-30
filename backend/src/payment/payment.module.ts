@@ -5,7 +5,8 @@ import { PaymentEntity } from './entity/payment.entity';
 import { OrderEntity } from '../order/entity/order.entity';
 import { OrderItemEntity } from '../order/entity/order-item.entity';
 import { ProductEntity } from '../product/entity/product.entity';
-import { PaymentController } from './payment.controller';
+import { ShipmentEntity } from '../order/entity/shipment.entity';
+import { PaymentController, PaymentWebhookController, AdminPaymentController } from './payment.controller';
 import { PaymentService } from './payment.service';
 import { AuthModule } from '../auth/auth.module';
 
@@ -16,11 +17,12 @@ import { AuthModule } from '../auth/auth.module';
       OrderEntity,
       OrderItemEntity,
       ProductEntity,
+      ShipmentEntity,
     ]),
     HttpModule.register({ timeout: 10000 }),
     AuthModule,
   ],
-  controllers: [PaymentController],
+  controllers: [PaymentController, PaymentWebhookController, AdminPaymentController],
   providers: [PaymentService],
   exports: [PaymentService],
 })

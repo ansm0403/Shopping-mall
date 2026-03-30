@@ -15,3 +15,19 @@ export interface User extends BaseModel {
 export type UserWithReviews = User & {
     reviews?: Review[];
 }
+
+export interface UserProfileResponse extends Omit<User, 'password' | 'wishList'> {
+    nickName: string;
+    isEmailVerified: boolean;
+}
+
+export interface UpdateProfileRequest {
+    nickName?: string;
+    phoneNumber?: string;
+    address?: string;
+}
+
+export interface ChangePasswordRequest {
+    currentPassword: string;
+    newPassword: string;
+}

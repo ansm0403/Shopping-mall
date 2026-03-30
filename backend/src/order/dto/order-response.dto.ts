@@ -11,6 +11,19 @@ class OrderItemResponseDto {
   @Expose() subtotal: number;
 }
 
+class ShipmentResponseDto {
+  @Expose() id: number;
+  @Expose() orderId: number;
+  @Expose() sellerId: number;
+  @Expose() status: string;
+  @Expose() trackingNumber: string | null;
+  @Expose() carrier: string | null;
+  @Expose() shippedAt: Date | null;
+  @Expose() deliveredAt: Date | null;
+  @Expose() createdAt: Date;
+  @Expose() updatedAt: Date;
+}
+
 class PaymentSummaryDto {
   @Expose() id: number;
   @Expose() impUid: string | null;
@@ -36,12 +49,19 @@ export class OrderResponseDto {
   @Expose() paidAt: Date | null;
   @Expose() cancelledAt: Date | null;
   @Expose() cancellationReason: string | null;
+  @Expose() shippedAt: Date | null;
+  @Expose() deliveredAt: Date | null;
+  @Expose() completedAt: Date | null;
   @Expose() createdAt: Date;
   @Expose() updatedAt: Date;
 
   @Expose()
   @Type(() => OrderItemResponseDto)
   items: OrderItemResponseDto[];
+
+  @Expose()
+  @Type(() => ShipmentResponseDto)
+  shipments: ShipmentResponseDto[];
 
   @Expose()
   @Type(() => PaymentSummaryDto)

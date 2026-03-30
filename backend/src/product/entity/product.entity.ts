@@ -1,5 +1,4 @@
 import type { ReviewEntity } from '../../review/entity/review.entity';
-import type { WishListEntity } from '../../wish-list/entity/wishList.entity';
 import type { SellerEntity } from '../../seller/entity/seller.entity';
 import type { CategoryEntity } from '../../category/entity/category.entity';
 import { BaseModel } from '../../common/entity/base.entity';
@@ -123,12 +122,17 @@ export class ProductEntity extends BaseModel {
   @OneToMany(() => ProductImageEntity, (img) => img.product, { cascade: true })
   images: ProductImageEntity[];
 
+  @Column({ type: 'int', default: 0 })
+  reviewCount: number;
+
+  @Column({ type: 'int', default: 0 })
+  ratingSum: number;
+
+  @Column({ type: 'int', default: 0 })
+  wishCount: number;
+
   @OneToMany('ReviewEntity', 'product')
   reviews: ReviewEntity[];
-
-  @ManyToOne('WishListEntity', 'products')
-  @JoinColumn()
-  wishList: WishListEntity;
 
   @ManyToMany(() => TagEntity, (tag) => tag.products, { cascade: true })
   @JoinTable({

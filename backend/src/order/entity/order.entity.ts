@@ -2,6 +2,7 @@ import { Entity, Column, ManyToOne, OneToMany, OneToOne, JoinColumn, Index } fro
 import { BaseModel } from '../../common/entity/base.entity';
 import type { UserModel } from '../../user/entity/user.entity';
 import { OrderItemEntity } from './order-item.entity';
+import { ShipmentEntity } from './shipment.entity';
 import type { PaymentEntity } from '../../payment/entity/payment.entity';
 
 export enum OrderStatus {
@@ -54,8 +55,20 @@ export class OrderEntity extends BaseModel {
   @Column({ type: 'text', nullable: true, name: 'cancellation_reason' })
   cancellationReason: string | null;
 
+  @Column({ type: 'timestamptz', nullable: true, name: 'shipped_at' })
+  shippedAt: Date | null;
+
+  @Column({ type: 'timestamptz', nullable: true, name: 'delivered_at' })
+  deliveredAt: Date | null;
+
+  @Column({ type: 'timestamptz', nullable: true, name: 'completed_at' })
+  completedAt: Date | null;
+
   @OneToMany(() => OrderItemEntity, (item) => item.order, { cascade: true })
   items: OrderItemEntity[];
+
+  @OneToMany(() => ShipmentEntity, (shipment) => shipment.order)
+  shipments: ShipmentEntity[];
 
   @OneToOne('PaymentEntity', 'order')
   payment: PaymentEntity;

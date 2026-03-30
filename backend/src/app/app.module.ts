@@ -16,6 +16,9 @@ import { CategoryModule } from '../category/category.module';
 import { CartModule } from '../cart/cart.module';
 import { OrderModule } from '../order/order.module';
 import { PaymentModule } from '../payment/payment.module';
+import { SettlementModule } from '../settlement/settlement.module';
+import { InquiryModule } from '../inquiry/inquiry.module';
+import { AuditModule } from '../audit/audit.module';
 
 @Module({
   imports: [
@@ -45,6 +48,9 @@ import { PaymentModule } from '../payment/payment.module';
     CartModule,
     OrderModule,
     PaymentModule,
+    SettlementModule,
+    InquiryModule,
+    AuditModule,
   ],
   controllers: [AppController],
   providers: [AppService, RolesSeedService],

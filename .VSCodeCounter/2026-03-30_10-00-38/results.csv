@@ -1,0 +1,303 @@
+"filename", "language", "JSON", "JSON with Comments", "PowerShell", "YAML", "Markdown", "TypeScript", "Ignore", "Docker", "JavaScript", "TypeScript JSX", "PostCSS", "Makefile", "comment", "blank", "total"
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\.claude\settings.local.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\.github\workflows\ci.yml", "YAML", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 9, 8, 42
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\.mcp.json", "JSON", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 13
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\.prettierignore", "Ignore", 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 0, 5
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\.prettierrc", "JSON", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\.yarn\releases\yarn-4.10.3.cjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 857, 0, 0, 0, 5, 81, 943
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\.yarnrc.yml", "YAML", 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 14
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\CLAUDE.md", "Markdown", 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 3, 6, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\CSP_SECURITY_GUIDE.md", "Markdown", 0, 0, 0, 0, 177, 0, 0, 0, 0, 0, 0, 0, 1, 48, 226
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\Dockerfile", "Docker", 0, 0, 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 19, 21, 87
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\Makefile", "Makefile", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 12, 28, 104
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\README.md", "Markdown", 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 33, 75
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\SECURITY_RECOMMENDATIONS.md", "Markdown", 0, 0, 0, 0, 503, 0, 0, 0, 0, 0, 0, 0, 0, 103, 606
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\.spec.swcrc", "JSON with Comments", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 4
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\jest.config.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 3, 4, 25
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\package.json", "JSON", 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 27
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\backend\backend.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\support\global-setup.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 5, 17
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\support\global-teardown.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 3, 2, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\src\support\test-setup.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 2, 2, 10
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend-e2e\tsconfig.json", "JSON with Comments", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 12
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\.spec.swcrc", "JSON with Comments", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 4
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\jest.config.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 6, 4, 26
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\package.json", "JSON", 144, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 145
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 4, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.module.ts", "TypeScript", 0, 0, 0, 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 2, 53
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 5, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.service.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.module.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 5, 27
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\audit.service.ts", "TypeScript", 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 1, 8, 64
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\audit\entity\audit-log.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 11, 47
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 34, 0, 0, 0, 0, 0, 0, 0, 5, 39
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 203, 0, 0, 0, 0, 0, 0, 9, 27, 239
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.integration.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 186, 0, 0, 0, 0, 0, 0, 19, 38, 243
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.module.ts", "TypeScript", 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 2, 38
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 309, 0, 0, 0, 0, 0, 0, 13, 64, 386
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\auth.service.ts", "TypeScript", 0, 0, 0, 0, 0, 504, 0, 0, 0, 0, 0, 0, 49, 109, 662
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\decorators\roles.decorator.ts", "TypeScript", 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\decorators\user.decorator.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\check-email.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 3, 2, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\check-nickname.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 3, 2, 13
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\login.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 5, 4, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\dto\register.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 5, 5, 36
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\entity\refresh-token.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 10, 13, 54
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\jwt-auth.guard.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 11, 53
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\jwt-auth.guard.ts", "TypeScript", 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 6, 32
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\roles.guard.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 0, 20, 75
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\auth\guards\roles.guard.ts", "TypeScript", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 9, 40
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\cart.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 57, 0, 0, 0, 0, 0, 0, 0, 7, 64
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\cart.module.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 2, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\cart.service.ts", "TypeScript", 0, 0, 0, 0, 0, 123, 0, 0, 0, 0, 0, 0, 10, 19, 152
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\dto\add-cart-item.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\dto\cart-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 6, 37
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\dto\update-cart-item.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\entity\cart-item.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 6, 26
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\cart\entity\cart.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 4, 18
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 114, 0, 0, 0, 0, 0, 0, 1, 30, 145
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 58, 0, 0, 0, 0, 0, 0, 2, 9, 69
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.module.ts", "TypeScript", 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 175, 0, 0, 0, 0, 0, 0, 7, 48, 230
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\category.service.ts", "TypeScript", 0, 0, 0, 0, 0, 128, 0, 0, 0, 0, 0, 0, 34, 30, 192
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\dto\create-category.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 5, 24
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\dto\update-category.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\dto\update-visibility.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\category\entity\category.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 11, 39
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\common.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\common.module.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\common.service.ts", "TypeScript", 0, 0, 0, 0, 0, 384, 0, 0, 0, 0, 0, 0, 51, 50, 485
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\const\env-keys.const.ts", "TypeScript", 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\const\filter-mapper.const.ts", "TypeScript", 0, 0, 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 4, 42
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\dto\paginate.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 88, 0, 0, 0, 0, 0, 0, 32, 23, 143
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\dto\validators\paginate-query.validator.ts", "TypeScript", 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 5, 10, 70
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\entity\base.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 3, 12
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\guards\paginate-query.guard.ts", "TypeScript", 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 5, 9, 63
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\interceptors\serialize.interceptor.ts", "TypeScript", 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 6, 6, 49
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\seeds\product.seed.ts", "TypeScript", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 2, 5, 38
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\common\seeds\roles.seed.ts", "TypeScript", 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 3, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\beauty-products.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 1, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\book-products.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\clothing-products.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\food-products.ts", "TypeScript", 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 1, 18
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\living-products.ts", "TypeScript", 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\data\shoes-products.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 1, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\email-template.service.ts", "TypeScript", 0, 0, 0, 0, 0, 242, 0, 0, 0, 0, 0, 0, 0, 8, 250
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\email.module.ts", "TypeScript", 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 3, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\email.service.ts", "TypeScript", 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 0, 0, 0, 8, 54
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\interfaces\email.interface.ts", "TypeScript", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 3, 18
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\emailVerify\providers\smtp-email.provider.ts", "TypeScript", 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 6, 55
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\redis\redis.module.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 3, 38
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\intrastructure\redis\redis.service.ts", "TypeScript", 0, 0, 0, 0, 0, 132, 0, 0, 0, 0, 0, 0, 9, 33, 174
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\main.ts", "TypeScript", 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 7, 11, 79
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\create-order.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 6, 25
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\order-query.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\order-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 62, 0, 0, 0, 0, 0, 0, 0, 8, 70
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\dto\ship-order.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 3, 12
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\entity\order-item.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 1, 11, 37
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\entity\order.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 20, 76
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\entity\shipment.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 11, 44
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\events\order.events.ts", "TypeScript", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 3, 28
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\events\shipment.events.ts", "TypeScript", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 4, 32
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\listeners\order-event.listener.ts", "TypeScript", 0, 0, 0, 0, 0, 91, 0, 0, 0, 0, 0, 0, 4, 13, 108
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\order.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 96, 0, 0, 0, 0, 0, 0, 3, 14, 113
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\order.module.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 2, 37
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\order\order.service.ts", "TypeScript", 0, 0, 0, 0, 0, 512, 0, 0, 0, 0, 0, 0, 49, 104, 665
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\dto\cancel-payment.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\dto\payment-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 2, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\dto\verify-payment.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 3, 12
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\entity\payment.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 16, 60
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\payment.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 51, 0, 0, 0, 0, 0, 0, 1, 6, 58
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\payment.module.ts", "TypeScript", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 2, 30
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\payment\payment.service.ts", "TypeScript", 0, 0, 0, 0, 0, 319, 0, 0, 0, 0, 0, 0, 34, 57, 410
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\create-product.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 10, 59
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\paginate-product.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\product-query.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 7, 36
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\product-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 8, 58
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\reject-product.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\dto\update-product.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 2, 5
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\beauty\beauty.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 4, 25
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\book\book.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\clothing\clothing.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 8, 41
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\food\food.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 2, 15
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\living-product\living-product.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 7, 29
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\product-image.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\product.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 111, 0, 0, 0, 0, 0, 0, 3, 31, 145
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\shoes\shoes.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\entity\tag.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\events\product.events.ts", "TypeScript", 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 3, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\listeners\product-event.listener.ts", "TypeScript", 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 7, 47
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 38, 201
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 132, 0, 0, 0, 0, 0, 0, 4, 14, 150
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.module.ts", "TypeScript", 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 2, 42
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 386, 0, 0, 0, 0, 0, 0, 13, 109, 508
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\product\product.service.ts", "TypeScript", 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 19, 49, 351
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\dto\create-review.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 6, 24
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\dto\review-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 10, 35
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\dto\update-review.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 4, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\entity\review.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 9, 37
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\events\review.events.ts", "TypeScript", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 2, 15
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\listeners\review-event.listener.ts", "TypeScript", 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 10, 55
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 5, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 1, 7, 85
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.module.ts", "TypeScript", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 2, 27
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\review\review.service.ts", "TypeScript", 0, 0, 0, 0, 0, 162, 0, 0, 0, 0, 0, 0, 6, 35, 203
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\dto\apply-seller.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 10, 41
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\dto\reject-seller.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\entity\seller.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 0, 17, 64
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 5, 7, 62
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.integration.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 180, 0, 0, 0, 0, 0, 0, 15, 35, 230
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.module.ts", "TypeScript", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 2, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 166, 0, 0, 0, 0, 0, 0, 7, 42, 215
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\seller\seller.service.ts", "TypeScript", 0, 0, 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 5, 20, 127
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\dto\settlement-query.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 5, 24
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\dto\settlement-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 21, 70
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\entity\settlement.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 0, 0, 4, 14, 64
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\events\settlement.events.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\listeners\settlement-event.listener.ts", "TypeScript", 0, 0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 2, 14, 87
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\settlement.service.ts", "TypeScript", 0, 0, 0, 0, 0, 125, 0, 0, 0, 0, 0, 0, 3, 29, 157
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\dto\change-password.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\dto\update-profile.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\dto\user-profile-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 9, 32
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\entity\role.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 3, 15
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\entity\user.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 10, 41
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 5, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 5, 38
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.module.ts", "TypeScript", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 2, 15
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\user\user.service.ts", "TypeScript", 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 15, 71
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\dto\toggle-wishlist.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\dto\wishlist-response.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 9, 32
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\entity\wishList.entity.ts", "TypeScript", 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 5, 24
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.controller.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 5, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.controller.ts", "TypeScript", 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 5, 49
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.module.ts", "TypeScript", 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 2, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.service.spec.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\wish-list\wish-list.service.ts", "TypeScript", 0, 0, 0, 0, 0, 78, 0, 0, 0, 0, 0, 0, 0, 15, 93
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\tsconfig.app.json", "JSON", 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 32
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\tsconfig.json", "JSON with Comments", 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\tsconfig.spec.json", "JSON", 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\watch-server.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 6, 14, 85
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\webpack.config.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 2, 25
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\claude-log.ps1", "PowerShell", 0, 0, 55, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 21, 88
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\convert-logs-to-utf8.ps1", "PowerShell", 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 11, 42
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.db-only.yaml", "YAML", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 31
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.dev.yaml", "YAML", 0, 0, 0, 72, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 82
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.redis-only.yaml", "YAML", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 28
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\docker-compose.yaml", "YAML", 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 99
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 1, 2, 43
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 2, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\index.d.ts", "TypeScript", 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 1, 7
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\jest.config.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 4, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\next-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 6
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\next.config.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 95, 0, 0, 0, 13, 13, 121
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\package.json", "JSON", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 12
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\specs\index.spec.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 2, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\admin\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\api\hello\route.ts", "TypeScript", 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\global.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 408, 0, 0, 2, 410
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 4, 34
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\login\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 4, 18
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\page.module.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 2, 3, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\product\Products.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 7, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\app\register\page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 2, 9
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\banner\Banner.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 13, 9, 90
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\banner\BannerSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 0, 5, 57
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\forms\BaseForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 333, 0, 0, 14, 44, 391
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\forms\LoginForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 102, 0, 0, 1, 16, 119
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\forms\RegisterForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 0, 0, 3, 17, 132
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\Header.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 3, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\categoryBar\CategoryBar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\mainHeader\MainHeader.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\Category.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 189, 0, 0, 7, 18, 214
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\Navbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 1, 12, 65
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\NavbarButton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 2, 16
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\NavbarUserSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 47, 0, 0, 7, 9, 63
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\navbar\SearchBar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\topbar\Topbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 3, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\header\topbar\UserMenu.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 2, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\components\layout\MaxWidthContainer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 5, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\contexts\AuthContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 91, 0, 0, 7, 20, 118
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\hook\useAuthMutation.ts", "TypeScript", 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 12, 7, 56
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\hook\useProduct.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\lib\axios\axios-http-client.ts", "TypeScript", 0, 0, 0, 0, 0, 111, 0, 0, 0, 0, 0, 0, 27, 33, 171
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\lib\react-query\get-query-client.ts", "TypeScript", 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 4, 30
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\lib\react-query\products-query-options.ts", "TypeScript", 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 1, 25
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\model\paginate-param.ts", "TypeScript", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 11, 39
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\providers\reactQuery-provider.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 5, 24
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\auth-channel.ts", "TypeScript", 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 3, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\auth-storage.ts", "TypeScript", 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 4, 18, 85
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\auth.ts", "TypeScript", 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 5, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\src\service\products.ts", "TypeScript", 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 5, 10, 52
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\tsconfig.json", "JSON with Comments", 0, 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 57
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\frontend\tsconfig.spec.json", "JSON", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 28
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\jest.config.ts", "TypeScript", 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\jest.preset.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 4
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\.spec.swcrc", "JSON with Comments", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\README.md", "Markdown", 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 12
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 2, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\jest.config.ts", "TypeScript", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 3, 4, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\package.json", "JSON", 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\beauty\beauty.ts", "TypeScript", 0, 0, 0, 0, 0, 884, 0, 0, 0, 0, 0, 0, 0, 3, 887
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\book\book.ts", "TypeScript", 0, 0, 0, 0, 0, 1959, 0, 0, 0, 0, 0, 0, 1, 2, 1962
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\clothing\clothing.ts", "TypeScript", 0, 0, 0, 0, 0, 1030, 0, 0, 0, 0, 0, 0, 0, 3, 1033
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\food\food.ts", "TypeScript", 0, 0, 0, 0, 0, 895, 0, 0, 0, 0, 0, 0, 0, 3, 898
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\index.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\livingProduct\livingProduct.ts", "TypeScript", 0, 0, 0, 0, 0, 1246, 0, 0, 0, 0, 0, 0, 0, 3, 1249
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\src\lib\shoes\shoes.ts", "TypeScript", 0, 0, 0, 0, 0, 868, 0, 0, 0, 0, 0, 0, 0, 4, 872
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\tsconfig.json", "JSON with Comments", 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 17
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\tsconfig.lib.json", "JSON", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\mocks\tsconfig.spec.json", "JSON", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\nx.json", "JSON", 86, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 87
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\package.json", "JSON", 114, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 115
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\.spec.swcrc", "JSON with Comments", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\README.md", "Markdown", 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 12
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 2, 23
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\jest.config.ts", "TypeScript", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 3, 4, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\package.json", "JSON", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 22
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\auth\index.ts", "TypeScript", 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 3
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\auth\login.ts", "TypeScript", 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 16, 5, 47
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\auth\register.ts", "TypeScript", 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 7, 2, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\base.model.ts", "TypeScript", 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\cart\cart.ts", "TypeScript", 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 3, 15
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\cart\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\index.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\order\index.ts", "TypeScript", 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 3
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\order\order.ts", "TypeScript", 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 0, 7, 54
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\order\shipment.ts", "TypeScript", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 4, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\beauty.ts", "TypeScript", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 3, 17
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\book.ts", "TypeScript", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\clothing.ts", "TypeScript", 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 5, 27
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\food.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\livingProduct.ts", "TypeScript", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\shoes.ts", "TypeScript", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\categories\sports.ts", "TypeScript", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\category.ts", "TypeScript", 0, 0, 0, 0, 0, 87, 0, 0, 0, 0, 0, 0, 2, 4, 93
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\index.ts", "TypeScript", 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 9
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\product.dto.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\product\product.ts", "TypeScript", 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 5, 34
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\review\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\review\review.ts", "TypeScript", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\user\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\user\user.ts", "TypeScript", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 6, 34
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\wishList\index.ts", "TypeScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\wishList\wishList.ts", "TypeScript", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 1, 5, 21
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\tsconfig.json", "JSON with Comments", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\tsconfig.lib.json", "JSON", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 16
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\tsconfig.spec.json", "JSON", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 20
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\start-logging.ps1", "PowerShell", 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 6, 26
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\stop-logging.ps1", "PowerShell", 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 7, 29
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\tsconfig.base.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 30
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\tsconfig.json", "JSON with Comments", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"Total", "-", 622, 225, 112, 244, 747, 16577, 4, 47, 1148, 1249, 410, 64, 738, 2691, 24878

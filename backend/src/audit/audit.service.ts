@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { AuditLogEntity, AuditAction } from './entity/audit-log.entity';
+import { AuditLogQueryDto } from './dto/audit-log-query.dto';
 
-interface LogData {
+export interface LogData {
   userId?: number;
   action: AuditAction;
   ipAddress: string;
@@ -45,6 +46,38 @@ export class AuditService {
       order: { createdAt: 'DESC' },
       take: limit,
     });
+  }
+
+  async getAuditLogs(query: AuditLogQueryDto) {
+    const { page = 1, take = 50, userId, action, success, startDate, endDate, ipAddress } = query;
+
+    const where: any = {};
+
+    if (userId !== undefined) where.userId = userId;
+    if (action) where.action = action;
+    if (success !== undefined) where.success = success;
+    if (ipAddress) where.ipAddress = ipAddress;
+
+    if (startDate && endDate) {
+      where.createdAt = Between(new Date(startDate), new Date(endDate));
+    } else if (startDate) {
+      where.createdAt = MoreThanOrEqual(new Date(startDate));
+    } else if (endDate) {
+      where.createdAt = LessThanOrEqual(new Date(endDate));
+    }
+
+    const [data, total] = await this.auditLogRepository.findAndCount({
+      where,
+      order: { createdAt: 'DESC' },
+      take,
+      skip: (page - 1) * take,
+    });
+
+    const lastPage = Math.ceil(total / take);
+    return {
+      data,
+      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
+    };
   }
 
   async getFailedLoginAttempts(email: string, hours = 24) {

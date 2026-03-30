@@ -1,4 +1,5 @@
 import { BaseModel } from '../base.model.js';
+import type { Shipment } from './shipment.js';
 
 export const OrderStatus = {
   PENDING_PAYMENT: 'pending_payment',
@@ -33,7 +34,11 @@ export interface Order extends BaseModel {
   memo?: string | null;
   paidAt?: Date | null;
   cancelledAt?: Date | null;
+  shippedAt?: Date | null;
+  deliveredAt?: Date | null;
+  completedAt?: Date | null;
   items: OrderItem[];
+  shipments?: Shipment[];
 }
 
 export interface OrderItem extends BaseModel {

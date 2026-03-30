@@ -1,0 +1,14 @@
+"filename", "language", "TypeScript", "comment", "blank", "total"
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\app\app.module.ts", "TypeScript", 2, 0, 0, 2
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\dto\answer-inquiry.dto.ts", "TypeScript", 5, 0, 2, 7
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\dto\create-inquiry.dto.ts", "TypeScript", 13, 0, 5, 18
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\dto\inquiry-response.dto.ts", "TypeScript", 31, 0, 13, 44
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\entity\inquiry.entity.ts", "TypeScript", 46, 0, 14, 60
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\inquiry.controller.ts", "TypeScript", 88, 3, 11, 102
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\inquiry\inquiry.service.ts", "TypeScript", 152, 3, 33, 188
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\settlement.controller.ts", "TypeScript", 57, 2, 10, 69
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\backend\src\settlement\settlement.module.ts", "TypeScript", 28, 0, 2, 30
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\index.ts", "TypeScript", 1, 0, 0, 1
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\settlement\index.ts", "TypeScript", 1, 0, 1, 2
+"c:\Users\kiria\Desktop\fullstack\shopping_mall\shared\src\lib\types\settlement\settlement.ts", "TypeScript", 27, 0, 4, 31
+"Total", "-", 451, 8, 95, 554

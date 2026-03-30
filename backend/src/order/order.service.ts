@@ -12,17 +12,27 @@ import { DataSource, In, LessThan, Repository } from 'typeorm';
 import { customAlphabet } from 'nanoid';
 import { OrderEntity, OrderStatus } from './entity/order.entity';
 import { OrderItemEntity } from './entity/order-item.entity';
+import { ShipmentEntity, ShipmentStatus } from './entity/shipment.entity';
 import { CartItemEntity } from '../cart/entity/cart-item.entity';
 import { CartEntity } from '../cart/entity/cart.entity';
 import { ProductEntity, ProductStatus, ApprovalStatus } from '../product/entity/product.entity';
 import { PaymentEntity, PaymentStatus } from '../payment/entity/payment.entity';
 import { SellerEntity, SellerStatus } from '../seller/entity/seller.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { ShipOrderDto } from './dto/ship-order.dto';
 import { OrderQueryDto } from './dto/order-query.dto';
 import {
   OrderCreatedEvent,
   OrderCancelledEvent,
 } from './events/order.events';
+import {
+  ShipmentShippedEvent,
+  OrderShippedEvent,
+  OrderDeliveredEvent,
+  OrderCompletedEvent,
+} from './events/shipment.events';
+import { AuditService } from '../audit/audit.service';
+import { AuditAction } from '../audit/entity/audit-log.entity';
 
 const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 8);
 
@@ -39,12 +49,15 @@ export class OrderService {
   constructor(
     @InjectRepository(OrderEntity)
     private readonly orderRepository: Repository<OrderEntity>,
+    @InjectRepository(ShipmentEntity)
+    private readonly shipmentRepository: Repository<ShipmentEntity>,
     @InjectRepository(CartEntity)
     private readonly cartRepository: Repository<CartEntity>,
     @InjectRepository(SellerEntity)
     private readonly sellerRepository: Repository<SellerEntity>,
     private readonly dataSource: DataSource,
     private readonly eventEmitter: EventEmitter2,
+    private readonly auditService: AuditService,
   ) {}
 
   /**
@@ -57,6 +70,11 @@ export class OrderService {
    * 6. 트랜잭션 커밋 후 CartItem 삭제 + 이벤트
    */
   async createOrder(userId: number, dto: CreateOrderDto) {
+    // 0. 빈 주문 방어
+    if (!dto.cartItemIds || dto.cartItemIds.length === 0) {
+      throw new BadRequestException('주문할 장바구니 아이템을 선택해주세요.');
+    }
+
     // 1. 본인 카트 확인
     const cart = await this.cartRepository.findOne({ where: { userId } });
     if (!cart) {
@@ -66,7 +84,7 @@ export class OrderService {
     const orderNumber = generateOrderNumber();
 
     // 2~5. 트랜잭션 (CartItem 조회도 내부에서 → 동시 주문 방지)
-    const { order, cartItemIds } = await this.dataSource.transaction(async (manager) => {
+    const { order } = await this.dataSource.transaction(async (manager) => {
       // 2-a. CartItem을 트랜잭션 내에서 FOR UPDATE 락으로 조회
       //      → 동일 CartItem으로 동시 주문 생성 시 두 번째 요청이 대기하게 됨
       const cartItems = await manager
@@ -297,8 +315,8 @@ export class OrderService {
     };
   }
 
-  /** 셀러: 상품 준비 중으로 변경 */
-  async markPreparing(userId: number, orderNumber: string) {
+  /** 셀러: 운송장 입력 (PREPARING → SHIPPED) */
+  async markShipped(userId: number, orderNumber: string, dto: ShipOrderDto) {
     const seller = await this.sellerRepository.findOne({
       where: { userId, status: SellerStatus.APPROVED },
     });
@@ -307,24 +325,132 @@ export class OrderService {
     }
 
     const order = await this.findOrderByNumber(orderNumber);
-    if (order.status !== OrderStatus.PAID) {
-      throw new BadRequestException('결제 완료 상태의 주문만 준비 처리할 수 있습니다.');
-    }
 
-    // 본인 상품이 포함된 주문인지 확인
-    const hasMyItems = order.items.some((item) => item.sellerId === seller.id);
-    if (!hasMyItems) {
+    // 해당 셀러의 Shipment 조회
+    const shipment = order.shipments?.find((s) => s.sellerId === seller.id);
+    if (!shipment) {
       throw new ForbiddenException('본인의 상품이 포함된 주문만 처리할 수 있습니다.');
     }
+    if (shipment.status !== ShipmentStatus.PREPARING) {
+      throw new BadRequestException('준비 중 상태의 배송건만 출하 처리할 수 있습니다.');
+    }
 
-    await this.orderRepository.update(order.id, {
-      status: OrderStatus.PREPARING,
+    // 트랜잭션: Shipment → SHIPPED + Order 상태 동기화 (원자적)
+    await this.dataSource.transaction(async (manager) => {
+      await manager.update(ShipmentEntity, shipment.id, {
+        status: ShipmentStatus.SHIPPED,
+        trackingNumber: dto.trackingNumber,
+        carrier: dto.carrier,
+        shippedAt: new Date(),
+      });
+
+      // 모든 Shipment이 SHIPPED 이상인지 확인
+      const allShipments = await manager.find(ShipmentEntity, {
+        where: { orderId: order.id },
+      });
+      const allShippedOrBeyond = allShipments.every(
+        (s) =>
+          s.id === shipment.id || // 방금 업데이트한 건은 이미 SHIPPED
+          s.status === ShipmentStatus.SHIPPED ||
+          s.status === ShipmentStatus.DELIVERED,
+      );
+
+      if (allShippedOrBeyond) {
+        await manager.update(OrderEntity, order.id, {
+          status: OrderStatus.SHIPPED,
+          shippedAt: new Date(),
+        });
+      }
     });
 
-    return this.findOrderByNumber(orderNumber);
+    this.eventEmitter.emit(
+      'shipment.shipped',
+      new ShipmentShippedEvent(order.id, seller.id, orderNumber, dto.trackingNumber, dto.carrier),
+    );
+
+    // 동기화 결과에 따라 Order 이벤트도 발행
+    const updated = await this.findOrderByNumber(orderNumber);
+    if (updated.status === OrderStatus.SHIPPED) {
+      this.eventEmitter.emit(
+        'order.shipped',
+        new OrderShippedEvent(order.id, order.orderNumber),
+      );
+    }
+
+    return updated;
   }
 
   // ──────────── 관리자 메서드 ────────────
+
+  /** 관리자: 배송 완료 처리 (SHIPPED → DELIVERED) */
+  async markDelivered(orderNumber: string, sellerId?: number) {
+    const order = await this.findOrderByNumber(orderNumber);
+
+    // Order 상태 검증: SHIPPED 또는 PREPARING(일부 셀러만 출하한 경우) 이어야 함
+    if (
+      order.status !== OrderStatus.SHIPPED &&
+      order.status !== OrderStatus.PREPARING
+    ) {
+      throw new BadRequestException(
+        `배송 완료 처리할 수 없는 주문 상태입니다. (현재: ${order.status})`,
+      );
+    }
+
+    const targetShipments = sellerId
+      ? order.shipments?.filter((s) => s.sellerId === sellerId)
+      : order.shipments;
+
+    if (!targetShipments || targetShipments.length === 0) {
+      throw new NotFoundException('해당 배송건을 찾을 수 없습니다.');
+    }
+
+    // SHIPPED 상태인 것만 필터
+    const shippedShipments = targetShipments.filter(
+      (s) => s.status === ShipmentStatus.SHIPPED,
+    );
+    if (shippedShipments.length === 0) {
+      throw new BadRequestException(
+        '출하 완료(SHIPPED) 상태의 배송건이 없습니다. 먼저 셀러가 운송장을 입력해야 합니다.',
+      );
+    }
+
+    // 트랜잭션: Shipment → DELIVERED + Order 상태 동기화 (원자적)
+    await this.dataSource.transaction(async (manager) => {
+      for (const shipment of shippedShipments) {
+        await manager.update(ShipmentEntity, shipment.id, {
+          status: ShipmentStatus.DELIVERED,
+          deliveredAt: new Date(),
+        });
+      }
+
+      // 모든 Shipment이 DELIVERED인지 확인
+      const allShipments = await manager.find(ShipmentEntity, {
+        where: { orderId: order.id },
+      });
+      const allDelivered = allShipments.every(
+        (s) =>
+          shippedShipments.some((ss) => ss.id === s.id) || // 방금 업데이트한 건
+          s.status === ShipmentStatus.DELIVERED,
+      );
+
+      if (allDelivered) {
+        await manager.update(OrderEntity, order.id, {
+          status: OrderStatus.DELIVERED,
+          deliveredAt: new Date(),
+        });
+      }
+    });
+
+    const updated = await this.findOrderByNumber(orderNumber);
+    if (updated.status === OrderStatus.DELIVERED) {
+      this.eventEmitter.emit(
+        'order.delivered',
+        new OrderDeliveredEvent(order.id, order.orderNumber),
+      );
+    }
+
+    return updated;
+  }
 
   /** 관리자: 전체 주문 조회 */
   async getAllOrders(query: OrderQueryDto) {
@@ -356,6 +482,40 @@ export class OrderService {
     return this.findOrderByNumber(orderNumber);
   }
 
+  // ──────────── 구매자: 구매 확정 ────────────
+
+  /** 구매자: 구매 확정 (DELIVERED → COMPLETED) */
+  async confirmOrder(userId: number, orderNumber: string) {
+    const order = await this.findOrderByNumber(orderNumber);
+    if (order.userId !== userId) {
+      throw new ForbiddenException('본인의 주문만 확정할 수 있습니다.');
+    }
+
+    // 트랜잭션 + 낙관적 상태 검증으로 중복 확정 방지
+    const result = await this.dataSource.transaction(async (manager) => {
+      const locked = await manager.findOne(OrderEntity, {
+        where: { id: order.id },
+      });
+      if (!locked || locked.status !== OrderStatus.DELIVERED) {
+        throw new BadRequestException('배송 완료 상태의 주문만 구매 확정할 수 있습니다.');
+      }
+
+      await manager.update(OrderEntity, order.id, {
+        status: OrderStatus.COMPLETED,
+        completedAt: new Date(),
+      });
+
+      return locked;
+    });
+
+    this.eventEmitter.emit(
+      'order.completed',
+      new OrderCompletedEvent(result.id, userId, orderNumber),
+    );
+
+    return this.findOrderByNumber(orderNumber);
+  }
+
   // ──────────── Cron: 주문 타임아웃 ────────────
 
   @Cron(CronExpression.EVERY_10_MINUTES)
@@ -373,6 +533,8 @@ export class OrderService {
     if (pendingOrders.length === 0) return;
 
     this.logger.log(`만료 대상 주문 ${pendingOrders.length}건 처리 시작`);
+
+    const processedOrderNumbers: string[] = [];
 
     for (const order of pendingOrders) {
       try {
@@ -394,12 +556,13 @@ export class OrderService {
               .createQueryBuilder()
               .update(ProductEntity)
               .set({ stockQuantity: () => `"stockQuantity" + :restoreQty` })
-          .setParameter('restoreQty', item.quantity)
+              .setParameter('restoreQty', item.quantity)
               .where('id = :id', { id: item.productId })
               .execute();
           }
         });
 
+        processedOrderNumbers.push(order.orderNumber);
         this.logger.log(`주문 ${order.orderNumber} 만료 처리 완료`);
 
         this.eventEmitter.emit(
@@ -413,6 +576,126 @@ export class OrderService {
         this.logger.error(`주문 ${order.orderNumber} 만료 처리 실패: ${error instanceof Error ? error.message : error}`);
       }
     }
+
+    if (processedOrderNumbers.length > 0) {
+      this.auditService.log({
+        action: AuditAction.CRON_ORDER_EXPIRED,
+        ipAddress: 'system',
+        metadata: { count: processedOrderNumbers.length, orderNumbers: processedOrderNumbers },
+      });
+    }
+  }
+
+  // ──────────── Cron: 배송 자동 완료 ────────────
+
+  @Cron(CronExpression.EVERY_HOUR)
+  async autoDeliverShipments() {
+    const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000);
+
+    const shippedShipments = await this.shipmentRepository.find({
+      where: {
+        status: ShipmentStatus.SHIPPED,
+        shippedAt: LessThan(threeDaysAgo),
+      },
+      relations: ['order'],
+    });
+
+    if (shippedShipments.length === 0) return;
+
+    this.logger.log(`자동 배송완료 대상 Shipment ${shippedShipments.length}건 처리 시작`);
+
+    const processedShipmentIds: number[] = [];
+
+    for (const shipment of shippedShipments) {
+      try {
+        await this.dataSource.transaction(async (manager) => {
+          await manager.update(ShipmentEntity, shipment.id, {
+            status: ShipmentStatus.DELIVERED,
+            deliveredAt: new Date(),
+          });
+
+          // 같은 주문의 모든 Shipment이 DELIVERED인지 확인
+          const allShipments = await manager.find(ShipmentEntity, {
+            where: { orderId: shipment.orderId },
+          });
+          const allDelivered = allShipments.every(
+            (s) => s.id === shipment.id || s.status === ShipmentStatus.DELIVERED,
+          );
+
+          if (allDelivered) {
+            await manager.update(OrderEntity, shipment.orderId, {
+              status: OrderStatus.DELIVERED,
+              deliveredAt: new Date(),
+            });
+
+            this.eventEmitter.emit(
+              'order.delivered',
+              new OrderDeliveredEvent(shipment.orderId, shipment.order.orderNumber),
+            );
+          }
+        });
+
+        processedShipmentIds.push(shipment.id);
+        this.logger.log(`Shipment ${shipment.id} 자동 배송완료 처리`);
+      } catch (error) {
+        this.logger.error(`Shipment ${shipment.id} 자동 배송완료 실패: ${error instanceof Error ? error.message : error}`);
+      }
+    }
+
+    if (processedShipmentIds.length > 0) {
+      this.auditService.log({
+        action: AuditAction.CRON_SHIPMENT_AUTO_DELIVERED,
+        ipAddress: 'system',
+        metadata: { count: processedShipmentIds.length, shipmentIds: processedShipmentIds },
+      });
+    }
+  }
+
+  // ──────────── Cron: 자동 구매 확정 ────────────
+
+  @Cron(CronExpression.EVERY_HOUR)
+  async autoCompleteOrders() {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+    const deliveredOrders = await this.orderRepository.find({
+      where: {
+        status: OrderStatus.DELIVERED,
+        deliveredAt: LessThan(sevenDaysAgo),
+      },
+    });
+
+    if (deliveredOrders.length === 0) return;
+
+    this.logger.log(`자동 구매확정 대상 주문 ${deliveredOrders.length}건 처리 시작`);
+
+    const processedOrderNumbers: string[] = [];
+
+    for (const order of deliveredOrders) {
+      try {
+        await this.orderRepository.update(order.id, {
+          status: OrderStatus.COMPLETED,
+          completedAt: new Date(),
+        });
+
+        this.eventEmitter.emit(
+          'order.completed',
+          new OrderCompletedEvent(order.id, order.userId, order.orderNumber),
+        );
+
+        processedOrderNumbers.push(order.orderNumber);
+        this.logger.log(`주문 ${order.orderNumber} 자동 구매확정 처리`);
+      } catch (error) {
+        this.logger.error(`주문 ${order.orderNumber} 자동 구매확정 실패: ${error instanceof Error ? error.message : error}`);
+      }
+    }
+
+    if (processedOrderNumbers.length > 0) {
+      this.auditService.log({
+        action: AuditAction.CRON_ORDER_AUTO_COMPLETED,
+        ipAddress: 'system',
+        metadata: { count: processedOrderNumbers.length, orderNumbers: processedOrderNumbers },
+      });
+    }
   }
 
   // ──────────── 내부 헬퍼 ────────────
@@ -420,11 +703,12 @@ export class OrderService {
   private async findOrderByNumber(orderNumber: string): Promise<OrderEntity> {
     const order = await this.orderRepository.findOne({
       where: { orderNumber },
-      relations: ['items', 'payment'],
+      relations: ['items', 'payment', 'shipments'],
     });
     if (!order) {
       throw new NotFoundException(`주문번호 ${orderNumber}를 찾을 수 없습니다.`);
     }
     return order;
   }
+
 }

@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { ShipOrderDto } from './dto/ship-order.dto';
 import { OrderQueryDto } from './dto/order-query.dto';
 import { OrderResponseDto } from './dto/order-response.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -18,6 +19,8 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../user/entity/role.entity';
 import { Serialize } from '../common/interceptors/serialize.interceptor';
+import { Auditable } from '../audit/decorators/auditable.decorator';
+import { AuditAction } from '../audit/entity/audit-log.entity';
 
 /** 구매자 주문 */
 @Controller('orders')
@@ -28,6 +31,7 @@ export class OrderController {
 
   @Post()
   @Serialize(OrderResponseDto)
+  @Auditable(AuditAction.ORDER_CREATED)
   createOrder(@Body() dto: CreateOrderDto, @Req() req: any) {
     return this.orderService.createOrder(req.user.sub, dto);
   }
@@ -46,8 +50,16 @@ export class OrderController {
 
   @Patch(':orderNumber/cancel')
   @Serialize(OrderResponseDto)
+  @Auditable(AuditAction.ORDER_CANCELLED)
   cancelOrder(@Param('orderNumber') orderNumber: string, @Req() req: any) {
     return this.orderService.cancelOrder(req.user.sub, orderNumber);
+  }
+
+  @Patch(':orderNumber/confirm')
+  @Serialize(OrderResponseDto)
+  @Auditable(AuditAction.ORDER_CONFIRMED)
+  confirmOrder(@Param('orderNumber') orderNumber: string, @Req() req: any) {
+    return this.orderService.confirmOrder(req.user.sub, orderNumber);
   }
 }
 
@@ -64,10 +76,15 @@ export class SellerOrderController {
     return this.orderService.getSellerOrders(req.user.sub, query);
   }
 
-  @Patch(':orderNumber/prepare')
+  @Patch(':orderNumber/ship')
   @Serialize(OrderResponseDto)
-  markPreparing(@Param('orderNumber') orderNumber: string, @Req() req: any) {
-    return this.orderService.markPreparing(req.user.sub, orderNumber);
+  @Auditable(AuditAction.SHIPMENT_SHIPPED, { captureBody: ['trackingNumber', 'carrier'] })
+  markShipped(
+    @Param('orderNumber') orderNumber: string,
+    @Body() dto: ShipOrderDto,
+    @Req() req: any,
+  ) {
+    return this.orderService.markShipped(req.user.sub, orderNumber, dto);
   }
 }
 
@@ -88,5 +105,15 @@ export class AdminOrderController {
   @Serialize(OrderResponseDto)
   getOrderDetail(@Param('orderNumber') orderNumber: string) {
     return this.orderService.getOrderDetailAdmin(orderNumber);
+  }
+
+  @Patch(':orderNumber/deliver')
+  @Serialize(OrderResponseDto)
+  @Auditable(AuditAction.SHIPMENT_DELIVERED)
+  markDelivered(
+    @Param('orderNumber') orderNumber: string,
+    @Body('sellerId') sellerId?: number,
+  ) {
+    return this.orderService.markDelivered(orderNumber, sellerId);
   }
 }

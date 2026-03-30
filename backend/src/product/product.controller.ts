@@ -29,6 +29,8 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../user/entity/role.entity';
 import { ProductSeedService } from '../common/seeds/product.seed';
 import { Serialize } from '../common/interceptors/serialize.interceptor';
+import { Auditable } from '../audit/decorators/auditable.decorator';
+import { AuditAction } from '../audit/entity/audit-log.entity';
 
 @Controller('products')
 export class ProductController {
@@ -63,6 +65,7 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.SELLER)
   @Serialize(ProductResponseDto)
+  @Auditable(AuditAction.PRODUCT_CREATED)
   create(@Body() dto: CreateProductDto, @Req() req: any) {
     return this.productService.create(dto, req.user.sub);
   }
@@ -71,6 +74,7 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.SELLER)
   @Serialize(ProductResponseDto)
+  @Auditable(AuditAction.PRODUCT_UPDATED)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateProductDto,
@@ -83,6 +87,7 @@ export class ProductController {
   @HttpCode(204)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.SELLER)
+  @Auditable(AuditAction.PRODUCT_DELETED)
   remove(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
     return this.productService.remove(id, req.user.sub);
   }
@@ -134,12 +139,14 @@ export class AdminProductController {
 
   @Patch(':id/approve')
   @Serialize(ProductResponseDto)
+  @Auditable(AuditAction.PRODUCT_APPROVED)
   approve(@Param('id', ParseIntPipe) id: number) {
     return this.productService.approve(id);
   }
 
   @Patch(':id/reject')
   @Serialize(ProductResponseDto)
+  @Auditable(AuditAction.PRODUCT_REJECTED, { captureBody: ['reason'] })
   reject(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: RejectProductDto,
