@@ -11,6 +11,7 @@ import { ClothingEntity } from './entity/clothing/clothing.entity';
 import { ShoesEntity } from './entity/shoes/shoes.entity';
 import { FoodEntity } from './entity/food/food.entity';
 import { SellerEntity } from '../seller/entity/seller.entity';
+import { OrderItemEntity } from '../order/entity/order-item.entity';
 import { ProductController, AdminProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { ProductSeedService } from '../common/seeds/product.seed';
@@ -30,6 +31,7 @@ import { AuthModule } from '../auth/auth.module';
       LivingProductEntity,
       ShoesEntity,
       SellerEntity,
+      OrderItemEntity,
     ]),
     CommonModule,
     AuthModule,

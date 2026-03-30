@@ -1,21 +1,36 @@
-import { BaseModel } from "../../common/entity/base.entity";
-import { Column, Entity, ManyToOne, JoinColumn } from "typeorm";
-import type { UserModel } from "../../user/entity/user.entity";
-import type { ProductEntity } from "../../product/entity/product.entity";
+import { BaseModel } from '../../common/entity/base.entity';
+import { Column, Entity, ManyToOne, JoinColumn, Unique, Index } from 'typeorm';
+import type { UserModel } from '../../user/entity/user.entity';
+import type { ProductEntity } from '../../product/entity/product.entity';
 
 @Entity('reviews')
+@Unique(['userId', 'productId', 'orderId'])
 export class ReviewEntity extends BaseModel {
-    @ManyToOne(() => ProductEntity, (product) => product.reviews)
-    @JoinColumn()
-    product: ProductEntity;
+  @Column({ name: 'user_id' })
+  @Index()
+  userId: number;
 
-    @ManyToOne(() => UserModel, (user) => user.reviews)
-    @JoinColumn()
-    user: UserModel;
+  @ManyToOne('UserModel', 'reviews')
+  @JoinColumn({ name: 'user_id' })
+  user: UserModel;
 
-    @Column()
-    rating: number;
+  @Column({ name: 'product_id' })
+  @Index()
+  productId: number;
 
-    @Column()
-    comment: string;
+  @ManyToOne('ProductEntity', 'reviews')
+  @JoinColumn({ name: 'product_id' })
+  product: ProductEntity;
+
+  @Column({ name: 'order_id' })
+  orderId: number;
+
+  @Column({ type: 'smallint' })
+  rating: number;
+
+  @Column({ type: 'text' })
+  comment: string;
+
+  @Column('text', { array: true, default: '{}' })
+  imageUrls: string[];
 }

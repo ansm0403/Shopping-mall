@@ -5,4 +5,6 @@ export * from './wishList/index.js';
 export * from './auth/index.js';
 export * from './cart/index.js';
 export * from './order/index.js';
+export * from './settlement/index.js';
+export * from './inquiry/index.js';
 export * from './base.model.js';

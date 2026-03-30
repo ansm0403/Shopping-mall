@@ -15,11 +15,13 @@ import { firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { PaymentEntity, PaymentStatus } from './entity/payment.entity';
 import { OrderEntity, OrderStatus } from '../order/entity/order.entity';
+import { ShipmentEntity } from '../order/entity/shipment.entity';
 import { ProductEntity } from '../product/entity/product.entity';
 import { OrderItemEntity } from '../order/entity/order-item.entity';
 import { RedisService } from '../intrastructure/redis/redis.service';
 import { VerifyPaymentDto } from './dto/verify-payment.dto';
 import { CancelPaymentDto } from './dto/cancel-payment.dto';
+import { WebhookPaymentDto } from './dto/webhook-payment.dto';
 import { OrderPaidEvent, OrderCancelledEvent } from '../order/events/order.events';
 
 @Injectable()
@@ -280,8 +282,8 @@ export class PaymentService {
       throw new ForbiddenException('본인의 주문만 취소할 수 있습니다.');
     }
 
-    if (order.status !== OrderStatus.PAID) {
-      throw new BadRequestException('결제 완료 상태의 주문만 취소할 수 있습니다.');
+    if (order.status !== OrderStatus.PAID && order.status !== OrderStatus.PREPARING) {
+      throw new BadRequestException('결제 완료 또는 상품 준비 중 상태의 주문만 취소할 수 있습니다.');
     }
 
     if (!order.payment || !order.payment.impUid) {
@@ -310,13 +312,22 @@ export class PaymentService {
         cancellationReason: dto.reason,
       });
 
-      // 재고 복원
+      // PREPARING 상태에서 취소 시 Shipment 삭제
+      if (order.status === OrderStatus.PREPARING) {
+        await manager.delete(ShipmentEntity, { orderId: order.id });
+      }
+
+      // 재고 복원 + salesCount 차감
       for (const item of order.items) {
         await manager
           .createQueryBuilder()
           .update(ProductEntity)
-          .set({ stockQuantity: () => `"stockQuantity" + :restoreQty` })
+          .set({
+            stockQuantity: () => `"stockQuantity" + :restoreQty`,
+            salesCount: () => `GREATEST("salesCount" - :salesQty, 0)`,
+          })
           .setParameter('restoreQty', item.quantity)
+          .setParameter('salesQty', item.quantity)
           .where('id = :id', { id: item.productId })
           .execute();
       }
@@ -333,5 +344,176 @@ export class PaymentService {
       where: { id: order.payment.id },
       relations: ['order'],
     });
+  }
+
+  /** 관리자: 결제 취소 (userId 검증 없음, PREPARING 상태 취소 가능) */
+  async cancelPaymentByAdmin(orderNumber: string, dto: CancelPaymentDto) {
+    const order = await this.orderRepository.findOne({
+      where: { orderNumber },
+      relations: ['items', 'payment'],
+    });
+    if (!order) {
+      throw new NotFoundException(`주문번호 ${orderNumber}를 찾을 수 없습니다.`);
+    }
+
+    if (order.status !== OrderStatus.PAID && order.status !== OrderStatus.PREPARING) {
+      throw new BadRequestException('결제 완료 또는 상품 준비 중 상태의 주문만 취소할 수 있습니다.');
+    }
+
+    if (!order.payment || !order.payment.impUid) {
+      throw new BadRequestException('결제 정보를 찾을 수 없습니다.');
+    }
+
+    const cancelResult = await this.cancelPaymentOnPortOne(
+      order.payment.impUid,
+      dto.reason,
+    );
+
+    await this.dataSource.transaction(async (manager) => {
+      await manager.update(PaymentEntity, order.payment.id, {
+        status: PaymentStatus.CANCELLED,
+        cancelledAt: new Date(),
+        cancelAmount: cancelResult.cancel_amount,
+        cancelReason: dto.reason,
+        rawResponse: cancelResult,
+      });
+
+      await manager.update(OrderEntity, order.id, {
+        status: OrderStatus.CANCELLED,
+        cancelledAt: new Date(),
+        cancellationReason: dto.reason,
+      });
+
+      // Shipment 삭제
+      await manager.delete(ShipmentEntity, { orderId: order.id });
+
+      // 재고 복원 + salesCount 차감
+      for (const item of order.items) {
+        await manager
+          .createQueryBuilder()
+          .update(ProductEntity)
+          .set({
+            stockQuantity: () => `"stockQuantity" + :restoreQty`,
+            salesCount: () => `GREATEST("salesCount" - :salesQty, 0)`,
+          })
+          .setParameter('restoreQty', item.quantity)
+          .setParameter('salesQty', item.quantity)
+          .where('id = :id', { id: item.productId })
+          .execute();
+      }
+    });
+
+    this.eventEmitter.emit(
+      'order.cancelled',
+      new OrderCancelledEvent(
+        order.id, order.userId, orderNumber, dto.reason, true,
+      ),
+    );
+
+    return this.paymentRepository.findOne({
+      where: { id: order.payment.id },
+      relations: ['order'],
+    });
+  }
+
+  // ──────────── 웹훅 ────────────
+
+  /**
+   * PortOne 웹훅 처리
+   * 클라이언트가 verifyPayment를 호출하지 못하는 경우(네트워크 끊김, 브라우저 닫힘 등)를 보완.
+   * 기존 verifyPayment 로직을 재사용하되, userId 검증 없이 서버 간 통신으로 처리.
+   */
+  async handleWebhook(dto: WebhookPaymentDto) {
+    const { imp_uid, merchant_uid, status } = dto;
+
+    this.logger.log(`PortOne 웹훅 수신 — impUid: ${imp_uid}, merchantUid: ${merchant_uid}, status: ${status}`);
+
+    // paid 상태만 처리 (취소 등은 별도 로직 불필요 — 우리 서버에서 취소를 먼저 발행하므로)
+    if (status !== 'paid') {
+      this.logger.log(`웹훅 상태 ${status} — 처리 스킵`);
+      return { message: 'ok' };
+    }
+
+    // Payment 조회
+    const payment = await this.paymentRepository.findOne({
+      where: { merchantUid: merchant_uid },
+      relations: ['order'],
+    });
+
+    if (!payment) {
+      this.logger.warn(`웹훅: 결제 정보를 찾을 수 없음 — merchantUid: ${merchant_uid}`);
+      return { message: 'payment not found' };
+    }
+
+    // 이미 처리 완료된 경우 (멱등성)
+    if (payment.status === PaymentStatus.PAID) {
+      this.logger.log(`웹훅: 이미 결제 완료 — merchantUid: ${merchant_uid}`);
+      return { message: 'already paid' };
+    }
+
+    // 만료/취소된 주문에 결제가 들어온 경우 → 자동 환불
+    if (payment.status === PaymentStatus.FAILED || payment.status === PaymentStatus.CANCELLED) {
+      this.logger.warn(`웹훅: 만료/취소된 주문에 결제 감지 — 자동 취소 진행. impUid: ${imp_uid}`);
+      try {
+        await this.cancelPaymentOnPortOne(imp_uid, '주문 만료/취소 후 결제 건 자동 환불 (웹훅)');
+      } catch (e) {
+        this.logger.error(`웹훅: 자동 환불 실패 — ${e instanceof Error ? e.message : e}`);
+      }
+      return { message: 'refunded - order expired' };
+    }
+
+    // READY 상태인 경우 → 정상 결제 검증 처리
+    const portonePayment = await this.getPaymentFromPortOne(imp_uid);
+
+    if (portonePayment.status !== 'paid') {
+      this.logger.warn(`웹훅: 포트원 상태 불일치 — expected: paid, actual: ${portonePayment.status}`);
+      return { message: 'portone status mismatch' };
+    }
+
+    // 금액 위변조 검증
+    const expectedAmount = Number(payment.amount);
+    if (portonePayment.amount !== expectedAmount) {
+      this.logger.error(
+        `웹훅: 금액 위변조 감지! expected: ${expectedAmount}, actual: ${portonePayment.amount}, impUid: ${imp_uid}`,
+      );
+      try {
+        await this.cancelPaymentOnPortOne(imp_uid, '결제 금액 위변조 감지 (웹훅)');
+      } catch (e) {
+        this.logger.error(`웹훅: 위변조 건 자동 취소 실패 — ${e instanceof Error ? e.message : e}`);
+      }
+      return { message: 'amount mismatch - refunded' };
+    }
+
+    // 트랜잭션: Payment + Order 상태 갱신
+    await this.dataSource.transaction(async (manager) => {
+      await manager.update(PaymentEntity, payment.id, {
+        impUid: imp_uid,
+        status: PaymentStatus.PAID,
+        paymentMethod: portonePayment.pay_method ?? null,
+        pgProvider: portonePayment.pg_provider ?? null,
+        receiptUrl: portonePayment.receipt_url ?? null,
+        paidAt: new Date(portonePayment.paid_at * 1000),
+        rawResponse: portonePayment,
+      });
+
+      await manager.update(OrderEntity, payment.orderId, {
+        status: OrderStatus.PAID,
+        paidAt: new Date(portonePayment.paid_at * 1000),
+      });
+    });
+
+    // 이벤트 발행
+    this.eventEmitter.emit(
+      'order.paid',
+      new OrderPaidEvent(
+        payment.orderId,
+        payment.order.userId,
+        payment.merchantUid,
+        imp_uid,
+      ),
+    );
+
+    this.logger.log(`웹훅: 결제 검증 완료 — merchantUid: ${merchant_uid}`);
+    return { message: 'ok' };
   }
 }

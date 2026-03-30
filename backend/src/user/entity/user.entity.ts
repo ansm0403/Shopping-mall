@@ -1,4 +1,3 @@
-import type { WishListEntity } from "../../wish-list/entity/wishList.entity";
 import type { CartEntity } from "../../cart/entity/cart.entity";
 import { BaseModel } from "../../common/entity/base.entity";
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne } from "typeorm";
@@ -32,9 +31,6 @@ export class UserModel extends BaseModel {
         inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
     })
     roles: RoleEntity[];
-
-    @OneToOne(() => WishListEntity, (wishList) => wishList.user)
-    wishList: WishListEntity;
 
     @OneToOne('CartEntity', 'user')
     cart: CartEntity;

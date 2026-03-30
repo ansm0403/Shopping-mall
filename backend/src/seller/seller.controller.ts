@@ -18,6 +18,8 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../user/entity/role.entity';
 import { User } from '../auth/decorators/user.decorator';
 import { SellerStatus } from './entity/seller.entity';
+import { Auditable } from '../audit/decorators/auditable.decorator';
+import { AuditAction } from '../audit/entity/audit-log.entity';
 
 @Controller('seller')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -48,6 +50,7 @@ export class SellerController {
   // 관리자: 승인
   @Patch('applications/:id/approve')
   @Roles(Role.ADMIN)
+  @Auditable(AuditAction.SELLER_APPROVED)
   approve(@Param('id', ParseIntPipe) id: number) {
     return this.sellerService.approve(id);
   }
@@ -55,6 +58,7 @@ export class SellerController {
   // 관리자: 거절
   @Patch('applications/:id/reject')
   @Roles(Role.ADMIN)
+  @Auditable(AuditAction.SELLER_REJECTED, { captureBody: ['reason'] })
   reject(@Param('id', ParseIntPipe) id: number, @Body() dto: RejectSellerDto) {
     return this.sellerService.reject(id, dto.reason);
   }
