@@ -7,7 +7,6 @@ Public (비로그인)	/	홈, 상품 목록/상세, 로그인/회원가입
 Buyer (구매자)	/my/*	마이페이지, 장바구니, 주문, 위시리스트, 리뷰, 문의
 Seller (판매자)	/seller/*	상품 관리, 주문 관리, 문의 응답, 정산
 Admin (관리자)	/admin/*	상품 승인, 주문 관리, 판매자 관리, 정산, 감사 로그
-
 2. Next.js App Router 폴더 구조
 
 frontend/src/app/
@@ -61,7 +60,6 @@ frontend/src/app/
 │   └── audit-logs/page.tsx             # 감사 로그 조회
 │
 └── not-found.tsx                       # 404
-
 3. 컴포넌트 계층 구조
 
 frontend/src/
@@ -163,7 +161,6 @@ frontend/src/
 │
 └── styles/
     └── theme.ts                       # 색상, 타이포그래피, 간격 토큰
-
 4. 핵심 설계 포인트
 Server Component vs Client Component 구분
 구분	Server Component	Client Component ('use client')
@@ -171,22 +168,19 @@ Server Component vs Client Component 구분
 이유	Next.js 15 기본이 Server Component	Emotion은 런타임 CSS-in-JS로 클라이언트 필수
 패턴: 각 page.tsx는 Server Component로 두고, 실제 UI는 Client Component를 import하여 렌더링합니다.
 
+
 // app/products/page.tsx (Server Component)
 import { ProductListPage } from '@/components/product/ProductGrid';
 export default function Page() {
   return <ProductListPage />;
 }
-
-
 TanStack Query v5 주의사항
-* isLoading → isPending 사용
-* cacheTime → gcTime 사용
-* QueryClientProvider는 Client Component에서 설정
-
+isLoading → isPending 사용
+cacheTime → gcTime 사용
+QueryClientProvider는 Client Component에서 설정
 Shared 타입 활용
 
 import type { Product, OrderStatus, Review } from '@shopping-mall/shared';
-
 5. 주요 페이지별 API 연동 시나리오
 페이지	API 호출	주요 인터랙션
 홈	GET /products, GET /categories	카테고리 네비게이션, 상품 카드 클릭
@@ -220,3 +214,4 @@ frontend/project.json	Nx 프로젝트 설정
 nx.json	워크스페이스 설정, shared 라이브러리 참조 방식
 tsconfig.base.json	모노레포 루트 path mapping
 shared/src/index.ts	shared 라이브러리 export 구조 확인
+이 설계안을 기반으로 구현을 진행하면 됩니다. 어떤 부분부터 시작할지, 또는 설계에 수정이 필요한 부분이 있으면 말씀해 주세요.

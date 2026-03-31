@@ -1,7 +1,3 @@
-import React from 'react'
-
-export default function AdminPage() {
-  return (
-    <div>AdminPage</div>
-  )
+export default function AdminDashboardPage() {
+  return <div>어드민 대시보드</div>;
 }
