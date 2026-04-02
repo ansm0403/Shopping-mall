@@ -8,6 +8,7 @@ import { OrderItemEntity } from '../order/entity/order-item.entity';
 import { ProductEntity } from '../product/entity/product.entity';
 import { ReviewEventListener } from './listeners/review-event.listener';
 import { AuthModule } from '../auth/auth.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AuthModule } from '../auth/auth.module';
       ProductEntity,
     ]),
     AuthModule,
+    CommonModule,
   ],
   controllers: [ReviewController],
   providers: [ReviewService, ReviewEventListener],

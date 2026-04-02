@@ -1,15 +1,17 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsNumber, IsOptional, IsString, IsBoolean } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString, IsBoolean, Min } from 'class-validator';
 import { AuditAction } from '../entity/audit-log.entity';
 
 export class AuditLogQueryDto {
   @Type(() => Number)
   @IsNumber()
+  @Min(1)
   @IsOptional()
   page?: number = 1;
 
   @Type(() => Number)
   @IsNumber()
+  @Min(1)
   @IsOptional()
   take?: number = 50;
 

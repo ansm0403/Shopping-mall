@@ -10,6 +10,8 @@ import { SellerEntity, SellerStatus } from './entity/seller.entity';
 import { UserModel } from '../user/entity/user.entity';
 import { RoleEntity, Role } from '../user/entity/role.entity';
 import { ApplySellerDto } from './dto/apply-seller.dto';
+import { SellerApplicationQueryDto } from './dto/seller-application-query.dto';
+import { CommonService } from '../common/common.service';
 
 @Injectable()
 export class SellerService {
@@ -20,6 +22,7 @@ export class SellerService {
     private readonly userRepository: Repository<UserModel>,
     @InjectRepository(RoleEntity)
     private readonly roleRepository: Repository<RoleEntity>,
+    private readonly commonService: CommonService,
   ) {}
 
   async apply(userId: number, dto: ApplySellerDto) {
@@ -56,11 +59,10 @@ export class SellerService {
   }
 
   // 관리자: 신청 목록 조회
-  async getApplications(status?: SellerStatus) {
-    return this.sellerRepository.find({
-      where: status ? { status } : {},
+  async getApplications(query: SellerApplicationQueryDto) {
+    return this.commonService.paginate(query, this.sellerRepository, 'seller/applications', {
+      where: query.status ? { status: query.status } : {},
       relations: ['user'],
-      order: { createdAt: 'DESC' },
     });
   }
 

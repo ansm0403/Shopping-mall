@@ -6,11 +6,13 @@ import { SellerEntity } from './entity/seller.entity';
 import { UserModel } from '../user/entity/user.entity';
 import { RoleEntity } from '../user/entity/role.entity';
 import { AuthModule } from '../auth/auth.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([SellerEntity, UserModel, RoleEntity]),
     AuthModule,
+    CommonModule,
   ],
   controllers: [SellerController],
   providers: [SellerService],

@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { AuditLogEntity, AuditAction } from './entity/audit-log.entity';
 import { AuditLogQueryDto } from './dto/audit-log-query.dto';
+import { BasePaginateDto } from '../common/dto/paginate.dto';
+import { CommonService } from '../common/common.service';
 
 export interface LogData {
   userId?: number;
@@ -19,6 +21,7 @@ export class AuditService {
   constructor(
     @InjectRepository(AuditLogEntity)
     private readonly auditLogRepository: Repository<AuditLogEntity>,
+    private readonly commonService: CommonService,
   ) {}
 
   async log(data: LogData): Promise<void> {
@@ -40,11 +43,9 @@ export class AuditService {
     }
   }
 
-  async getUserLogs(userId: number, limit = 50) {
-    return this.auditLogRepository.find({
+  async getUserLogs(userId: number, query: BasePaginateDto) {
+    return this.commonService.paginate(query, this.auditLogRepository, 'audit/user-logs', {
       where: { userId },
-      order: { createdAt: 'DESC' },
-      take: limit,
     });
   }
 

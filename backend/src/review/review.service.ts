@@ -14,6 +14,7 @@ import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { ReviewCreatedEvent, ReviewDeletedEvent } from './events/review.events';
 import { BasePaginateDto } from '../common/dto/paginate.dto';
+import { CommonService } from '../common/common.service';
 
 @Injectable()
 export class ReviewService {
@@ -25,6 +26,7 @@ export class ReviewService {
     @InjectRepository(OrderItemEntity)
     private readonly orderItemRepository: Repository<OrderItemEntity>,
     private readonly eventEmitter: EventEmitter2,
+    private readonly commonService: CommonService,
   ) {}
 
   async create(userId: number, dto: CreateReviewDto) {
@@ -146,51 +148,17 @@ export class ReviewService {
   }
 
   async getByProduct(productId: number, query: BasePaginateDto) {
-    const page = query.page ?? 1;
-    const take = query.take ?? 20;
-    const sortBy = query.sortBy === 'rating' ? 'rating' : 'createdAt';
-    const sortOrder = query.sortOrder ?? 'DESC';
-
-    const [reviews, total] = await this.reviewRepository.findAndCount({
+    return this.commonService.paginate(query, this.reviewRepository, 'reviews', {
       where: { productId },
       relations: ['user'],
-      order: { [sortBy]: sortOrder },
-      skip: (page - 1) * take,
-      take,
     });
-
-    return {
-      data: reviews,
-      meta: {
-        total,
-        page,
-        take,
-        totalPages: Math.ceil(total / take),
-      },
-    };
   }
 
   async getMyReviews(userId: number, query: BasePaginateDto) {
-    const page = query.page ?? 1;
-    const take = query.take ?? 20;
-
-    const [reviews, total] = await this.reviewRepository.findAndCount({
+    return this.commonService.paginate(query, this.reviewRepository, 'reviews/my', {
       where: { userId },
       relations: ['user'],
-      order: { createdAt: 'DESC' },
-      skip: (page - 1) * take,
-      take,
     });
-
-    return {
-      data: reviews,
-      meta: {
-        total,
-        page,
-        take,
-        totalPages: Math.ceil(total / take),
-      },
-    };
   }
 
   private async findOneWithUser(reviewId: number) {

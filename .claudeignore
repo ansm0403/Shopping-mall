@@ -28,7 +28,7 @@ postgres_data/
 !.env.example
 
 # Backend 전용 작업 시 불필요한 폴더
-# frontend/
+frontend/
 mocks/
 
 # Frontend 전용 작업 시 불필요한 폴더

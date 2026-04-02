@@ -12,6 +12,7 @@ import { SellerEntity } from '../seller/entity/seller.entity';
 import { CreateInquiryDto } from './dto/create-inquiry.dto';
 import { AnswerInquiryDto } from './dto/answer-inquiry.dto';
 import { BasePaginateDto } from '../common/dto/paginate.dto';
+import { CommonService } from '../common/common.service';
 
 @Injectable()
 export class InquiryService {
@@ -22,6 +23,7 @@ export class InquiryService {
     private readonly productRepository: Repository<ProductEntity>,
     @InjectRepository(SellerEntity)
     private readonly sellerRepository: Repository<SellerEntity>,
+    private readonly commonService: CommonService,
   ) {}
 
   // ── Buyer ──
@@ -53,53 +55,34 @@ export class InquiryService {
   }
 
   async getByProduct(productId: number, userId: number | null, query: BasePaginateDto) {
-    const page = query.page ?? 1;
-    const take = query.take ?? 20;
-
-    const [inquiries, total] = await this.inquiryRepository.findAndCount({
+    const result = await this.commonService.paginate(query, this.inquiryRepository, 'inquiries', {
       where: { productId },
       relations: ['user'],
-      order: { createdAt: 'DESC' },
-      skip: (page - 1) * take,
-      take,
     });
 
     // 비밀 문의: 본인 것만 content/answer 노출, 나머지는 마스킹
-    const data = inquiries.map((inquiry) => {
+    result.data = result.data.map((inquiry) => {
       if (inquiry.isSecret && inquiry.userId !== userId) {
         return {
           ...inquiry,
           title: '비밀 문의입니다.',
           content: '',
           answer: null,
-          user: { id: inquiry.user.id, nickName: '***' },
+          // 탈퇴 유저의 문의는 user relation이 null일 수 있으므로 optional chaining 처리
+          user: inquiry.user ? { id: inquiry.user.id, nickName: '***' } : null,
         };
       }
       return inquiry;
-    });
+    }) as unknown as typeof result.data;
 
-    return {
-      data,
-      meta: { total, page, take, totalPages: Math.ceil(total / take) },
-    };
+    return result;
   }
 
   async getMyInquiries(userId: number, query: BasePaginateDto) {
-    const page = query.page ?? 1;
-    const take = query.take ?? 20;
-
-    const [data, total] = await this.inquiryRepository.findAndCount({
+    return this.commonService.paginate(query, this.inquiryRepository, 'inquiries/my', {
       where: { userId },
       relations: ['user'],
-      order: { createdAt: 'DESC' },
-      skip: (page - 1) * take,
-      take,
     });
-
-    return {
-      data,
-      meta: { total, page, take, totalPages: Math.ceil(total / take) },
-    };
   }
 
   async delete(userId: number, inquiryId: number) {
@@ -131,21 +114,10 @@ export class InquiryService {
       throw new NotFoundException('셀러 정보를 찾을 수 없습니다.');
     }
 
-    const page = query.page ?? 1;
-    const take = query.take ?? 20;
-
-    const [data, total] = await this.inquiryRepository.findAndCount({
+    return this.commonService.paginate(query, this.inquiryRepository, 'seller/inquiries', {
       where: { sellerId: seller.id },
       relations: ['user'],
-      order: { createdAt: 'DESC' },
-      skip: (page - 1) * take,
-      take,
     });
-
-    return {
-      data,
-      meta: { total, page, take, totalPages: Math.ceil(total / take) },
-    };
   }
 
   async answer(userId: number, inquiryId: number, dto: AnswerInquiryDto) {

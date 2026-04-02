@@ -30,10 +30,12 @@ class SerializeInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         if (data && data.data && data.meta) {
-          return {
+          const result: Record<string, unknown> = {
             data: this.transform(data.data),
             meta: data.meta,
           };
+          if (data.next !== undefined) result.next = data.next;
+          return result;
         }
         return this.transform(data);
       }),

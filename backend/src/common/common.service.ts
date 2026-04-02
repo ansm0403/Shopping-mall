@@ -22,15 +22,34 @@ export class CommonService {
    * page가 있으면 페이지 기반, 없으면 커서 기반(무한 스크롤)
    * 쿼리 예시) /product?filter[category][equals]=BEAUTY&page=1&take=20
    */
+  private static readonly MAX_TAKE = 100;
+  private static readonly SORTABLE_COLUMNS: SortableKey[] = ['id', 'createdAt', 'rating', 'price', 'viewCount'];
+
   async paginate<T extends BaseModel>(
     dto: BasePaginateDto,
     repository: Repository<T>,
     path: string,
     overrideFindOptions: FindManyOptions<T> = {}
   ) {
-    // dto.filter = this.normalizeFilter(dto.filter);
+    // page와 cursor를 동시에 사용하면 cursor가 무시되므로 명시적 에러
+    if (dto.page && dto.cursor) {
+      throw new BadRequestException('page와 cursor는 동시에 사용할 수 없습니다.');
+    }
+
+    // take 상한 제한 (과도한 DB 부하 방어)
+    if (dto.take > CommonService.MAX_TAKE) {
+      throw new BadRequestException(`take는 최대 ${CommonService.MAX_TAKE}까지 허용됩니다.`);
+    }
+
     const sortBy = (dto.sortBy ?? 'createdAt') as SortKey<T>;
     const sortOrder = dto.sortOrder || 'DESC';
+
+    // sortBy가 허용된 컬럼인지 검증 (undefined 제외 — 기본값 createdAt 으로 처리됨)
+    if (dto.sortBy && !CommonService.SORTABLE_COLUMNS.includes(dto.sortBy as SortableKey)) {
+      throw new BadRequestException(
+        `sortBy는 ${CommonService.SORTABLE_COLUMNS.join(', ')} 중 하나여야 합니다.`,
+      );
+    }
 
     if (dto.page) {
       return this.pagePaginate(
@@ -66,12 +85,15 @@ export class CommonService {
     const where = this.buildWhereClause<T>(dto.filter);
     const order = this.buildOrderClause<T>(sortBy, sortOrder);
 
+    const overrideWhere = overrideFindOptions.where ?? {};
+    const { where: _, ...restOverride } = overrideFindOptions;
+
     const [data, total] = await repository.findAndCount({
-      where,
+      where: { ...where, ...(overrideWhere as object) },
       order,
       take: dto.take,
-      skip: ((page ?? 1)- 1) * dto.take,
-      ...overrideFindOptions,
+      skip: ((page ?? 1) - 1) * dto.take,
+      ...restOverride,
     });
 
     const lastPage = Math.ceil(total / dto.take);
@@ -116,7 +138,16 @@ export class CommonService {
       .orderBy(`entity.${String(sortBy)}`, sortOrder)
       .addOrderBy('entity.id', sortOrder);
 
-    // 4. relations 추가 (overrideFindOptions에서)
+    // 4. 고정 where 조건 추가 (overrideFindOptions에서) — 원시값(enum/string/number)만 처리
+    if (overrideFindOptions.where && typeof overrideFindOptions.where === 'object' && !Array.isArray(overrideFindOptions.where)) {
+      Object.entries(overrideFindOptions.where).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && typeof value !== 'object') {
+          qb.andWhere(`entity.${key} = :__fixed_${key}`, { [`__fixed_${key}`]: value });
+        }
+      });
+    }
+
+    // 5. relations 추가 (overrideFindOptions에서)
     if (overrideFindOptions.relations) {
       const relations = Array.isArray(overrideFindOptions.relations)
         ? overrideFindOptions.relations
@@ -129,7 +160,7 @@ export class CommonService {
       });
     }
 
-    // 5. take + 1로 조회 (다음 페이지 존재 여부 확인)
+    // 6. take + 1로 조회 (다음 페이지 존재 여부 확인)
     qb.take(dto.take + 1);
 
     const data = await qb.getMany();
@@ -137,7 +168,7 @@ export class CommonService {
     const hasNext = data.length > dto.take;
     const items = hasNext ? data.slice(0, dto.take) : data;
 
-    // 6. 다음 커서 생성
+    // 7. 다음 커서 생성
     let nextCursor: string | null = null;
     let nextUrl: string | null = null;
 
@@ -161,7 +192,7 @@ export class CommonService {
   /**
    * QueryBuilder에 필터 조건 적용
    */
-  private applyFilters<T extends BaseModel>(
+  private applyFilters(
     qb: any,
     filter?: PaginateFilterDto
   ): void {
@@ -285,6 +316,10 @@ export class CommonService {
         Buffer.from(cursor, 'base64').toString('utf-8')
       );
       const { sortValue, id } = decoded;
+
+      if (sortValue === undefined || id === undefined) {
+        throw new BadRequestException('커서에 필수 값(sortValue, id)이 없습니다.');
+      }
 
       const sortOperator = sortOrder === 'DESC' ? '<' : '>';
       const idOperator = sortOrder === 'DESC' ? '<' : '>';

@@ -17,9 +17,9 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../user/entity/role.entity';
 import { User } from '../auth/decorators/user.decorator';
-import { SellerStatus } from './entity/seller.entity';
 import { Auditable } from '../audit/decorators/auditable.decorator';
 import { AuditAction } from '../audit/entity/audit-log.entity';
+import { SellerApplicationQueryDto } from './dto/seller-application-query.dto';
 
 @Controller('seller')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -43,8 +43,8 @@ export class SellerController {
   // 관리자: 신청 목록 조회
   @Get('applications')
   @Roles(Role.ADMIN)
-  getApplications(@Query('status') status?: SellerStatus) {
-    return this.sellerService.getApplications(status);
+  getApplications(@Query() query: SellerApplicationQueryDto) {
+    return this.sellerService.getApplications(query);
   }
 
   // 관리자: 승인

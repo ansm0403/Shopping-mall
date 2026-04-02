@@ -1,5 +1,5 @@
 import { Transform, Type } from 'class-transformer';
-import { IsArray, IsEnum, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsEnum, IsNumber, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
 
 export class NumberFilterDto {
   @IsOptional()
@@ -110,11 +110,13 @@ export class PaginateFilterDto {
 export class BasePaginateDto {
   @Type(() => Number)
   @IsNumber()
+  @Min(1)
   @IsOptional()
   page?: number;
 
   @Type(() => Number)
   @IsNumber()
+  @Min(1)
   @IsOptional()
   take = 20;
 

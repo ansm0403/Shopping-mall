@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, FindOptionsWhere, Repository } from 'typeorm';
 import { ProductEntity, ProductStatus, ApprovalStatus } from './entity/product.entity';
 import { ProductImageEntity } from './entity/product-image.entity';
 import { SellerEntity, SellerStatus } from '../seller/entity/seller.entity';
@@ -17,6 +17,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { ProductCreatedEvent, ProductApprovedEvent, ProductRejectedEvent } from './events/product.events';
+import { CommonService } from '../common/common.service';
 
 @Injectable()
 export class ProductService {
@@ -34,6 +35,7 @@ export class ProductService {
     private readonly dataSource: DataSource,
     private readonly eventEmitter: EventEmitter2,
     private readonly redisService: RedisService,
+    private readonly commonService: CommonService,
   ) {}
 
   private static readonly CACHE_TTL_LIST = 60;      // 목록 60초
@@ -53,43 +55,29 @@ export class ProductService {
 
   /** 구매자용: APPROVED + PUBLISHED 상품만 조회 (Redis 캐싱) */
   async findAll(query: ProductQueryDto) {
-    const { page = 1, take = 20, categoryId, status, sellerId } = query;
-
-    const cacheKey = `products:list:${page}:${take}:${categoryId ?? ''}:${status ?? ''}:${sellerId ?? ''}`;
-    const cached = await this.redisService.getCache(cacheKey);
-    if (cached) return cached;
-
-    const qb = this.productRepository
-      .createQueryBuilder('product')
-      .leftJoinAndSelect('product.images', 'images')
-      .leftJoinAndSelect('product.category', 'category')
-      .leftJoinAndSelect('product.seller', 'seller')
-      .andWhere('product.approvalStatus = :approvalStatus', {
-        approvalStatus: ApprovalStatus.APPROVED,
-      })
-      .orderBy('product.createdAt', 'DESC')
-      .take(take)
-      .skip((page - 1) * take);
-
-    if (categoryId) {
-      qb.andWhere('product.categoryId = :categoryId', { categoryId });
-    }
-    if (status) {
-      qb.andWhere('product.status = :status', { status });
-    } else {
-      qb.andWhere('product.status = :status', { status: ProductStatus.PUBLISHED });
-    }
-    if (sellerId) {
-      qb.andWhere('product.sellerId = :sellerId', { sellerId });
+    const cacheKey = `products:list:${JSON.stringify(query)}`;
+    const cached = await this.redisService.getCache<{ data: unknown[]; meta: unknown }>(cacheKey);
+    // 캐시 corrupt 방어: data 배열과 meta 객체가 없으면 캐시를 무효화하고 DB 조회
+    if (cached) {
+      if (Array.isArray(cached.data) && cached.meta && typeof cached.meta === 'object') {
+        return cached;
+      }
+      await this.redisService.delCache(cacheKey);
     }
 
-    const [data, total] = await qb.getManyAndCount();
-    const lastPage = Math.ceil(total / take);
-
-    const result = {
-      data,
-      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
+    const fixedWhere: FindOptionsWhere<ProductEntity> = {
+      approvalStatus: ApprovalStatus.APPROVED,
+      status: ProductStatus.PUBLISHED,
     };
+    if (query.categoryId) fixedWhere.categoryId = query.categoryId;
+    if (query.sellerId)   fixedWhere.sellerId   = query.sellerId;
+
+    const result = await this.commonService.paginate(
+      query,
+      this.productRepository,
+      'products',
+      { where: fixedWhere, relations: ['images', 'category', 'seller'] },
+    );
 
     await this.redisService.setCache(cacheKey, result, ProductService.CACHE_TTL_LIST);
     return result;
@@ -148,34 +136,18 @@ export class ProductService {
   /** 셀러: 본인 상품 목록 (모든 상태) */
   async findMyProducts(userId: number, query: ProductQueryDto) {
     const seller = await this.getApprovedSeller(userId);
-    const { page = 1, take = 20, categoryId, status, approvalStatus } = query;
 
-    const qb = this.productRepository
-      .createQueryBuilder('product')
-      .leftJoinAndSelect('product.images', 'images')
-      .leftJoinAndSelect('product.category', 'category')
-      .andWhere('product.sellerId = :sellerId', { sellerId: seller.id })
-      .orderBy('product.createdAt', 'DESC')
-      .take(take)
-      .skip((page - 1) * take);
+    const fixedWhere: FindOptionsWhere<ProductEntity> = { sellerId: seller.id };
+    if (query.categoryId)    fixedWhere.categoryId    = query.categoryId;
+    if (query.status)        fixedWhere.status        = query.status;
+    if (query.approvalStatus) fixedWhere.approvalStatus = query.approvalStatus;
 
-    if (categoryId) {
-      qb.andWhere('product.categoryId = :categoryId', { categoryId });
-    }
-    if (status) {
-      qb.andWhere('product.status = :status', { status });
-    }
-    if (approvalStatus) {
-      qb.andWhere('product.approvalStatus = :approvalStatus', { approvalStatus });
-    }
-
-    const [data, total] = await qb.getManyAndCount();
-    const lastPage = Math.ceil(total / take);
-
-    return {
-      data,
-      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
-    };
+    return this.commonService.paginate(
+      query,
+      this.productRepository,
+      'products/my',
+      { where: fixedWhere, relations: ['images', 'category'] },
+    );
   }
 
   /** 셀러: 상품 등록 (approvalStatus = PENDING) */
@@ -322,37 +294,18 @@ export class ProductService {
 
   /** 관리자: 전체 상품 조회 (모든 상태) */
   async findAllAdmin(query: ProductQueryDto) {
-    const { page = 1, take = 20, categoryId, status, approvalStatus, sellerId } = query;
+    const fixedWhere: FindOptionsWhere<ProductEntity> = {};
+    if (query.categoryId)     fixedWhere.categoryId     = query.categoryId;
+    if (query.status)         fixedWhere.status         = query.status;
+    if (query.approvalStatus) fixedWhere.approvalStatus = query.approvalStatus;
+    if (query.sellerId)       fixedWhere.sellerId       = query.sellerId;
 
-    const qb = this.productRepository
-      .createQueryBuilder('product')
-      .leftJoinAndSelect('product.images', 'images')
-      .leftJoinAndSelect('product.category', 'category')
-      .leftJoinAndSelect('product.seller', 'seller')
-      .orderBy('product.createdAt', 'DESC')
-      .take(take)
-      .skip((page - 1) * take);
-
-    if (categoryId) {
-      qb.andWhere('product.categoryId = :categoryId', { categoryId });
-    }
-    if (status) {
-      qb.andWhere('product.status = :status', { status });
-    }
-    if (approvalStatus) {
-      qb.andWhere('product.approvalStatus = :approvalStatus', { approvalStatus });
-    }
-    if (sellerId) {
-      qb.andWhere('product.sellerId = :sellerId', { sellerId });
-    }
-
-    const [data, total] = await qb.getManyAndCount();
-    const lastPage = Math.ceil(total / take);
-
-    return {
-      data,
-      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
-    };
+    return this.commonService.paginate(
+      query,
+      this.productRepository,
+      'admin/products',
+      { where: fixedWhere, relations: ['images', 'category', 'seller'] },
+    );
   }
 
   /** 관리자: 상품 승인 */

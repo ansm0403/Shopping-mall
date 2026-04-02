@@ -223,7 +223,7 @@ export class OrderService {
 
     return {
       data,
-      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
+      meta: { total, page, lastPage, take, hasNextPage: page < lastPage, hasPreviousPage: page > 1 },
     };
   }
 
@@ -311,7 +311,7 @@ export class OrderService {
 
     return {
       data,
-      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
+      meta: { total, page, lastPage, take, hasNextPage: page < lastPage, hasPreviousPage: page > 1 },
     };
   }
 
@@ -473,7 +473,7 @@ export class OrderService {
 
     return {
       data,
-      meta: { total, page, lastPage, take, hasNextPage: page < lastPage },
+      meta: { total, page, lastPage, take, hasNextPage: page < lastPage, hasPreviousPage: page > 1 },
     };
   }
 

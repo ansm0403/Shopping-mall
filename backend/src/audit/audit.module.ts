@@ -6,11 +6,14 @@ import { AuditService } from './audit.service';
 import { AuditController } from './audit.controller';
 import { AuditInterceptor } from './interceptors/audit.interceptor';
 import { AuthModule } from '../auth/auth.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AuditLogEntity]),
-  forwardRef(() => AuthModule),
-],
+  imports: [
+    TypeOrmModule.forFeature([AuditLogEntity]),
+    forwardRef(() => AuthModule),
+    CommonModule,
+  ],
   controllers: [AuditController],
   providers: [
     AuditService,
