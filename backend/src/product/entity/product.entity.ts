@@ -78,7 +78,7 @@ export class ProductEntity extends BaseModel {
   @Column({ nullable: true, type: 'text', name: 'rejection_reason' })
   rejectionReason: string | null;
 
-  @Column({ nullable: true, name: 'approved_at' })
+  @Column({ type: 'timestamp', nullable: true, name: 'approved_at' })
   approvedAt: Date | null;
 
   @Column({ type: 'int', default: 0 })

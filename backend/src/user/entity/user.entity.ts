@@ -35,6 +35,6 @@ export class UserModel extends BaseModel {
     @OneToOne('CartEntity', 'user')
     cart: CartEntity;
 
-    @OneToMany(() => ReviewEntity, (review) => review.user)
+    @OneToMany('ReviewEntity', (review: any) => review.user)
     reviews: ReviewEntity[];
 }

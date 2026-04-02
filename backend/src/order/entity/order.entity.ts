@@ -43,18 +43,23 @@ export class OrderEntity extends BaseModel {
   @Column({ name: 'recipient_phone' })
   recipientPhone: string;
 
+  // 1. memo: string | null 이므로 type: 'text' 명시 (이미 되어있으나 확인)
   @Column({ type: 'text', nullable: true })
   memo: string | null;
 
-  @Column({ nullable: true, name: 'paid_at' })
+  // 2. paidAt: Date | null 이므로 type: 'timestamptz' 추가
+  @Column({ type: 'timestamptz', nullable: true, name: 'paid_at' })
   paidAt: Date | null;
 
-  @Column({ nullable: true, name: 'cancelled_at' })
+  // 3. cancelledAt: Date | null 이므로 type: 'timestamptz' 추가
+  @Column({ type: 'timestamptz', nullable: true, name: 'cancelled_at' })
   cancelledAt: Date | null;
 
+  // 4. cancellationReason: string | null 이므로 type: 'text' 명시 (이미 되어있으나 확인)
   @Column({ type: 'text', nullable: true, name: 'cancellation_reason' })
   cancellationReason: string | null;
 
+  // 아래 세 개는 이미 잘 되어 있습니다.
   @Column({ type: 'timestamptz', nullable: true, name: 'shipped_at' })
   shippedAt: Date | null;
 

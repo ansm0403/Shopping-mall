@@ -10,6 +10,7 @@ export enum PaymentStatus {
   FAILED = 'failed',
 }
 
+
 @Entity('payments')
 export class PaymentEntity extends BaseModel {
   @Column({ name: 'order_id', unique: true })
@@ -19,7 +20,7 @@ export class PaymentEntity extends BaseModel {
   @JoinColumn({ name: 'order_id' })
   order: OrderEntity;
 
-  @Column({ name: 'imp_uid', nullable: true, unique: true })
+  @Column({ type: 'varchar', name: 'imp_uid', nullable: true, unique: true })
   @Index()
   impUid: string | null;
 
@@ -27,7 +28,7 @@ export class PaymentEntity extends BaseModel {
   @Index()
   merchantUid: string;
 
-  @Column({ nullable: true, name: 'payment_method' })
+  @Column({ type: 'varchar', nullable: true, name: 'payment_method' })
   paymentMethod: string | null;
 
   @Column('decimal', { precision: 12, scale: 2 })
@@ -36,16 +37,16 @@ export class PaymentEntity extends BaseModel {
   @Column({ type: 'enum', enum: PaymentStatus, default: PaymentStatus.READY })
   status: PaymentStatus;
 
-  @Column({ nullable: true, name: 'pg_provider' })
+  @Column({ type: 'varchar', nullable: true, name: 'pg_provider' })
   pgProvider: string | null;
 
-  @Column({ nullable: true, name: 'receipt_url' })
+  @Column({ type: 'text', nullable: true, name: 'receipt_url' })
   receiptUrl: string | null;
 
-  @Column({ nullable: true, name: 'paid_at' })
+  @Column({ type: 'timestamptz', nullable: true, name: 'paid_at' })
   paidAt: Date | null;
 
-  @Column({ nullable: true, name: 'cancelled_at' })
+  @Column({ type: 'timestamptz', nullable: true, name: 'cancelled_at' })
   cancelledAt: Date | null;
 
   @Column('decimal', { precision: 12, scale: 2, default: 0, name: 'cancel_amount' })

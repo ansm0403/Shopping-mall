@@ -19,13 +19,13 @@ export class OrderItemEntity extends BaseModel {
 
   // ── 스냅샷 필드 (주문 시점 가격/이름 보존) ──
 
-  @Column({ name: 'product_name' })
+  @Column({ type: 'varchar', name: 'product_name' }) 
   productName: string;
 
   @Column('decimal', { precision: 10, scale: 2, name: 'product_price' })
   productPrice: number;
 
-  @Column({ nullable: true, name: 'product_image_url' })
+  @Column({ type: 'text', nullable: true, name: 'product_image_url' })
   productImageUrl: string | null;
 
   @Column({ type: 'int' })
