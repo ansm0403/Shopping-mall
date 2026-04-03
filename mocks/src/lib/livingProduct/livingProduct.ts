@@ -1,11 +1,15 @@
-import { LivingProduct } from "@shopping-mall/shared";
+import { LivingProduct, Category } from "@shared/index.js";
 
-
-export type LivingMock = Omit<LivingProduct, 'id' | 'updatedAt' | 'createdAt' > & {
-  status?: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
-  stockQuantity?: number;
-  salesCount?: number;
-  viewCount?: number;
+export type LivingMock = Omit<LivingProduct, 'id' | 'updatedAt' | 'createdAt' | 'category' | 'images'> & {
+  category: Category;
+  imageUrl?: string;
+  status: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity: number;
+  salesCount: number;
+  viewCount: number;
+  approvalStatus: 'pending' | 'approved' | 'rejected';
+  salesType: 'normal' | 'preorder' | 'discount';
+  tags: number[];
 };
 
 export const livingProducts: LivingMock[] = [
@@ -34,6 +38,9 @@ export const livingProducts: LivingMock[] = [
     weight: 800,
     color: '투명',
     capacity: 5000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -58,6 +65,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 650,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -84,6 +94,9 @@ export const livingProducts: LivingMock[] = [
     weight: 350,
     color: '블랙',
     capacity: 500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -109,6 +122,9 @@ export const livingProducts: LivingMock[] = [
     weight: 500,
     color: '화이트',
     capacity: 3000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -134,6 +150,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 400,
     color: '그레이',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -158,6 +177,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 150,
     color: '핑크',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -184,6 +206,9 @@ export const livingProducts: LivingMock[] = [
     weight: 1200,
     color: '투명',
     capacity: 3000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -209,6 +234,9 @@ export const livingProducts: LivingMock[] = [
     weight: 300,
     color: '앰버',
     capacity: 200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -234,6 +262,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 3500,
     color: '실버',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -258,6 +289,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 2500,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -283,6 +317,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 4200,
     color: '실버',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -307,6 +344,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 500,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -332,6 +372,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 600,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -357,6 +400,9 @@ export const livingProducts: LivingMock[] = [
     weight: 400,
     color: '화이트',
     capacity: 250,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -383,6 +429,9 @@ export const livingProducts: LivingMock[] = [
     weight: 2000,
     color: '실버',
     capacity: 12000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -407,6 +456,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 1800,
     color: '그레이',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -432,6 +484,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 2500,
     color: '블랙',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -456,6 +511,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 200,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -481,6 +539,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 150,
     color: '그레이',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -505,6 +566,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 800,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -530,6 +594,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 500,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -554,6 +621,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 600,
     color: '투명',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -579,6 +649,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 400,
     color: '실버',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -603,6 +676,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 1200,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -628,6 +704,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 3000,
     color: '블랙',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -653,6 +732,9 @@ export const livingProducts: LivingMock[] = [
     weight: 1500,
     color: '화이트',
     capacity: 2000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -678,6 +760,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 450,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -702,6 +787,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 200,
     color: '블랙',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -727,6 +815,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 1800,
     color: '실버',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -751,6 +842,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 2500,
     color: '브라운',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -777,6 +871,9 @@ export const livingProducts: LivingMock[] = [
     },
     color: '투명',
     capacity: 300,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -801,6 +898,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 1500,
     color: '그린',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -826,6 +926,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 300,
     color: '블루',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -851,6 +954,9 @@ export const livingProducts: LivingMock[] = [
     weight: 350,
     color: '화이트',
     capacity: 300,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -876,6 +982,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 800,
     color: '그레이',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -900,6 +1009,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 200,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -925,6 +1037,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 100,
     color: '실버',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -950,6 +1065,9 @@ export const livingProducts: LivingMock[] = [
     weight: 800,
     color: '화이트',
     capacity: 150,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -975,6 +1093,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 600,
     color: '블랙',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -999,6 +1120,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 200,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1024,6 +1148,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 1000,
     color: '그레이',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1048,6 +1175,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 8500,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1073,6 +1203,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 900,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1097,6 +1230,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 3500,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1123,6 +1259,9 @@ export const livingProducts: LivingMock[] = [
     weight: 1200,
     color: '실버',
     capacity: 1700,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1147,6 +1286,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 150,
     color: '화이트',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1172,6 +1314,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 300,
     color: '그린',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1196,6 +1341,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 800,
     color: '투명',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1221,6 +1369,9 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 400,
     color: '실버',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'LIVING',
@@ -1245,5 +1396,8 @@ export const livingProducts: LivingMock[] = [
     },
     weight: 2800,
     color: '퍼플',
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   }
 ];

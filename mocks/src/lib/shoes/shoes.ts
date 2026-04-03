@@ -1,10 +1,15 @@
-import { Shoes } from "@shared/index.js";
+import { Shoes, Category } from "@shared/index.js";
 
-export type ShoesMock = Omit<Shoes, 'id' | 'createdAt' | 'updatedAt'> & {
-  status?: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
-  stockQuantity?: number;
-  salesCount?: number;
-  viewCount?: number;
+export type ShoesMock = Omit<Shoes, 'id' | 'createdAt' | 'updatedAt' | 'category' | 'images'> & {
+  category: Category;
+  imageUrl?: string;
+  status: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity: number;
+  salesCount: number;
+  viewCount: number;
+  approvalStatus: 'pending' | 'approved' | 'rejected';
+  salesType: 'normal' | 'preorder' | 'discount';
+  tags: number[];
 }
 
 export const shoesProducts: ShoesMock[] = [
@@ -24,7 +29,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 24,
-    viewCount: 2100
+    viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -41,7 +49,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 18,
-    viewCount: 1760
+    viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -59,7 +70,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 33,
-    viewCount: 2890
+    viewCount: 2890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -76,7 +90,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 12,
-    viewCount: 1400
+    viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -94,7 +111,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 28,
-    viewCount: 2330
+    viewCount: 2330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -111,7 +131,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 20,
-    viewCount: 1900
+    viewCount: 1900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -129,7 +152,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 30,
-    viewCount: 2450
+    viewCount: 2450,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -146,7 +172,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 15,
-    viewCount: 1600
+    viewCount: 1600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -164,7 +193,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 22,
-    viewCount: 1950
+    viewCount: 1950,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -182,7 +214,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 41,
-    viewCount: 3200
+    viewCount: 3200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -199,7 +234,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 21,
-    viewCount: 1850
+    viewCount: 1850,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -217,7 +255,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 11,
-    viewCount: 1450
+    viewCount: 1450,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -234,7 +275,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 27,
-    viewCount: 2380
+    viewCount: 2380,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -252,7 +296,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 25,
-    viewCount: 2050
+    viewCount: 2050,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -270,7 +317,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 19,
-    viewCount: 1720
+    viewCount: 1720,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -287,7 +337,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 21,
-    viewCount: 1880
+    viewCount: 1880,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -304,7 +357,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 26,
-    viewCount: 2090
+    viewCount: 2090,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -322,7 +378,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 29,
-    viewCount: 2390
+    viewCount: 2390,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -339,7 +398,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 14,
-    viewCount: 1550
+    viewCount: 1550,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -357,7 +419,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 22,
-    viewCount: 1920
+    viewCount: 1920,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -374,7 +439,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 9,
-    viewCount: 1200
+    viewCount: 1200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -392,7 +460,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 24,
-    viewCount: 2000
+    viewCount: 2000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -410,7 +481,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 20,
-    viewCount: 1900
+    viewCount: 1900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -427,7 +501,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'sold_out',
     stockQuantity: 0,
     salesCount: 12,
-    viewCount: 1800
+    viewCount: 1800,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -445,7 +522,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 24,
-    viewCount: 1980
+    viewCount: 1980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -462,7 +542,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 28,
-    viewCount: 2200
+    viewCount: 2200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -480,7 +563,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 16,
-    viewCount: 1680
+    viewCount: 1680,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -497,7 +583,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 32,
-    viewCount: 2600
+    viewCount: 2600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -515,7 +604,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 23,
-    viewCount: 1780
+    viewCount: 1780,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -533,7 +625,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 13,
-    viewCount: 1500
+    viewCount: 1500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -550,7 +645,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 10,
-    viewCount: 1350
+    viewCount: 1350,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -568,7 +666,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 35,
-    viewCount: 3000
+    viewCount: 3000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -585,7 +686,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 19,
-    viewCount: 1700
+    viewCount: 1700,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -603,7 +707,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 28,
-    viewCount: 2400
+    viewCount: 2400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -620,7 +727,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 12,
-    viewCount: 1500
+    viewCount: 1500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -637,7 +747,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 14,
-    viewCount: 1480
+    viewCount: 1480,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -655,7 +768,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 33,
-    viewCount: 2890
+    viewCount: 2890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -672,7 +788,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 10,
-    viewCount: 1200
+    viewCount: 1200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -690,7 +809,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 25,
-    viewCount: 2050
+    viewCount: 2050,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -707,7 +829,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 1,
     salesCount: 6,
-    viewCount: 1050
+    viewCount: 1050,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -725,7 +850,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 22,
-    viewCount: 1900
+    viewCount: 1900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -742,7 +870,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 40,
-    viewCount: 3500
+    viewCount: 3500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -760,7 +891,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 24,
-    viewCount: 2000
+    viewCount: 2000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -777,7 +911,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'sold_out',
     stockQuantity: 0,
     salesCount: 9,
-    viewCount: 1400
+    viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -795,7 +932,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 13,
-    viewCount: 1490
+    viewCount: 1490,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -812,7 +952,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 29,
-    viewCount: 2600
+    viewCount: 2600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -830,7 +973,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 16,
-    viewCount: 1700
+    viewCount: 1700,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -847,7 +993,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 12,
-    viewCount: 1400
+    viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'SHOES',
@@ -865,7 +1014,10 @@ export const shoesProducts: ShoesMock[] = [
     status: 'published',
     stockQuantity: 1,
     salesCount: 7,
-    viewCount: 1080
+    viewCount: 1080,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
 ];
 

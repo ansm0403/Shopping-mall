@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ForbiddenException,
+  Inject,
   Injectable,
   Logger,
   NotFoundException,
@@ -18,6 +19,10 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { ProductCreatedEvent, ProductApprovedEvent, ProductRejectedEvent } from './events/product.events';
 import { CommonService } from '../common/common.service';
+import {
+  IProductSearchService,
+  PRODUCT_SEARCH_SERVICE,
+} from './interfaces/product-search.interface';
 
 @Injectable()
 export class ProductService {
@@ -36,6 +41,8 @@ export class ProductService {
     private readonly eventEmitter: EventEmitter2,
     private readonly redisService: RedisService,
     private readonly commonService: CommonService,
+    @Inject(PRODUCT_SEARCH_SERVICE)
+    private readonly searchService: IProductSearchService,
   ) {}
 
   private static readonly CACHE_TTL_LIST = 60;      // 목록 60초
@@ -55,6 +62,22 @@ export class ProductService {
 
   /** 구매자용: APPROVED + PUBLISHED 상품만 조회 (Redis 캐싱) */
   async findAll(query: ProductQueryDto) {
+    // keyword가 있으면 검색 서비스로 위임 (캐싱 없음 — 검색은 동적 쿼리라 캐시 효과 낮음)
+    if (query.keyword) {
+      return this.searchService.search({
+        keyword: query.keyword,
+        tags: query.tags,
+        categoryId: query.categoryId,
+        sellerId: query.sellerId,
+        page: query.page,
+        take: query.take,
+        sortBy: query.sortBy ?? 'createdAt',
+        sortOrder: query.sortOrder ?? 'DESC',
+        cursor: query.cursor,
+        filter: query.filter,
+      });
+    }
+
     const cacheKey = `products:list:${JSON.stringify(query)}`;
     const cached = await this.redisService.getCache<{ data: unknown[]; meta: unknown }>(cacheKey);
     // 캐시 corrupt 방어: data 배열과 meta 객체가 없으면 캐시를 무효화하고 DB 조회

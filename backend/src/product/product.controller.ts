@@ -92,6 +92,14 @@ export class ProductController {
     return this.productService.remove(id, req.user.sub);
   }
 
+  // Admin 전용: 시드 데이터 삽입
+  @Post('seed')
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  seed() {
+    return this.productSeedService.seedProducts();
+  }
+
   @Post(':id/images')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.SELLER)
@@ -113,14 +121,6 @@ export class ProductController {
     @Req() req: any,
   ) {
     return this.productService.addImage(id, req.user.sub, file);
-  }
-
-  // Admin 전용: 시드 데이터 삽입
-  @Post('seed')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  seed() {
-    return this.productSeedService.seedProducts();
   }
 }
 

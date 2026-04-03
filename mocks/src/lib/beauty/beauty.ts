@@ -1,10 +1,15 @@
-import { BaseModel, Beauty } from '@shared/index.js'
+import { Beauty, Category } from '@shared/index.js'
 
-type BeautyMock = Omit<Beauty, keyof BaseModel> & {
+type BeautyMock = Omit<Beauty, 'id' | 'createdAt' | 'updatedAt' | 'category' | 'images'> & {
+  category: Category;
+  imageUrl?: string;
   status: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
   stockQuantity: number;
   salesCount: number;
   viewCount: number;
+  approvalStatus: 'pending' | 'approved' | 'rejected';
+  salesType: 'normal' | 'preorder' | 'discount';
+  tags: number[];
 };
 
 export const beautyProducts: BeautyMock[] = [
@@ -25,6 +30,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 7,
     salesCount: 23,
     viewCount: 1250,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -42,6 +50,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 3,
     salesCount: 12,
     viewCount: 980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -60,6 +71,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 10,
     salesCount: 45,
     viewCount: 3420,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -77,6 +91,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 6,
     salesCount: 27,
     viewCount: 2210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -95,6 +112,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 2,
     salesCount: 8,
     viewCount: 3150,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -112,6 +132,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 9,
     salesCount: 33,
     viewCount: 1875,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -130,6 +153,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 0,
     salesCount: 14,
     viewCount: 4050,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -147,6 +173,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 5,
     salesCount: 50,
     viewCount: 2780,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -165,6 +194,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 1,
     salesCount: 6,
     viewCount: 1120,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -182,6 +214,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 8,
     salesCount: 38,
     viewCount: 1990,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -200,6 +235,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 4,
     salesCount: 18,
     viewCount: 1540,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -217,6 +255,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 7,
     salesCount: 29,
     viewCount: 1310,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -235,6 +276,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 10,
     salesCount: 41,
     viewCount: 3675,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -252,6 +296,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 6,
     salesCount: 15,
     viewCount: 1420,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -270,6 +317,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 0,
     salesCount: 22,
     viewCount: 4890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -287,6 +337,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 9,
     salesCount: 35,
     viewCount: 2785,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -305,6 +358,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 3,
     salesCount: 9,
     viewCount: 1200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -322,6 +378,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 5,
     salesCount: 11,
     viewCount: 1080,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -340,6 +399,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 4,
     salesCount: 19,
     viewCount: 1330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -357,6 +419,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 8,
     salesCount: 44,
     viewCount: 3560,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -375,6 +440,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 2,
     salesCount: 7,
     viewCount: 1010,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -392,6 +460,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 6,
     salesCount: 25,
     viewCount: 1650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -410,6 +481,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 0,
     salesCount: 32,
     viewCount: 4210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -427,6 +501,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 9,
     salesCount: 37,
     viewCount: 2980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -445,6 +522,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 4,
     salesCount: 10,
     viewCount: 1405,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -462,6 +542,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 3,
     salesCount: 5,
     viewCount: 990,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -480,6 +563,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 7,
     salesCount: 23,
     viewCount: 1600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -497,6 +583,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 6,
     salesCount: 21,
     viewCount: 1740,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -515,6 +604,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 8,
     salesCount: 28,
     viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -532,6 +624,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 0,
     salesCount: 4,
     viewCount: 1350,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -550,6 +645,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 10,
     salesCount: 40,
     viewCount: 3620,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -567,6 +665,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 1,
     salesCount: 3,
     viewCount: 820,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -585,6 +686,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 2,
     salesCount: 11,
     viewCount: 1290,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -602,6 +706,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 9,
     salesCount: 47,
     viewCount: 4110,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -620,6 +727,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 7,
     salesCount: 26,
     viewCount: 2400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -637,6 +747,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 4,
     salesCount: 13,
     viewCount: 1170,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -655,6 +768,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 6,
     salesCount: 20,
     viewCount: 1520,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -672,6 +788,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 8,
     salesCount: 36,
     viewCount: 2650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -690,6 +809,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 10,
     salesCount: 39,
     viewCount: 3340,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -707,6 +829,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 5,
     salesCount: 24,
     viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -725,6 +850,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 3,
     salesCount: 17,
     viewCount: 1490,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -742,6 +870,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 2,
     salesCount: 9,
     viewCount: 1380,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -760,6 +891,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 1,
     salesCount: 2,
     viewCount: 940,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -777,6 +911,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 6,
     salesCount: 31,
     viewCount: 2890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -795,6 +932,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 7,
     salesCount: 34,
     viewCount: 2570,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -812,6 +952,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 10,
     salesCount: 50,
     viewCount: 5000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -830,6 +973,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 5,
     salesCount: 30,
     viewCount: 2330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -847,6 +993,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 4,
     salesCount: 14,
     viewCount: 1210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -865,6 +1014,9 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 3,
     salesCount: 16,
     viewCount: 1470,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'BEAUTY',
@@ -882,5 +1034,8 @@ export const beautyProducts: BeautyMock[] = [
     stockQuantity: 0,
     salesCount: 1,
     viewCount: 100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   }
 ];

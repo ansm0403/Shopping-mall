@@ -3,7 +3,6 @@ export * from './category.js';
 export * from './categories/beauty.js';
 export * from './categories/book.js';
 export * from './categories/food.js';
-export * from './categories/livingProduct.js'
-export * from './categories/sports.js';
+export * from './categories/livingProduct.js';
 export * from './categories/shoes.js';
 export * from './categories/clothing.js';

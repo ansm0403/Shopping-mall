@@ -1,6 +1,6 @@
 import { BaseModel } from '../base.model.js';
 import { Review } from '../review/review.js';
-import { Category } from './category.js';
+import { CategorySummary } from './category.js';
 
 export const ProductStatus = {
   DRAFT: 'draft',
@@ -12,16 +12,23 @@ export const ProductStatus = {
 
 export type ProductStatus = typeof ProductStatus[keyof typeof ProductStatus];
 
+export interface ProductImage {
+  id: number;
+  url: string;
+  displayOrder?: number;
+  isPrimary?: boolean;
+}
+
 export interface Product extends BaseModel {
-  category: Category;
+  category: CategorySummary | null;
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  images: ProductImage[];
   brand: string;
   isEvent: boolean;
   discountRate?: number;
-  rating: number;
+  rating?: number;
   status: ProductStatus;
   stockQuantity: number;
   salesCount: number;

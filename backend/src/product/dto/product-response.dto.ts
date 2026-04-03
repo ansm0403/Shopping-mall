@@ -21,6 +21,11 @@ class ImageResponseDto {
   @Expose() sortOrder: number;
 }
 
+class TagResponseDto {
+  @Expose() id: number;
+  @Expose() name: string;
+}
+
 export class ProductResponseDto {
   @Expose() id: number;
   @Expose() name: string;
@@ -54,4 +59,8 @@ export class ProductResponseDto {
   @Expose()
   @Type(() => ImageResponseDto)
   images: ImageResponseDto[];
+
+  @Expose()
+  @Type(() => TagResponseDto)
+  tags: TagResponseDto[];
 }

@@ -1,10 +1,15 @@
-import { Book } from "@shared/index.js";
+import { Book, Category } from "@shared/index.js";
 
-export type BookMock = Omit<Book, 'id' | 'createdAt' | 'updatedAt' > & {
-  status?: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
-  stockQuantity?: number;
-  salesCount?: number;
-  viewCount?: number;
+export type BookMock = Omit<Book, 'id' | 'createdAt' | 'updatedAt' | 'category' | 'images'> & {
+  category: Category;
+  imageUrl?: string;
+  status: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity: number;
+  salesCount: number;
+  viewCount: number;
+  approvalStatus: 'pending' | 'approved' | 'rejected';
+  salesType: 'normal' | 'preorder' | 'discount';
+  tags: number[];
 }
 
 // Book 제품 Mock Data (100개)
@@ -27,7 +32,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 14,
     salesCount: 31,
-    viewCount: 3990
+    viewCount: 3990,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -46,7 +54,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 22,
-    viewCount: 2400
+    viewCount: 2400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -66,7 +77,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 41,
-    viewCount: 3890
+    viewCount: 3890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -85,7 +99,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 9,
-    viewCount: 1170
+    viewCount: 1170,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -105,7 +122,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 35,
-    viewCount: 2780
+    viewCount: 2780,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -124,7 +144,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 6,
-    viewCount: 980
+    viewCount: 980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -144,7 +167,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 33,
-    viewCount: 2210
+    viewCount: 2210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -163,7 +189,10 @@ export const bookProducts: BookMock[] = [
     status: 'sold_out',
     stockQuantity: 0,
     salesCount: 12,
-    viewCount: 4050
+    viewCount: 4050,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -183,7 +212,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 27,
-    viewCount: 1650
+    viewCount: 1650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -202,7 +234,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 14,
-    viewCount: 1420
+    viewCount: 1420,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -222,7 +257,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 46,
-    viewCount: 3675
+    viewCount: 3675,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -241,7 +279,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 18,
-    viewCount: 1540
+    viewCount: 1540,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -261,7 +302,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 29,
-    viewCount: 1310
+    viewCount: 1310,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -280,7 +324,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 20,
-    viewCount: 1760
+    viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -300,7 +347,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 36,
-    viewCount: 2650
+    viewCount: 2650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -319,7 +369,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 24,
-    viewCount: 1490
+    viewCount: 1490,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -339,7 +392,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 11,
-    viewCount: 1380
+    viewCount: 1380,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -358,7 +414,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 14,
-    viewCount: 1210
+    viewCount: 1210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -378,7 +437,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 40,
-    viewCount: 3620
+    viewCount: 3620,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -397,7 +459,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 1,
     salesCount: 3,
-    viewCount: 820
+    viewCount: 820,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -417,7 +482,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 10,
-    viewCount: 1290
+    viewCount: 1290,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -436,7 +504,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 47,
-    viewCount: 4110
+    viewCount: 4110,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -456,7 +527,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 26,
-    viewCount: 2400
+    viewCount: 2400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -475,7 +549,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 13,
-    viewCount: 1170
+    viewCount: 1170,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -495,7 +572,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 20,
-    viewCount: 1760
+    viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -514,7 +594,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 36,
-    viewCount: 2650
+    viewCount: 2650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -534,7 +617,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 39,
-    viewCount: 3340
+    viewCount: 3340,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -553,7 +639,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 24,
-    viewCount: 1760
+    viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -573,7 +662,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 17,
-    viewCount: 1490
+    viewCount: 1490,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -592,7 +684,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 9,
-    viewCount: 1380
+    viewCount: 1380,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -612,7 +707,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 14,
-    viewCount: 1210
+    viewCount: 1210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -631,7 +729,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 25,
-    viewCount: 2100
+    viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -651,7 +752,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 18,
-    viewCount: 1780
+    viewCount: 1780,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -670,7 +774,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 12,
-    viewCount: 1320
+    viewCount: 1320,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -690,7 +797,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 9,
-    viewCount: 1015
+    viewCount: 1015,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -709,7 +819,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 11,
-    viewCount: 1290
+    viewCount: 1290,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -729,7 +842,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 22,
-    viewCount: 2680
+    viewCount: 2680,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -748,7 +864,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 40,
-    viewCount: 3890
+    viewCount: 3890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -768,7 +887,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 19,
-    viewCount: 1765
+    viewCount: 1765,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -787,7 +909,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 1,
     salesCount: 7,
-    viewCount: 980
+    viewCount: 980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -807,7 +932,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 28,
-    viewCount: 2105
+    viewCount: 2105,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -826,7 +954,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 33,
-    viewCount: 3100
+    viewCount: 3100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -846,7 +977,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 21,
-    viewCount: 1850
+    viewCount: 1850,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -865,7 +999,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 27,
-    viewCount: 2290
+    viewCount: 2290,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -885,7 +1022,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 24,
-    viewCount: 2430
+    viewCount: 2430,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -904,7 +1044,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 29,
-    viewCount: 2550
+    viewCount: 2550,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -924,7 +1067,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 15,
-    viewCount: 1650
+    viewCount: 1650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -943,7 +1089,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 44,
-    viewCount: 4010
+    viewCount: 4010,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -963,7 +1112,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 26,
-    viewCount: 2200
+    viewCount: 2200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -982,7 +1134,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 12,
-    viewCount: 1190
+    viewCount: 1190,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1002,7 +1157,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 10,
-    viewCount: 1215
+    viewCount: 1215,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1021,7 +1179,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 23,
-    viewCount: 1720
+    viewCount: 1720,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1041,7 +1202,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 1,
     salesCount: 8,
-    viewCount: 1120
+    viewCount: 1120,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1060,7 +1224,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 20,
-    viewCount: 1800
+    viewCount: 1800,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1080,7 +1247,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 25,
-    viewCount: 2050
+    viewCount: 2050,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1099,7 +1269,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 16,
-    viewCount: 1500
+    viewCount: 1500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1119,7 +1292,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 45,
-    viewCount: 4760
+    viewCount: 4760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1138,7 +1314,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 14,
-    viewCount: 1680
+    viewCount: 1680,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1158,7 +1337,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 19,
-    viewCount: 1760
+    viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1177,7 +1359,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 41,
-    viewCount: 3895
+    viewCount: 3895,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1197,7 +1382,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 28,
-    viewCount: 2300
+    viewCount: 2300,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1216,7 +1404,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 9,
-    viewCount: 1085
+    viewCount: 1085,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1236,7 +1427,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 12,
-    viewCount: 1340
+    viewCount: 1340,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1255,7 +1449,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 17,
-    viewCount: 1600
+    viewCount: 1600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1275,7 +1472,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 1,
     salesCount: 6,
-    viewCount: 1000
+    viewCount: 1000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1294,7 +1494,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 24,
-    viewCount: 2100
+    viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1314,7 +1517,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 37,
-    viewCount: 2850
+    viewCount: 2850,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1333,7 +1539,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 18,
-    viewCount: 1760
+    viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1353,7 +1562,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 22,
-    viewCount: 1690
+    viewCount: 1690,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1372,7 +1584,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 33,
-    viewCount: 3120
+    viewCount: 3120,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1392,7 +1607,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 50,
-    viewCount: 4900
+    viewCount: 4900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1411,7 +1629,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 9,
-    viewCount: 1200
+    viewCount: 1200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1431,7 +1652,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 15,
-    viewCount: 1450
+    viewCount: 1450,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1450,7 +1674,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 20,
-    viewCount: 1730
+    viewCount: 1730,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1470,7 +1697,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 1,
     salesCount: 8,
-    viewCount: 980
+    viewCount: 980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1489,7 +1719,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 26,
-    viewCount: 2150
+    viewCount: 2150,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1509,7 +1742,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 12,
-    viewCount: 1350
+    viewCount: 1350,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1528,7 +1764,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 23,
-    viewCount: 2010
+    viewCount: 2010,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1548,7 +1787,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 16,
-    viewCount: 1500
+    viewCount: 1500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1567,7 +1809,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 11,
-    viewCount: 1190
+    viewCount: 1190,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1587,7 +1832,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 8,
     salesCount: 27,
-    viewCount: 2340
+    viewCount: 2340,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1606,7 +1854,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 19,
-    viewCount: 1720
+    viewCount: 1720,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1626,7 +1877,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 25,
-    viewCount: 2080
+    viewCount: 2080,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1645,7 +1899,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 21,
-    viewCount: 1810
+    viewCount: 1810,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1665,7 +1922,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 10,
-    viewCount: 1270
+    viewCount: 1270,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1684,7 +1944,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 34,
-    viewCount: 2660
+    viewCount: 2660,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1704,7 +1967,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 18,
-    viewCount: 1750
+    viewCount: 1750,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1723,7 +1989,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 9,
-    viewCount: 1400
+    viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1743,7 +2012,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 42,
-    viewCount: 3890
+    viewCount: 3890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1762,7 +2034,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 17,
-    viewCount: 1580
+    viewCount: 1580,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1782,7 +2057,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 2,
     salesCount: 20,
-    viewCount: 930
+    viewCount: 930,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1801,7 +2079,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 5,
     salesCount: 32,
-    viewCount: 4320
+    viewCount: 4320,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1821,7 +2102,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 9,
     salesCount: 31,
-    viewCount: 2890
+    viewCount: 2890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1840,7 +2124,10 @@ export const bookProducts: BookMock[] = [
     status: 'sold_out',
     stockQuantity: 0,
     salesCount: 50,
-    viewCount: 5000
+    viewCount: 5000,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1860,7 +2147,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 7,
     salesCount: 30,
-    viewCount: 2330
+    viewCount: 2330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1879,7 +2169,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 4,
     salesCount: 14,
-    viewCount: 1210
+    viewCount: 1210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1899,7 +2192,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 3,
     salesCount: 16,
-    viewCount: 1470
+    viewCount: 1470,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1918,7 +2214,10 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 6,
     salesCount: 28,
-    viewCount: 2100
+    viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1939,6 +2238,9 @@ export const bookProducts: BookMock[] = [
     stockQuantity: 0,
     salesCount: 4,
     viewCount: 1350,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   },
   {
     category: 'BOOK',
@@ -1957,6 +2259,9 @@ export const bookProducts: BookMock[] = [
     status: 'published',
     stockQuantity: 10,
     salesCount: 40,
-    viewCount: 3620
+    viewCount: 3620,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: []
   }
 ];

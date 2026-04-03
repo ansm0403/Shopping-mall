@@ -1,6 +1,16 @@
-import { Clothing } from '../../../../shared/src/index.js'
+import { Clothing, Category } from '@shared/index.js'
 
-export type ClothingMock = Omit<Clothing, 'id' | 'createdAt' | 'updatedAt'>
+export type ClothingMock = Omit<Clothing, 'id' | 'createdAt' | 'updatedAt' | 'category' | 'images'> & {
+  category: Category;
+  imageUrl?: string;
+  status: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity: number;
+  salesCount: number;
+  viewCount: number;
+  approvalStatus: 'pending' | 'approved' | 'rejected';
+  salesType: 'normal' | 'preorder' | 'discount';
+  tags: number[];
+}
 
 export const clothingProducts: ClothingMock[] = [
   {
@@ -23,6 +33,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 7,
     salesCount: 22,
     viewCount: 1430,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -43,6 +56,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 5,
     salesCount: 18,
     viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -64,6 +80,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 3,
     salesCount: 26,
     viewCount: 1850,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -84,6 +103,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 8,
     salesCount: 14,
     viewCount: 1210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -105,6 +127,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 2,
     salesCount: 19,
     viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -125,6 +150,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 9,
     salesCount: 32,
     viewCount: 2890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -146,6 +174,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 4,
     salesCount: 27,
     viewCount: 2400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -166,6 +197,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 6,
     salesCount: 21,
     viewCount: 1670,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -187,6 +221,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 1,
     salesCount: 12,
     viewCount: 1190,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -207,6 +244,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 10,
     salesCount: 45,
     viewCount: 4990,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -228,6 +268,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 2,
     salesCount: 9,
     viewCount: 1320,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -248,6 +291,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 8,
     salesCount: 25,
     viewCount: 2110,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -269,6 +315,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 3,
     salesCount: 28,
     viewCount: 2600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -289,6 +338,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 5,
     salesCount: 20,
     viewCount: 1780,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -310,6 +362,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 6,
     salesCount: 23,
     viewCount: 1900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -330,6 +385,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 1,
     salesCount: 11,
     viewCount: 1210,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -351,6 +409,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 7,
     salesCount: 31,
     viewCount: 2450,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -371,6 +432,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 4,
     salesCount: 14,
     viewCount: 1320,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -392,6 +456,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 6,
     salesCount: 12,
     viewCount: 1200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -412,6 +479,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 10,
     salesCount: 40,
     viewCount: 4800,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -433,6 +503,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 5,
     salesCount: 17,
     viewCount: 1650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -453,6 +526,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 2,
     salesCount: 15,
     viewCount: 1490,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -474,6 +550,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 1,
     salesCount: 8,
     viewCount: 1120,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -494,6 +573,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 9,
     salesCount: 30,
     viewCount: 2330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -515,6 +597,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 6,
     salesCount: 24,
     viewCount: 1900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -535,6 +620,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 8,
     salesCount: 29,
     viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -556,6 +644,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 5,
     salesCount: 21,
     viewCount: 1750,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -576,6 +667,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 7,
     salesCount: 27,
     viewCount: 1980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -597,6 +691,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 9,
     salesCount: 35,
     viewCount: 2750,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -617,6 +714,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 3,
     salesCount: 16,
     viewCount: 1600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -638,6 +738,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 2,
     salesCount: 13,
     viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -658,6 +761,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 6,
     salesCount: 24,
     viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -679,6 +785,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 5,
     salesCount: 19,
     viewCount: 1680,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -699,6 +808,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 8,
     salesCount: 33,
     viewCount: 2440,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -720,6 +832,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 3,
     salesCount: 11,
     viewCount: 1250,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -740,6 +855,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 2,
     salesCount: 14,
     viewCount: 1320,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -761,6 +879,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 10,
     salesCount: 36,
     viewCount: 2760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -781,6 +902,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 4,
     salesCount: 18,
     viewCount: 1700,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -802,6 +926,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 3,
     salesCount: 12,
     viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -823,6 +950,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 1,
     salesCount: 7,
     viewCount: 1010,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -843,6 +973,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 8,
     salesCount: 21,
     viewCount: 1690,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -864,6 +997,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 6,
     salesCount: 25,
     viewCount: 2060,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -884,6 +1020,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 2,
     salesCount: 10,
     viewCount: 1300,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -905,6 +1044,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 7,
     salesCount: 20,
     viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -925,6 +1067,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 4,
     salesCount: 18,
     viewCount: 1680,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -946,6 +1091,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 6,
     salesCount: 22,
     viewCount: 1900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -966,6 +1114,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 2,
     salesCount: 9,
     viewCount: 1150,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -987,6 +1138,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 1,
     salesCount: 6,
     viewCount: 1080,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -1007,6 +1161,9 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 8,
     salesCount: 21,
     viewCount: 1720,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
   {
     category: 'CLOTHING',
@@ -1028,5 +1185,8 @@ export const clothingProducts: ClothingMock[] = [
     stockQuantity: 10,
     salesCount: 38,
     viewCount: 4200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
   },
 ];

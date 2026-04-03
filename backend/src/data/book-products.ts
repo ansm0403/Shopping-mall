@@ -1,6 +1,5 @@
 import { bookProducts } from "@shopping-mall/mocks"
 import { ProductCategory } from "../product/entity/product.entity";
-import { spec } from "node:test/reporters";
 
 export const bookProductsData = bookProducts.map((product) => ({
   name: product.name,
@@ -9,8 +8,14 @@ export const bookProductsData = bookProducts.map((product) => ({
   imageUrl: product.imageUrl,
   brand: product.brand,
   isEvent: product.isEvent,
-  discountRate: product.discountRate,
-  rating: product.rating,
+  discountRate: product.discountRate || 0,
+  rating: product.rating || null,
+  status: product.status,
+  stockQuantity: product.stockQuantity || 0,
+  salesCount: product.salesCount || 0,
+  viewCount: product.viewCount || 0,
+  approvalStatus: product.approvalStatus,
+  salesType: product.salesType === 'preorder' ? 'pre_order' : 'normal',
   specs: {
     author: product.author,
     publisher: product.publisher,

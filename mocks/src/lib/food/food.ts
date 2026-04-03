@@ -1,6 +1,16 @@
-import { Food } from "@shared/index.js";
+import { Food, Category } from "@shared/index.js";
 
-export type FoodMock = Omit<Food, 'id' | 'createdAt' | 'updatedAt'>
+export type FoodMock = Omit<Food, 'id' | 'createdAt' | 'updatedAt' | 'category' | 'images'> & {
+  category: Category;
+  imageUrl?: string;
+  status: 'draft' | 'published' | 'sold_out' | 'hidden' | 'discontinued';
+  stockQuantity: number;
+  salesCount: number;
+  viewCount: number;
+  approvalStatus: 'pending' | 'approved' | 'rejected';
+  salesType: 'normal' | 'preorder' | 'discount';
+  tags: number[];
+}
 
 export const foodProducts: FoodMock[] = [
   {
@@ -18,6 +28,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 7,
     salesCount: 22,
     viewCount: 1450,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 52, protein: 0.3, fat: 0.2, carbohydrate: 14 },
   },
   {
@@ -34,6 +47,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 3,
     salesCount: 15,
     viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 250, protein: 26, fat: 18, carbohydrate: 0 },
   },
   {
@@ -51,6 +67,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 10,
     salesCount: 40,
     viewCount: 3200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 180, protein: 23, fat: 9, carbohydrate: 0 },
   },
   {
@@ -67,6 +86,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 6,
     salesCount: 18,
     viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 47, protein: 0.7, fat: 0.2, carbohydrate: 11 },
   },
   {
@@ -83,6 +105,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 9,
     salesCount: 33,
     viewCount: 2650,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 310, protein: 6, fat: 2, carbohydrate: 68 },
   },
   {
@@ -100,6 +125,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 5,
     salesCount: 17,
     viewCount: 1620,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 120, protein: 12, fat: 5, carbohydrate: 6 },
   },
   {
@@ -116,6 +144,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 4,
     salesCount: 12,
     viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 57, protein: 0.7, fat: 0.3, carbohydrate: 14 },
   },
   {
@@ -133,6 +164,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 8,
     salesCount: 24,
     viewCount: 1890,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 210, protein: 14, fat: 10, carbohydrate: 16 },
   },
   {
@@ -149,6 +183,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 2,
     salesCount: 11,
     viewCount: 1310,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 208, protein: 20, fat: 13, carbohydrate: 0 },
   },
   {
@@ -166,6 +203,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 6,
     salesCount: 29,
     viewCount: 2330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 380, protein: 29, fat: 30, carbohydrate: 1.5 },
   },
   {
@@ -182,6 +222,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 10,
     salesCount: 41,
     viewCount: 3120,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 540, protein: 6, fat: 33, carbohydrate: 53 },
   },
   {
@@ -199,6 +242,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 7,
     salesCount: 35,
     viewCount: 2750,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 60, protein: 1.2, fat: 2.5, carbohydrate: 9 },
   },
   {
@@ -215,6 +261,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 4,
     salesCount: 16,
     viewCount: 1500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 68, protein: 6, fat: 5, carbohydrate: 0.6 },
   },
   {
@@ -231,6 +280,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 8,
     salesCount: 20,
     viewCount: 1800,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 500, protein: 10, fat: 18, carbohydrate: 72 },
   },
   {
@@ -248,6 +300,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 5,
     salesCount: 14,
     viewCount: 1620,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 470, protein: 6, fat: 29, carbohydrate: 46 },
   },
   {
@@ -264,6 +319,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 9,
     salesCount: 38,
     viewCount: 2900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 120, protein: 6, fat: 4, carbohydrate: 12 },
   },
   {
@@ -281,6 +339,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 6,
     salesCount: 28,
     viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 230, protein: 12, fat: 10, carbohydrate: 24 },
   },
   {
@@ -298,6 +359,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 3,
     salesCount: 12,
     viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 110, protein: 7, fat: 6, carbohydrate: 8 },
   },
   {
@@ -314,6 +378,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 2,
     salesCount: 11,
     viewCount: 1250,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 265, protein: 9, fat: 3, carbohydrate: 50 },
   },
   {
@@ -330,6 +397,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 8,
     salesCount: 30,
     viewCount: 2330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 290, protein: 13, fat: 11, carbohydrate: 33 },
   },
   {
@@ -347,6 +417,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 7,
     salesCount: 26,
     viewCount: 2450,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 30, protein: 0.2, fat: 0, carbohydrate: 7 },
   },
   {
@@ -363,6 +436,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 4,
     salesCount: 19,
     viewCount: 1700,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 180, protein: 3, fat: 9, carbohydrate: 20 },
   },
   {
@@ -380,6 +456,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 9,
     salesCount: 33,
     viewCount: 2850,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 140, protein: 26, fat: 3, carbohydrate: 1 },
   },
   {
@@ -396,6 +475,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 3,
     salesCount: 12,
     viewCount: 1390,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 190, protein: 4, fat: 1, carbohydrate: 41 },
   },
   {
@@ -412,6 +494,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 8,
     salesCount: 28,
     viewCount: 1980,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 280, protein: 2, fat: 0.5, carbohydrate: 68 },
   },
   {
@@ -429,6 +514,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 2,
     salesCount: 9,
     viewCount: 1100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 35, protein: 0.2, fat: 0, carbohydrate: 8 },
   },
   {
@@ -445,6 +533,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 6,
     salesCount: 21,
     viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 90, protein: 3, fat: 1, carbohydrate: 19 },
   },
   {
@@ -462,6 +553,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 10,
     salesCount: 41,
     viewCount: 3300,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 310, protein: 13, fat: 28, carbohydrate: 1 },
   },
   {
@@ -478,6 +572,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 5,
     salesCount: 24,
     viewCount: 2010,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 410, protein: 12, fat: 1.5, carbohydrate: 86 },
   },
   {
@@ -494,6 +591,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 7,
     salesCount: 20,
     viewCount: 1800,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 90, protein: 20, fat: 0.8, carbohydrate: 0 },
   },
   {
@@ -511,6 +611,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 3,
     salesCount: 13,
     viewCount: 1550,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 89, protein: 1.1, fat: 0.3, carbohydrate: 23 },
   },
   {
@@ -527,6 +630,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 8,
     salesCount: 32,
     viewCount: 2700,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 30, protein: 1, fat: 0.2, carbohydrate: 7 },
   },
   {
@@ -543,6 +649,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 9,
     salesCount: 35,
     viewCount: 2990,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 380, protein: 6, fat: 1, carbohydrate: 84 },
   },
   {
@@ -560,6 +669,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 7,
     salesCount: 28,
     viewCount: 2450,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: { calories: 579, protein: 21, fat: 50, carbohydrate: 22 },
   },
   { 
@@ -577,6 +689,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 4,
     salesCount: 20,
     viewCount: 1900,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 310,
       protein: 19,
@@ -598,6 +713,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 6,
     salesCount: 22,
     viewCount: 1760,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 117,
       protein: 20,
@@ -620,6 +738,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 2,
     salesCount: 10,
     viewCount: 1200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 230,
       protein: 5,
@@ -641,6 +762,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 8,
     salesCount: 27,
     viewCount: 2100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 420,
       protein: 9,
@@ -661,6 +785,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 5,
     salesCount: 16,
     viewCount: 1500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 884,
       protein: 0,
@@ -682,6 +809,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 3,
     salesCount: 18,
     viewCount: 1680,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 210,
       protein: 9,
@@ -703,6 +833,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 7,
     salesCount: 29,
     viewCount: 2330,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 280,
       protein: 12,
@@ -723,6 +856,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 6,
     salesCount: 21,
     viewCount: 1750,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 520,
       protein: 22,
@@ -744,6 +880,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 4,
     salesCount: 19,
     viewCount: 1600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 190,
       protein: 2,
@@ -764,6 +903,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 2,
     salesCount: 12,
     viewCount: 1400,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 280,
       protein: 12,
@@ -785,6 +927,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 9,
     salesCount: 31,
     viewCount: 2550,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 530,
       protein: 9,
@@ -805,6 +950,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 3,
     salesCount: 14,
     viewCount: 1500,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 160,
       protein: 2,
@@ -826,6 +974,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 2,
     salesCount: 10,
     viewCount: 1200,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 59,
       protein: 10,
@@ -847,6 +998,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 8,
     salesCount: 22,
     viewCount: 1880,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 410,
       protein: 5,
@@ -867,6 +1021,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 10,
     salesCount: 45,
     viewCount: 3100,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 42,
       protein: 0,
@@ -887,6 +1044,9 @@ export const foodProducts: FoodMock[] = [
     stockQuantity: 6,
     salesCount: 18,
     viewCount: 1600,
+    approvalStatus: 'approved',
+    salesType: 'normal',
+    tags: [],
     nutrition: {
       calories: 0,
       protein: 0,

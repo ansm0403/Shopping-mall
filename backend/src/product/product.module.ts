@@ -14,6 +14,8 @@ import { SellerEntity } from '../seller/entity/seller.entity';
 import { OrderItemEntity } from '../order/entity/order-item.entity';
 import { ProductController, AdminProductController } from './product.controller';
 import { ProductService } from './product.service';
+import { TypeOrmProductSearchService } from './product-search.service';
+import { PRODUCT_SEARCH_SERVICE } from './interfaces/product-search.interface';
 import { ProductSeedService } from '../common/seeds/product.seed';
 import { ProductEventListener } from './listeners/product-event.listener';
 import { AuthModule } from '../auth/auth.module';
@@ -37,7 +39,15 @@ import { AuthModule } from '../auth/auth.module';
     AuthModule,
   ],
   controllers: [ProductController, AdminProductController],
-  providers: [ProductService, ProductSeedService, ProductEventListener],
+  providers: [
+    ProductService,
+    {
+      provide: PRODUCT_SEARCH_SERVICE,
+      useClass: TypeOrmProductSearchService,
+    },
+    ProductSeedService,
+    ProductEventListener,
+  ],
   exports: [TypeOrmModule, ProductService],
 })
 export class ProductModule {}

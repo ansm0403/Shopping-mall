@@ -1,4 +1,11 @@
-export type Category = 'CLOTHING' | 'BEAUTY' | 'SPORTS' | 'SHOES' | 'BOOK' | 'FOOD' | 'TOYS' | 'OTHER' | 'LIVING';
+export type Category = 'CLOTHING' | 'BEAUTY' | 'SHOES' | 'BOOK' | 'FOOD' | 'OTHER' | 'LIVING';
+
+// API 응답에서 category 필드로 반환되는 간략 카테고리 정보
+export interface CategorySummary {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 export interface SubcategoryInfo {
   key: string;
@@ -6,10 +13,10 @@ export interface SubcategoryInfo {
 }
 
 export interface CategoryInfo {
-  key: Category; // 실제 데이터베이스 값 ('CLOTHING', 'BEAUTY' 등)
-  label: string; // 사용자에게 보여줄 한글 이름
-  icon?: string; // (선택) 나중에 아이콘 추가 가능
-  subcategories?: SubcategoryInfo[]; // 하위 카테고리
+  key: Category;
+  label: string;
+  icon?: string;
+  subcategories?: SubcategoryInfo[];
 }
 
 // UI 렌더링: 드롭다운, 필터, 리스트 등을 map()으로 렌더링
@@ -33,18 +40,6 @@ export const CATEGORIES: CategoryInfo[] = [
       { key: 'COMBINATION', label: '복합성' },
       { key: 'SENSITIVE', label: '민감성' },
       { key: 'ALL', label: '모든 피부' },
-    ]
-  },
-  {
-    key: 'SPORTS',
-    label: '스포츠',
-    subcategories: [
-      { key: 'BASKETBALL', label: '농구' },
-      { key: 'SOCCER', label: '축구' },
-      { key: 'TENNIS', label: '테니스' },
-      { key: 'RUNNING', label: '러닝' },
-      { key: 'GYM', label: '헬스' },
-      { key: 'OTHER', label: '기타' },
     ]
   },
   {
@@ -77,17 +72,23 @@ export const CATEGORIES: CategoryInfo[] = [
       { key: 'INSTANT', label: '간편식' },
     ]
   },
+  {
+    key: 'LIVING',
+    label: '생활용품',
+  },
+  {
+    key: 'OTHER',
+    label: '기타',
+  },
 ] as const;
 
 // 빠른 변환: 'CLOTHING' → '의류' O(1) 조회
 export const CATEGORY_MAP: Record<Category, string> = {
   CLOTHING: '의류',
   BEAUTY: '뷰티',
-  SPORTS: '스포츠',
   SHOES: '신발',
   BOOK: '책',
   FOOD: '식품',
-  TOYS: '장난감',
   OTHER: '기타',
   LIVING: '생활용품',
 } as const;
