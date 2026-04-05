@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { cva } from "class-variance-authority";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import {
   useForm,
   FormProvider,
@@ -15,167 +16,33 @@ import {
 } from "react-hook-form";
 
 /* =========================
- *  Emotion 스타일
+ *  공통 인풋 베이스 클래스
  * ========================= */
 
-type FormContainerProps = {
-  variant?: "login" | "signup" | "default";
-};
+const INPUT_BASE =
+  "px-2.5 py-2 rounded-md border border-gray-300 text-sm outline-none bg-white" +
+  " transition-[border-color,box-shadow] duration-150" +
+  " focus:border-blue-600 focus:ring-1 focus:ring-blue-600/20";
 
-const FormContainer = styled.form<FormContainerProps>`
-  max-width: 520px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 24px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+/* =========================
+ *  Form Root variants (cva)
+ * ========================= */
 
-  ${({ variant }) =>
-    variant === "login" &&
-    css`
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
-      margin: 100px auto 10px;
-    `}
-
-  ${({ variant }) =>
-    variant === "signup" &&
-    css`
-      border-color: #2563eb;
-      box-shadow: 0 20px 45px rgba(37, 99, 235, 0.25);
-      margin: 20px auto 40px;
-    `}
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-const Title = styled.h1`
-  font-size: 20px;
-  font-weight: 700;
-`;
-
-const Description = styled.p`
-  font-size: 13px;
-  color: #6b7280;
-`;
-
-const FieldsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const FieldWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const Label = styled.label`
-  font-size: 13px;
-  font-weight: 500;
-`;
-
-const HelperText = styled.p`
-  font-size: 12px;
-  color: #6b7280;
-`;
-
-const ErrorText = styled.span`
-  font-size: 12px;
-  color: #ef4444;
-`;
-
-const InputBase = styled.input`
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-
-  &:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb33;
+const formVariants = cva(
+  "max-w-[520px] w-full flex flex-col gap-6 p-6 rounded-xl border border-gray-200 bg-white",
+  {
+    variants: {
+      variant: {
+        default: "",
+        login:   "shadow-[0_12px_30px_rgba(15,23,42,0.15)] mt-[100px] mx-auto mb-[10px]",
+        signup:  "border-blue-600 shadow-[0_20px_45px_rgba(37,99,235,0.25)] mt-5 mx-auto mb-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
   }
-`;
-
-const TextareaBase = styled.textarea`
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-  outline: none;
-  min-height: 80px;
-  resize: vertical;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-
-  &:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb33;
-  }
-`;
-
-const SelectBase = styled.select`
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-  outline: none;
-  background-color: #ffffff;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-
-  &:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb33;
-  }
-`;
-
-
-const SubmitButton = styled.button`
-  margin-top: 4px;
-  padding: 9px 12px;
-  border-radius: 10px;
-  border: none;
-  background-color: #50acd6ff;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.08s ease,
-    box-shadow 0.15s ease;
-
-  &:hover {
-    background-color: #1d4ed8;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: none;
-  }
-
-  &:disabled {
-    background-color: #9ca3af;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-  }
-`;
-
-const CheckboxRow = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-`;
+);
 
 /* =========================
  *  Form Root
@@ -215,31 +82,40 @@ export function Form<T extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <FormContainer
-        variant={variant}
+      <form
+        className={twMerge(clsx(formVariants({ variant })))}
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
         {(title || description) && (
-          <Header>
-            {title && <Title>{title}</Title>}
-            {description && <Description>{description}</Description>}
-          </Header>
+          <div className="flex flex-col gap-1">
+            {title && <h1 className="text-xl font-bold">{title}</h1>}
+            {description && <p className="text-[13px] text-gray-500">{description}</p>}
+          </div>
         )}
 
-        <FieldsWrapper>{children}</FieldsWrapper>
+        <div className="flex flex-col gap-5">{children}</div>
 
-        <SubmitButton type="submit" disabled={isSubmitting}>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={twMerge(clsx(
+            "mt-1 px-3 py-2.5 rounded-[10px] border-0 text-sm font-semibold text-white cursor-pointer",
+            "bg-[#50acd6] transition-[background-color,transform,box-shadow] duration-150",
+            "hover:bg-blue-700 hover:-translate-y-px hover:shadow-[0_10px_20px_rgba(37,99,235,0.3)]",
+            "active:translate-y-0 active:shadow-none",
+            "disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0"
+          ))}
+        >
           {isSubmitting ? "처리 중..." : submitLabel}
-        </SubmitButton>
-      </FormContainer>
+        </button>
+      </form>
     </FormProvider>
   );
 }
 
 /* =========================
  *  필드 컴포넌트들
- *  (선언적으로 사용)
  * ========================= */
 
 type BaseFieldProps<T extends FieldValues> = {
@@ -270,12 +146,22 @@ export function TextField<T extends FieldValues>({
   const message: string | undefined = error?.message;
 
   return (
-    <FieldWrapper>
-      {label && <Label htmlFor={name}>{label}</Label>}
-      {helperText && <HelperText>{helperText}</HelperText>}
-      <InputBase id={name} type={type} placeholder={placeholder} {...register(name)} />
-      {message && <ErrorText>{message}</ErrorText>}
-    </FieldWrapper>
+    <div className="flex flex-col gap-3">
+      {label && (
+        <label htmlFor={name} className="text-[13px] font-medium">
+          {label}
+        </label>
+      )}
+      {helperText && <p className="text-xs text-gray-500">{helperText}</p>}
+      <input
+        id={name}
+        type={type}
+        placeholder={placeholder}
+        className={INPUT_BASE}
+        {...register(name)}
+      />
+      {message && <span className="text-xs text-red-500">{message}</span>}
+    </div>
   );
 }
 
@@ -301,17 +187,22 @@ export function TextareaField<T extends FieldValues>({
   const message: string | undefined = error?.message;
 
   return (
-    <FieldWrapper>
-      {label && <Label htmlFor={name}>{label}</Label>}
-      {helperText && <HelperText>{helperText}</HelperText>}
-      <TextareaBase
+    <div className="flex flex-col gap-3">
+      {label && (
+        <label htmlFor={name} className="text-[13px] font-medium">
+          {label}
+        </label>
+      )}
+      {helperText && <p className="text-xs text-gray-500">{helperText}</p>}
+      <textarea
         id={name}
         placeholder={placeholder}
         rows={rows}
+        className={twMerge(clsx(INPUT_BASE, "min-h-[80px] resize-y"))}
         {...register(name)}
       />
-      {message && <ErrorText>{message}</ErrorText>}
-    </FieldWrapper>
+      {message && <span className="text-xs text-red-500">{message}</span>}
+    </div>
   );
 }
 
@@ -342,26 +233,30 @@ export function SelectField<T extends FieldValues>({
   const message: string | undefined = error?.message;
 
   return (
-    <FieldWrapper>
-      {label && <Label htmlFor={name}>{label}</Label>}
-      {helperText && <HelperText>{helperText}</HelperText>}
-      <SelectBase id={name} {...register(name)}>
+    <div className="flex flex-col gap-3">
+      {label && (
+        <label htmlFor={name} className="text-[13px] font-medium">
+          {label}
+        </label>
+      )}
+      {helperText && <p className="text-xs text-gray-500">{helperText}</p>}
+      <select id={name} className={INPUT_BASE} {...register(name)}>
         {placeholder && <option value="">{placeholder}</option>}
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
           </option>
         ))}
-      </SelectBase>
-      {message && <ErrorText>{message}</ErrorText>}
-    </FieldWrapper>
+      </select>
+      {message && <span className="text-xs text-red-500">{message}</span>}
+    </div>
   );
 }
 
 /** Checkbox */
 export type CheckboxFieldProps<T extends FieldValues> = {
   name: Path<T>;
-  children: React.ReactNode; // 레이블 텍스트
+  children: React.ReactNode;
   helperText?: string;
 };
 
@@ -379,13 +274,13 @@ export function CheckboxField<T extends FieldValues>({
   const message: string | undefined = error?.message;
 
   return (
-    <FieldWrapper>
-      <CheckboxRow>
+    <div className="flex flex-col gap-3">
+      <label className="flex items-center gap-2 text-[13px]">
         <input type="checkbox" {...register(name)} />
         {children}
-      </CheckboxRow>
-      {helperText && <HelperText>{helperText}</HelperText>}
-      {message && <ErrorText>{message}</ErrorText>}
-    </FieldWrapper>
+      </label>
+      {helperText && <p className="text-xs text-gray-500">{helperText}</p>}
+      {message && <span className="text-xs text-red-500">{message}</span>}
+    </div>
   );
 }

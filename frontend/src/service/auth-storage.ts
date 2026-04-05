@@ -56,10 +56,12 @@ export const authStorage = {
   },
 
   getAccessToken() {
+    if (typeof window === 'undefined') return null;
     return sessionStorage.getItem(ACCESS) || localStorage.getItem(ACCESS);
   },
 
   isRememberMe() {
+    if (typeof window === 'undefined') return false;
     return localStorage.getItem(PERSIST) === '1';
   },
 

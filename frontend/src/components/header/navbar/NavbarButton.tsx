@@ -1,15 +1,18 @@
-import styled from '@emotion/styled';
+import { ButtonHTMLAttributes } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-export const NavbarButton = styled.button`
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  border-radius: 0.375rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
+interface NavbarButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-  &:hover {
-    background-color: #f3f4f6;
-  }
-`;
+export function NavbarButton({ className, children, ...props }: NavbarButtonProps) {
+  return (
+    <button
+      className={twMerge(
+        'px-4 py-2 font-medium rounded-md bg-transparent border-0 cursor-pointer whitespace-nowrap hover:bg-gray-100',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}

@@ -1,16 +1,14 @@
 'use client'
 
-import { User } from '@shopping-mall/shared';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { authStorage } from '../service/auth-storage';
-import { getMe } from '../service/auth';
+import { getMe, UserResponse } from '../service/auth';
 import { getAuthChannel } from '../service/auth-channel';
 
-type UserType = Omit<User, 'password'>;
-
 interface AuthContextType {
-  user: UserType;
+  user: UserResponse | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   isHydrated: boolean;
@@ -85,9 +83,13 @@ export default function AuthContextProvider({ children }: { children: React.Reac
       try {
         const response = await getMe();
         return response.data;
-      } catch {
-        // 토큰이 만료되었거나 유효하지 않으면 null 반환
-        return null;
+      } catch (error) {
+        // 401/403: 토큰 만료 또는 권한 없음 → 비로그인으로 처리
+        if (isAxiosError(error) && (error.response?.status === 401 || error.response?.status === 403)) {
+          return null;
+        }
+        // 네트워크 오류, 500 등: React Query가 처리하도록 throw
+        throw error;
       }
     },
     staleTime: 5 * 60 * 1000,

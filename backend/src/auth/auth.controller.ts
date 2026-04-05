@@ -11,6 +11,7 @@ import {
   UseGuards,
   Res,
   Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
@@ -131,7 +132,7 @@ export class AuthController {
     const refreshToken = req.cookies?.refreshToken;
 
     if (!refreshToken) {
-      throw new Error('Refresh token not found');
+      throw new UnauthorizedException('Refresh token not found');
     }
 
     const result = await this.authService.refresh(refreshToken, {
@@ -159,15 +160,17 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
     @User('sub') userId: number,
-    @Body() body: { accessToken: string },
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent?: string,
     @Headers('x-device-id') deviceId?: string,
   ) {
+    // Authorization 헤더에서 accessToken 추출 (JwtAuthGuard가 이미 검증 완료)
+    const accessToken = req.headers.authorization?.split(' ')[1] || '';
+
     // 쿠키에서 refreshToken 읽기
     const refreshToken = req.cookies?.refreshToken || '';
 
-    const result = await this.authService.logout(userId, body.accessToken, refreshToken, {
+    const result = await this.authService.logout(userId, accessToken, refreshToken, {
       ipAddress,
       userAgent,
       deviceId,

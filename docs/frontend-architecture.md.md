@@ -214,4 +214,8 @@ frontend/project.json	Nx 프로젝트 설정
 nx.json	워크스페이스 설정, shared 라이브러리 참조 방식
 tsconfig.base.json	모노레포 루트 path mapping
 shared/src/index.ts	shared 라이브러리 export 구조 확인
+
+7. 현재 프로젝트는 Tailwind CSS를 기반으로 구현하기로 했어. 그리고 나중에 Storybook을 붙이기 좋게 공통 컴포넌트 구조로 잡았어.
+
 이 설계안을 기반으로 구현을 진행하면 됩니다. 어떤 부분부터 시작할지, 또는 설계에 수정이 필요한 부분이 있으면 말씀해 주세요.
+

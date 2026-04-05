@@ -9,7 +9,7 @@ export default function Index() {
       <Banner />
       {/* 일반 컨텐츠 - 1200px 너비 */}
       <MaxWidthContainer>
-        <div style={{ padding: '2rem 0' }}>
+        <div className="py-8">
           <h2>상품 목록</h2>
         </div>
         <Products />

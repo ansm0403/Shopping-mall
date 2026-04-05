@@ -165,6 +165,11 @@ authClient.interceptors.response.use(
   }
 );
 
+// 로그인 성공 후 isLoggingOut 플래그 리셋 (router.push 방식 대비)
+export function resetLoggingOutFlag() {
+  isLoggingOut = false;
+}
+
 // 하위 호환성을 위한 기본 export (기존 코드와의 호환)
 // 점진적 마이그레이션을 위해 authClient를 기본으로 사용
 export const httpClient = authClient;

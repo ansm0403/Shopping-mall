@@ -1,6 +1,5 @@
 'use client'
 
-import styled from "@emotion/styled";
 import { ReactNode } from "react";
 
 interface MaxWidthContainerProps {
@@ -8,14 +7,9 @@ interface MaxWidthContainerProps {
 }
 
 export default function MaxWidthContainer({ children }: MaxWidthContainerProps) {
-    return <Container>{children}</Container>
+    return (
+        <div className="relative max-w-[1200px] mx-auto px-4 w-full z-[100]">
+            {children}
+        </div>
+    );
 }
-
-const Container = styled.div`
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    width: 100%;
-    z-index: 100;
-`;

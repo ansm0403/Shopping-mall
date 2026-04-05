@@ -2,14 +2,9 @@
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import styled from "@emotion/styled";
 import Link from "next/link";
 import { useLoginMutation } from "../../hook/useAuthMutation";
-import {
-  Form,
-  TextField,
-  CheckboxField,
-} from "./BaseForm";
+import { Form, TextField, CheckboxField } from "./BaseForm";
 import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
@@ -38,20 +33,19 @@ export function LoginForm() {
       await loginMutation.mutateAsync({
         email: values.email,
         password: values.password,
-        rememberMe: values.rememberMe
+        rememberMe: values.rememberMe,
       });
 
-      console.log('로그인 성공');
-
-      router.push('/')
+      console.log("로그인 성공");
+      router.push("/");
     } catch (error) {
-      console.error('로그인 실패:', error);
+      console.error("로그인 실패:", error);
       // TODO: 에러 처리 (토스트 메시지 등)
     }
   };
 
   return (
-    <LoginFormContainer>
+    <div className="flex flex-col items-center gap-4">
       <Form<LoginFormValues>
         title="로그인"
         description="계정에 로그인 해주세요."
@@ -80,40 +74,21 @@ export function LoginForm() {
         </CheckboxField>
       </Form>
 
-      <FooterLinks>
-        <StyledLink href="/find-pwd">비밀번호 찾기</StyledLink>
-        <Divider>|</Divider>
-        <StyledLink href="/register">회원가입</StyledLink>
-      </FooterLinks>
-    </LoginFormContainer>
+      <div className="flex items-center gap-3 text-sm">
+        <Link
+          href="/find-pwd"
+          className="text-gray-500 no-underline transition-colors duration-200 hover:text-blue-600 hover:font-bold"
+        >
+          비밀번호 찾기
+        </Link>
+        <span className="text-gray-300">|</span>
+        <Link
+          href="/register"
+          className="text-gray-500 no-underline transition-colors duration-200 hover:text-blue-600 hover:font-bold"
+        >
+          회원가입
+        </Link>
+      </div>
+    </div>
   );
 }
-
-const LoginFormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-`;
-
-const FooterLinks = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-`;
-
-const StyledLink = styled(Link)`
-  color: #6b7280;
-  text-decoration: none;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: #2563eb;
-    font-weight: bold;
-  }
-`;
-
-const Divider = styled.span`
-  color: #d1d5db;
-`;

@@ -1,3 +1,12 @@
+'use client'
+
+import { LoginForm } from '@/components/forms/LoginForm'
+import React from 'react'
+
 export default function LoginPage() {
-  return <div>로그인</div>;
+  return (
+    <div className="flex flex-col items-center">
+      <LoginForm />
+    </div>
+  )
 }
