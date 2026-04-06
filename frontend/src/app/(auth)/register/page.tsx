@@ -1,3 +1,11 @@
+'use client'
+
+import { SignupForm } from '@/components/forms/RegisterForm'
+
 export default function RegisterPage() {
-  return <div>회원가입</div>;
+  return (
+    <div className="flex flex-col items-center">
+      <SignupForm />
+    </div>
+  );
 }

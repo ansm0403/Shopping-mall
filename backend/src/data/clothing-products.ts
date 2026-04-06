@@ -1,5 +1,4 @@
 import { clothingProducts } from "@shopping-mall/mocks"
-import { ProductCategory } from "../product/entity/product.entity";
 
 export const clothingProductsData = clothingProducts.map((product) => ({
   name: product.name,
@@ -10,7 +9,7 @@ export const clothingProductsData = clothingProducts.map((product) => ({
   isEvent: product.isEvent,
   discountRate: product.discountRate || 0,
   rating: product.rating || null,
-  category: ProductCategory.CLOTHING,
+  category: product.category,
   status: product.status,
   stockQuantity: product.stockQuantity || 0,
   salesCount: product.salesCount || 0,

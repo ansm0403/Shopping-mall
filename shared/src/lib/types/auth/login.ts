@@ -5,42 +5,21 @@
 export interface LoginRequest {
   email: string;
   password: string;
-  rememberMe: boolean;
+  rememberMe?: boolean;
 }
 
 /**
  * 로그인 응답 타입
+ * refreshToken은 httpOnly 쿠키로 전송되므로 응답 body에 포함되지 않음
  */
 export interface LoginResponse {
   accessToken: string;
-  refreshToken: string;
+  expiresIn: number;
+  tokenType: string;
   user: {
     id: number;
     email: string;
-    name: string;
-    role: 'user' | 'admin';
+    nickName: string;
+    roles: ('buyer' | 'seller' | 'admin')[];
   };
-}
-
-/**
- * 토큰 갱신 요청 타입
- */
-export interface RefreshTokenRequest {
-  refreshToken: string;
-}
-
-/**
- * 토큰 갱신 응답 타입
- */
-export interface RefreshTokenResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
-/**
- * 로그아웃 요청 타입
- */
-export interface LogoutRequest {
-  accessToken: string;
-  refreshToken: string;
 }

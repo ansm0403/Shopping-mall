@@ -15,5 +15,4 @@ export interface RegisterRequest {
  */
 export interface RegisterResponse {
   message: string;
-  email: string;
 }

@@ -14,7 +14,7 @@ type BeautyMock = Omit<Beauty, 'id' | 'createdAt' | 'updatedAt' | 'category' | '
 
 export const beautyProducts: BeautyMock[] = [
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '[네이처리퍼블릭] 슈퍼 아쿠아 맥스 수분 에센스',
     description: '민감한 피부를 진정시키고 깊은 수분을 공급하는 에센스',
     price: 35000,
@@ -35,7 +35,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '메디힐 비타민씨 브라이트닝 세럼',
     description: '피부 톤을 환하게 개선하는 고농축 비타민C 세럼',
     price: 48000,
@@ -55,7 +55,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-dry',
     name: '이니스프리 그린티 히알루론산 수분크림',
     description: '건조한 피부에 24시간 지속되는 수분 공급',
     price: 42000,
@@ -76,7 +76,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-oily',
     name: '더 페이스샵 토너 패드',
     description: '지성 피부를 위한 모공 케어 토너',
     price: 28000,
@@ -96,7 +96,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '설화수 자음생크림 퍼펙팅 리치',
     description: '주름 개선 기능성 화장품',
     price: 270000,
@@ -117,7 +117,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '마다가스카르 센텔라 앰플',
     description: '민감 피부 전용 고농축 진정 앰플',
     price: 38000,
@@ -137,7 +137,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '라네즈 콜라겐 리프팅 에센스',
     description: '탄력 있는 피부를 위한 콜라겐 에센스',
     price: 52000,
@@ -158,7 +158,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-combination',
     name: '이니스프리 그린티 수분 크림',
     description: '산뜻한 수분 공급으로 번들거림 없는 피부',
     price: 33000,
@@ -178,7 +178,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '아이소이 나이아신아마이드 미백 세럼',
     description: '기미, 잡티 완화에 도움을 주는 미백 세럼',
     price: 45000,
@@ -199,7 +199,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '코스알엑스 스네일 뮤신 크림',
     description: '달팽이 점액 여과물로 피부 재생 촉진',
     price: 39000,
@@ -219,7 +219,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-dry',
     name: '헤라 프로폴리스 영양 앰플',
     description: '건조하고 지친 피부에 영양 공급',
     price: 58000,
@@ -240,7 +240,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '토리든 세라마이드 배리어 크림',
     description: '피부 장벽 강화 집중 케어',
     price: 47000,
@@ -260,7 +260,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '미샤 미네랄 선크림 SPF50+',
     description: '자외선 차단과 톤업 효과를 동시에',
     price: 24000,
@@ -281,7 +281,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-oily',
     name: '라로슈포제 아쿠아 수딩 젤',
     description: '즉각적인 쿨링 효과로 피부 진정',
     price: 31000,
@@ -301,7 +301,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '에스티로더 펩타이드 아이크림',
     description: '눈가 주름과 다크서클 개선',
     price: 55000,
@@ -322,7 +322,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '네이처리퍼블릭 알로에 수분 젤',
     description: '99% 알로에베라로 피부 진정',
     price: 15000,
@@ -342,7 +342,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '바이오더마 카밍 클렌징 워터',
     description: '민감 피부를 위한 순한 클렌징',
     price: 22000,
@@ -363,7 +363,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '휘카 글루타치온 화이트닝 크림',
     description: '투명하고 맑은 피부 톤 개선',
     price: 62000,
@@ -383,7 +383,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-oily',
     name: '코스알엑스 AHA BHA 클래리파잉 트리트먼트 토너',
     description: '각질 제거와 모공 케어를 한 번에',
     price: 26000,
@@ -404,7 +404,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '닥터자르트 시카 리커버리 크림',
     description: '손상된 피부 장벽 회복',
     price: 41000,
@@ -424,7 +424,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-dry',
     name: '트릴로지 로즈힙 오일 세럼',
     description: '천연 오일로 피부 재생과 보습',
     price: 36000,
@@ -445,7 +445,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '아베다 콜로이달 오트밀 클렌저',
     description: '저자극 보습 클렌징',
     price: 19000,
@@ -465,7 +465,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '클리니크 멀티 비타민 부스터',
     description: '5가지 비타민 복합으로 피부 활력',
     price: 54000,
@@ -486,7 +486,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '에뛰드 순정 약산성 미스트 토너',
     description: '간편하게 수분 충전',
     price: 18000,
@@ -506,7 +506,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-oily',
     name: '이니스프리 수퍼 화산송이 모공 마스크',
     description: '모공 속 피지와 블랙헤드 제거',
     price: 29000,
@@ -527,7 +527,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-dry',
     name: '라네즈 립 슬리핑 마스크 EX',
     description: '자는 동안 집중 수분 공급',
     price: 43000,
@@ -547,7 +547,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '아이소이 마데카소사이드 진정 패드',
     description: '피부 진정과 각질 제거를 동시에',
     price: 32000,
@@ -568,7 +568,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '아이오페 비타민C 엑스퍼트 25% 항산화 토닝앰플 ',
     description: '피부 면역력 강화 고보습 앰플',
     price: 49000,
@@ -588,7 +588,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '더페이스샵 더 솔루션 더블업 모공마스크시트',
     description: '쌀 추출물로 피부 톤 환하게',
     price: 27000,
@@ -609,7 +609,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '후 비첩 자윤 크림림',
     description: '피부 미백과 탄력 개선',
     price: 176000,
@@ -629,7 +629,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-dry',
     name: '라운드랩 저분자 하이드라 히알루론산 세럼',
     description: '5중 히알루론산으로 깊은 수분',
     price: 44000,
@@ -650,7 +650,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-combination',
     name: '토리든 다이브인 저분자 히알루론산 수딩크림',
     description: '피부 보호막 형성으로 수분 보호',
     price: 35000,
@@ -670,7 +670,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-oily',
     name: '이니스프리 화산송이 바하 모공 클렌징 폼',
     description: '미세먼지와 노폐물 깔끔하게 세정',
     price: 21000,
@@ -691,7 +691,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '아이오페 슈퍼바이탈 쿠션EX',
     description: '자외선 차단과 커버력을 동시에',
     price: 38000,
@@ -711,7 +711,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '[에뛰드] 수분가득 콜라겐 딥 시트 마스크',
     description: '온열 효과로 혈액순환 촉진',
     price: 33000,
@@ -732,7 +732,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '센카 퍼펙트 휩 페이셜 워시 A 클렌징 폼',
     description: '약산성으로 피부 자극 최소화',
     price: 17000,
@@ -752,7 +752,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '페트리샤 Snp 골드콜라겐 퍼밍 아이패치',
     description: '눈가 집중 케어로 피로 완화',
     price: 25000,
@@ -773,7 +773,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-oily',
     name: '프레쥬 어성초 약산성 진정 수분 크림',
     description: '트러블 피부 진정 효과',
     price: 31000,
@@ -793,7 +793,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '닥터트웬티프로젝트 콜라겐 탄력 크림',
     description: '피부 탄력 개선과 주름 완화',
     price: 56000,
@@ -814,7 +814,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '록시땅 [기프트] 시어 핸드크림',
     description: '촉촉하고 부드러운 손 관리',
     price: 12000,
@@ -834,7 +834,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '아브카 퓨어 앤 딥 클렌징 오일',
     description: '메이크업과 노폐물 완벽 제거',
     price: 28000,
@@ -855,7 +855,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '이니스프리 비타C 그린티 엔자임 잡티 토닝 세럼',
     description: '피부 활력과 생기 부여',
     price: 42000,
@@ -875,7 +875,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '마몽드 프로바이오틱스 세라마이드 인텐스 크림',
     description: '피부 마이크로바이옴 밸런스 케어',
     price: 51000,
@@ -896,7 +896,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '[스킨푸드] 핑크자몽 아하 토너',
     description: '순한 각질 제거로 매끄러운 피부',
     price: 24000,
@@ -916,7 +916,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '디마르3 에트셀 깊은 멜라닌 기미케어 멜라케어 앰플',
     description: '멜라닌 생성 억제로 피부 톤 개선',
     price: 59000,
@@ -937,7 +937,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-dry',
     name: '[스킨푸드] 로열허니 배리어크림',
     description: '건조한 피부에 깊은 영양 공급',
     price: 63000,
@@ -957,7 +957,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-oily',
     name: '미감수 브라이트 쌀겨 클렌징폼',
     description: '죽염 입자로 각질 제거',
     price: 19000,
@@ -978,7 +978,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-dry',
     name: '이니스프리 그린티 세라마이드 밀크 에센스',
     description: '올리브 오일로 피부 보호막 형성',
     price: 37000,
@@ -998,7 +998,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-sensitive',
     name: '토니모리 24k 스네일 에브리웨어 리페어 젤',
     description: '화끈거리는 피부 즉시 진정',
     price: 66000,
@@ -1019,7 +1019,7 @@ export const beautyProducts: BeautyMock[] = [
     tags: [],
   },
   {
-    category: 'BEAUTY',
+    category: 'beauty-all',
     name: '메디힐 콜라겐 에센셜 마스크',
     description: '탄력과 수분을 한 번에',
     price: 3000,

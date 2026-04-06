@@ -62,15 +62,14 @@ export function SignupForm() {
       // passwordConfirm은 백엔드에 보내지 않음
       const { passwordConfirm, agreeTerms, ...registerData } = values;
 
-      const response = await registerMutation.mutateAsync(registerData as RegisterRequest);
-      console.log("회원가입 성공:", response.data);
+      await registerMutation.mutateAsync(registerData as RegisterRequest);
 
-      // 회원가입 성공 후 로그인 페이지로 리다이렉트
-      router.push("/login");
+      // 회원가입 성공 후 이메일 인증 안내 페이지로 리다이렉트
+      router.push(`/check-email?email=${encodeURIComponent(values.email)}`);
 
     } catch (error) {
       console.error("회원가입 실패:", error);
-      // TODO: 에러 처리 (토스트 메시지 등)
+      // TODO: 에러 처��� (토스트 메시지 등)
     }
   };
 

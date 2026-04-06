@@ -8,8 +8,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { DataSource, FindOptionsWhere, Repository } from 'typeorm';
+import { DataSource, FindOptionsWhere, In, Repository } from 'typeorm';
 import { ProductEntity, ProductStatus, ApprovalStatus } from './entity/product.entity';
+import { CategoryEntity } from '../category/entity/category.entity';
 import { ProductImageEntity } from './entity/product-image.entity';
 import { SellerEntity, SellerStatus } from '../seller/entity/seller.entity';
 import { OrderItemEntity } from '../order/entity/order-item.entity';
@@ -37,6 +38,8 @@ export class ProductService {
     private readonly sellerRepository: Repository<SellerEntity>,
     @InjectRepository(OrderItemEntity)
     private readonly orderItemRepository: Repository<OrderItemEntity>,
+    @InjectRepository(CategoryEntity)
+    private readonly categoryRepository: Repository<CategoryEntity>,
     private readonly dataSource: DataSource,
     private readonly eventEmitter: EventEmitter2,
     private readonly redisService: RedisService,
@@ -48,6 +51,19 @@ export class ProductService {
   private static readonly CACHE_TTL_LIST = 60;      // 목록 60초
   private static readonly CACHE_TTL_DETAIL = 300;   // 상세 5분
   private static readonly MAX_IMAGES_PER_PRODUCT = 10;
+
+  /** 해당 카테고리 + 모든 하위 카테고리 ID 반환 (path LIKE 활용) */
+  private async getCategoryIds(categoryId: number): Promise<number[]> {
+    const category = await this.categoryRepository.findOne({ where: { id: categoryId } });
+    if (!category) return [categoryId];
+
+    const descendants = await this.categoryRepository
+      .createQueryBuilder('cat')
+      .where('cat.path LIKE :path', { path: `${category.path}%` })
+      .getMany();
+
+    return descendants.map(c => c.id);
+  }
 
   /** 승인된 셀러 조회 — 미승인이면 ForbiddenException */
   private async getApprovedSeller(userId: number): Promise<SellerEntity> {
@@ -92,8 +108,11 @@ export class ProductService {
       approvalStatus: ApprovalStatus.APPROVED,
       status: ProductStatus.PUBLISHED,
     };
-    if (query.categoryId) fixedWhere.categoryId = query.categoryId;
-    if (query.sellerId)   fixedWhere.sellerId   = query.sellerId;
+    if (query.categoryId) {
+      const categoryIds = await this.getCategoryIds(query.categoryId);
+      fixedWhere.categoryId = In(categoryIds);
+    }
+    if (query.sellerId) fixedWhere.sellerId = query.sellerId;
 
     const result = await this.commonService.paginate(
       query,

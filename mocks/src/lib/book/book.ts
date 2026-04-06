@@ -15,7 +15,7 @@ export type BookMock = Omit<Book, 'id' | 'createdAt' | 'updatedAt' | 'category' 
 // Book 제품 Mock Data (100개)
 export const bookProducts: BookMock[] = [
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '달러구트 꿈 백화점',
     description: '당신이 잠든 사이, 우리는 특별한 꿈을 판매합니다',
     price: 14000,
@@ -38,7 +38,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '2024 대한민국 재테크 트렌드',
     description: '2024년 대한민국 트렌드 전망',
     price: 19300,
@@ -60,7 +60,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '해리포터와 마법사의 돌',
     description: '평범한 소년 해리의 마법 세계 입문기',
     price: 12000,
@@ -83,7 +83,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '82년생 김지영',
     description: '대한민국 여성들의 평범한 일상',
     price: 13500,
@@ -105,7 +105,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '아몬드',
     description: '감정이 없는 소년의 성장 이야기',
     price: 13800,
@@ -128,7 +128,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '미드나잇 라이브러리',
     description: '무한한 가능성의 도서관',
     price: 15800,
@@ -150,7 +150,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '역행자',
     description: '99%를 압도하는 1%의 비밀',
     price: 17500,
@@ -173,7 +173,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '귀멸의 칼날',
     description: '',
     price: 14500,
@@ -195,7 +195,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '불편한 편의점',
     description: '외로운 영혼들의 아름다운 만남',
     price: 13000,
@@ -218,7 +218,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '나는 매주 시체를 보러 간다',
     description: '법의학자의 특별한 일상',
     price: 16000,
@@ -240,7 +240,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '비폭력 대화',
     description: '일상에서 실천하는 평화의 언어',
     price: 12000,
@@ -263,7 +263,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '데미안',
     description: '자기 발견의 여정',
     price: 11000,
@@ -285,7 +285,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '참을 수 없는 존재의 가벼움',
     description: '사랑과 삶에 대한 철학적 성찰',
     price: 13500,
@@ -308,7 +308,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '코스모스',
     description: '우주의 신비를 탐험하다',
     price: 18000,
@@ -330,7 +330,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '채식주의자',
     description: '한 여자의 극단적 선택',
     price: 10800,
@@ -353,7 +353,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '원씽',
     description: '복잡한 세상을 이기는 단순함의 힘',
     price: 14500,
@@ -375,7 +375,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '이기적 유전자',
     description: '유전자의 관점에서 본 진화',
     price: 19000,
@@ -398,7 +398,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '언어의 온도',
     description: '말과 글에는 따뜻함과 차가움이 있다',
     price: 14000,
@@ -420,7 +420,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '총, 균, 쇠',
     description: '인류 문명의 수수께끼',
     price: 22000,
@@ -443,7 +443,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '나미야 잡화점의 기적',
     description: '시간을 넘나드는 고민 상담소',
     price: 13800,
@@ -465,7 +465,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '원피스',
     description: '조선 500년 역사를 한 권으로',
     price: 24000,
@@ -488,7 +488,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '사피엔스',
     description: '유인원에서 사이보그까지',
     price: 19800,
@@ -510,7 +510,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '죽고 싶지만 떡볶이는 먹고 싶어',
     description: '우울한 마음을 위한 에세이',
     price: 13500,
@@ -533,7 +533,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '1984',
     description: '디스토피아 소설의 고전',
     price: 12000,
@@ -555,7 +555,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '아주 작은 습관의 힘',
     description: '1%만 바꿔도 인생이 달라진다',
     price: 16500,
@@ -578,7 +578,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '지적 대화를 위한 넓고 얕은 지식',
     description: '현실 세계를 이해하는 지식',
     price: 16000,
@@ -600,7 +600,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '완전한 행복',
     description: '긍정심리학의 새로운 지평',
     price: 17000,
@@ -623,7 +623,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '어린왕자',
     description: '어른들을 위한 동화',
     price: 9000,
@@ -645,7 +645,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '호모 데우스',
     description: '미래의 역사',
     price: 22000,
@@ -668,7 +668,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '명탐정 코난',
     description: '공원 수도꼭지를 고장 낸 어린 시절의 신이치와 란. 그때 구해준 것은 경찰학교의 5인방!',
     price: 6000,
@@ -690,7 +690,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '멈추면, 비로소 보이는 것들',
     description: '혜민 스님의 인생 이야기',
     price: 13000,
@@ -713,7 +713,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '연금술사',
     description: '꿈을 이루는 여행',
     price: 11000,
@@ -735,7 +735,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '진격의 거인',
     description: '조사 병단 분대장 엘빈은 리바이라 이름을 밝힌 그 남자에게 어떤 거래를 제안한다',
     price: 18000,
@@ -758,7 +758,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '싯다르타',
     description: '깨달음을 찾아가는 여정',
     price: 10000,
@@ -780,7 +780,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '팩트풀니스',
     description: '우리가 세상을 오해하는 10가지 이유',
     price: 18000,
@@ -803,7 +803,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '방구석 미술관',
     description: '집에서 즐기는 명화 이야기',
     price: 16500,
@@ -825,7 +825,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '나는 나로 살기로 했다',
     description: '있는 그대로의 나를 사랑하는 법',
     price: 14000,
@@ -848,7 +848,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '모모',
     description: '시간 도둑과 맞서 싸운 소녀',
     price: 12000,
@@ -870,7 +870,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '미움받을 용기',
     description: '아들러 심리학을 읽는 밤',
     price: 14900,
@@ -893,7 +893,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '구의 증명',
     description: '수학 천재의 추리 소설',
     price: 15000,
@@ -915,7 +915,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '아르고노트 전장 광대행진진',
     description: '미래의 나를 만드는 법',
     price: 10000,
@@ -938,7 +938,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '지금 알고 있는 걸 그때도 알았더라면',
     description: '인생의 후회를 줄이는 지혜',
     price: 15000,
@@ -960,7 +960,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '인간 실격',
     description: '다자이 오사무의 자전적 소설',
     price: 10000,
@@ -983,7 +983,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '노르웨이의 숲',
     description: '상실과 성장의 이야기',
     price: 13000,
@@ -1005,7 +1005,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '이처럼 사소한 것들',
     description: '일상의 소중함을 담은 에세이',
     price: 14500,
@@ -1028,7 +1028,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '아버지의 해방일지',
     description: '가족의 의미를 되새기다',
     price: 16000,
@@ -1050,7 +1050,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '생각하지 않는 사람들',
     description: '인터넷이 우리 뇌를 바꾼다',
     price: 16500,
@@ -1073,7 +1073,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '탈무드',
     description: '유대인의 지혜가 담긴 고전',
     price: 15000,
@@ -1095,7 +1095,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '나의 문화유산답사기',
     description: '한국의 아름다운 문화재 이야기',
     price: 18000,
@@ -1118,7 +1118,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '마케팅 불변의 법칙',
     description: '22가지 마케팅 원칙',
     price: 13000,
@@ -1140,7 +1140,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '긴긴밤',
     description: '따뜻한 우정 이야기',
     price: 12000,
@@ -1163,7 +1163,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '흔한남매',
     description: '재미있는 남매의 일상',
     price: 11000,
@@ -1185,7 +1185,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '정의란 무엇인가',
     description: '하버드대 최고의 명강의',
     price: 15000,
@@ -1208,7 +1208,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '설득의 심리학',
     description: '사람의 마음을 움직이는 6가지 법칙',
     price: 16000,
@@ -1230,7 +1230,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '돌이킬 수 없는 약속',
     description: '따뜻한 우정과 사랑',
     price: 13500,
@@ -1253,7 +1253,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '천 개의 파랑',
     description: '사랑하는 이들을 위한 이야기',
     price: 14000,
@@ -1275,7 +1275,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '반지의 제왕',
     description: '친구를 얻고 사람을 설득하는 법',
     price: 49800,
@@ -1298,7 +1298,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '나니아 연대기',
     description: '행운과 불행을 파는 가게',
     price: 42000,
@@ -1320,7 +1320,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '나를 소모하지 않는 현명한 태도에 관하여',
     description: '현명하게 거리두기',
     price: 15000,
@@ -1343,7 +1343,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '장송의 프리렌',
     description: '산만한 세상에서 집중력 되찾기',
     price: 8000,
@@ -1365,7 +1365,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '그릿',
     description: '성공의 새로운 공식',
     price: 16000,
@@ -1388,7 +1388,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '흐르는 강물처럼',
     description: '인생의 지혜를 담은 에세이',
     price: 12500,
@@ -1410,7 +1410,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '물고기는 존재하지 않는다',
     description: '상실과 사랑 그리고 숨겨진 질서',
     price: 16500,
@@ -1433,7 +1433,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '주술회전',
     description: '인류 역사의 수수께끼 계속',
     price: 6000,
@@ -1455,7 +1455,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '흑설공주 이야기',
     description: '독특한 상상력의 동화',
     price: 12000,
@@ -1478,7 +1478,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '스파이 패밀리',
     description: '아냐의 자연 교실 유리의 휴가 중에 생긴 일, 포저 가족의 비밀스런 이야기가 소설화!!',
     price: 7000,
@@ -1500,7 +1500,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '나는 내가 죽었다고 생각했습니다',
     description: '뇌과학자의 뇌졸중 체험기',
     price: 16000,
@@ -1523,7 +1523,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '주식투자 무작정 따라하기',
     description: '초보자를 위한 주식 입문서',
     price: 19000,
@@ -1545,7 +1545,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '공정하다는 착각',
     description: '능력주의는 모두에게 공정할까',
     price: 18000,
@@ -1568,7 +1568,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '프로이트의 의자',
     description: '정신분석학 입문',
     price: 14500,
@@ -1590,7 +1590,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: 'SF 보다 Vol.1 얼음',
     description: '세계를 얼렸다― 상상력이 열렸다! 얼음 속에서 얼크러지는 여섯 가지 이야기. 얼음 표면에 얼비치는 여섯 가지 가능성',
     price: 14000,
@@ -1613,7 +1613,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '최소한의 한국사',
     description: '꼭 알아야 할 한국사',
     price: 16000,
@@ -1635,7 +1635,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '페스트',
     description: '전염병과 인간의 본성',
     price: 12000,
@@ -1658,7 +1658,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '침묵의 봄',
     description: '환경문제의 고전',
     price: 16000,
@@ -1680,7 +1680,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '광마회귀',
     description: '단행본 펀딩 5억 4천만 원 달성, 네이버 시리즈 7,600만 뷰 기록. 정통 무협의 전설, 《광마회귀》 단행본 전격 출간!',
     price: 20000,
@@ -1703,7 +1703,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '절대 검감',
     description: '한국 웹소설계의 인기작가 한중월야의 대표 수작. 신무협의 레전드 『절대 검감』 단행본 출간!',
     price: 13500,
@@ -1725,7 +1725,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '변신',
     description: '벌레가 된 남자의 이야기',
     price: 9000,
@@ -1748,7 +1748,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '환생표사',
     description: '내 꿈은 표사가 되어 멋진 말을 타고 표물을 호송하는 것이었다. 그러나 절름발이에 변변한 무공조차 익히지 못했던 나는 평생 허드렛일이나 하는 쟁자수로 살았다.',
     price: 17000,
@@ -1770,7 +1770,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '꽃을 보듯 너를 본다',
     description: '나태주 시인의 따뜻한 시',
     price: 12000,
@@ -1793,7 +1793,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '엄마를 만나러 가는 길',
     description: '“아이는 생각했습니다. 그 ‘엄마’구나 하고 말이죠. 미리아, 라이더, 모리 세 사람은 함께 행복할 수 있을까요?',
     price: 15000,
@@ -1815,7 +1815,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '작전명 순정',
     description: '"어느새 어두워진 하늘, 살짝 시린 밤공기, 아무도 없는 학교 운동장. 살갗은 차갑고, 숨은 덥고, 털어놓은 비밀들은 간지럽다."',
     price: 17000,
@@ -1838,7 +1838,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '무례한 사람에게 웃으며 대처하는 법',
     description: '무례함에 대응하는 지혜',
     price: 14000,
@@ -1860,7 +1860,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '악역의 엔딩은 죽음뿐뿐',
     description: '재벌가의 사생아로 태어나 가족들에게 미움만 받다가 겨우 탈출했는데, 연애 시뮬레이션 게임 속 악역 ‘페넬로페 에카르트’에게 빙의해 버렸다! 진짜 여주인공이 돌아오기 전, 다섯 명의 남자 주인공 중 한 명을 공략하지 못하면… 그녀에게 남은 엔딩은 오직 죽음뿐!',
     price: 18000,
@@ -1883,7 +1883,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '긍정의 재발견',
     description: '진짜 긍정의 힘',
     price: 15500,
@@ -1905,7 +1905,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '이토록 친밀한 배신자',
     description: '일상 속 유해물질',
     price: 16000,
@@ -1928,7 +1928,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '우리가 빛의 속도로 갈 수 없다면',
     description: 'SF 단편집',
     price: 13800,
@@ -1950,7 +1950,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '연애혁명',
     description: '“이것도 니 계획에 없던 거지?” 주영과 자림의 우당탕탕 514일 기념 데이트!',
     price: 14500,
@@ -1973,7 +1973,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '이어령의 80년 생각',
     description: '지성의 거장이 남긴 통찰',
     price: 19000,
@@ -1995,7 +1995,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '별이삼샵',
     description: '수학여행지에서 함께 옷을 맞춰 입고 커플 사진을 찍으며 즐거운 시간을 보내는 수원과 효림. 하지만 남모를 고민이 있던 수원은 친구들에게 고민을 털어놓는다. 친구들의 조언에 용기를 얻은 수원은 다가온 자신의 생일날 효림에게 가장 원하던 선물을 요청하기로 마음 먹고, 제일 먼저 축하를 전하러 온 효림에게 조심스레 말을 꺼내려 하는데.',
     price: 18000,
@@ -2018,7 +2018,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '마흔에 읽는 쇼펜하우어',
     description: '인생의 의미를 찾다',
     price: 15000,
@@ -2040,7 +2040,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '오늘 아침은 우울울하지 않았습니다',
     description: '프리랜서의 솔직한 이야기',
     price: 17500,
@@ -2063,7 +2063,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '룬의 아이들 ',
     description: '샤를로트와 막시민은 각자의 자리에서 아이언페이스와 세상의 종말, 오래된 약속의 비밀에 다가간다.한편 오랜만에 돌아온 슈트루델 거리. 작고 시시한 말썽과 함께 막시민을 기다리고 있는데……',
     price: 17000,
@@ -2085,7 +2085,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '철학은 어떻게 삶의 무기가 되는가',
     description: '일상의 무기가 되는 철학',
     price: 16000,
@@ -2108,7 +2108,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '보이지 않는 여자들',
     description: '작고한 지 2세기가 지난 오늘날까지도 니체의 말들은 빛이 바래지기는 커녕 뛰어난 통찰력과 날카로움으로 우리를 매혹시키고 있다.',
     price: 19000,
@@ -2130,7 +2130,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '원펀맨',
     description: '"원펀맨 ONE PUNCH MAN 33"은 뛰어난 그림체와 흥미진진한 전투 장면이 돋보이는 작품이다. 신의 힘을 받은 가로우와 사이타마의 대결이 긴장감 넘치게 그려지며, 사이타마의 필살 진심 시리즈가 인상적이다. 독특한 액션 스타일과 매력적인 이야기로 가득 차 있어 다음 권에 대한 기대감을 높인다.',
     price: 6000,
@@ -2153,7 +2153,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '마법의 순간',
     description: '파울로 코엘료의 에세이',
     price: 12000,
@@ -2175,7 +2175,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-novel',
     name: '역사의 쓸모',
     description: '역사로부터 배우는 삶의 지혜',
     price: 16500,
@@ -2198,7 +2198,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-essay',
     name: '이번 생은 가주가 되겠습니다.',
     description: '“한번 해 보자, 내가 가주가 되는 거야.” 환생에 회귀까지, 인생 3회차 피렌티아의 가주 되기 프로젝트!',
     price: 18000,
@@ -2220,7 +2220,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-self-help',
     name: '남편을 내 편으로 만드는 방법법',
     description: '가출 후 돌아온 반응은 경멸이 아닌 환대. 따스한 마음들이 루비의 곁에 머무른다. 진행되는 음모와 프레이야의 찜찜한 견제. 그럼에도 사소한 변화는 루비뿐만 아니라 이스케에게도 가닿은 듯한데…?',
     price: 15000,
@@ -2243,7 +2243,7 @@ export const bookProducts: BookMock[] = [
     tags: []
   },
   {
-    category: 'BOOK',
+    category: 'book-comic',
     name: '한밤중에 개에게 일어난 의문의 사건',
     description: '자폐 소년의 추리 소설',
     price: 13000,

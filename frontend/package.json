@@ -5,6 +5,7 @@
   "dependencies": {
     "@shopping-mall/shared": "*",
     "next": "~15.2.4",
+    "nextjs-toploader": "^3.9.17",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   }

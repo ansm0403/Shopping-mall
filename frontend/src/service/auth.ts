@@ -5,6 +5,10 @@ export interface LogoutResponse {
     message: string;
 }
 
+export interface MessageResponse {
+    message: string;
+}
+
 export type UserResponse = Omit<User, 'password'>;
 
 export async function login(data: LoginRequest) {
@@ -13,6 +17,14 @@ export async function login(data: LoginRequest) {
 
 export async function register(data: RegisterRequest) {
     return publicClient.post<RegisterResponse>("/auth/register", data);
+}
+
+export async function verifyEmail(token: string) {
+    return publicClient.get<LoginResponse>("/auth/verify-email", { params: { token } });
+}
+
+export async function resendVerificationEmail(email: string) {
+    return publicClient.post<MessageResponse>("/auth/resend-verification", { email });
 }
 
 export async function getMe() {

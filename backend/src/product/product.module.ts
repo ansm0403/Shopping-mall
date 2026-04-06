@@ -12,6 +12,7 @@ import { ShoesEntity } from './entity/shoes/shoes.entity';
 import { FoodEntity } from './entity/food/food.entity';
 import { SellerEntity } from '../seller/entity/seller.entity';
 import { OrderItemEntity } from '../order/entity/order-item.entity';
+import { CategoryEntity } from '../category/entity/category.entity';
 import { ProductController, AdminProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { TypeOrmProductSearchService } from './product-search.service';
@@ -34,6 +35,7 @@ import { AuthModule } from '../auth/auth.module';
       ShoesEntity,
       SellerEntity,
       OrderItemEntity,
+      CategoryEntity,
     ]),
     CommonModule,
     AuthModule,

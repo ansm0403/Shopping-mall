@@ -14,7 +14,7 @@ export type LivingMock = Omit<LivingProduct, 'id' | 'updatedAt' | 'createdAt' | 
 
 export const livingProducts: LivingMock[] = [
   {
-    category: 'LIVING',
+    category: 'living',
     name: '락앤락 진공 밀폐 용기 세트 5종',
     description: '신선도를 오래 유지하는 진공 밀폐 용기',
     price: 109000,
@@ -43,7 +43,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: 'LED 스탠드 조명',
     description: '눈이 편안한 무선 충전 가능 스탠드',
     price: 45000,
@@ -70,7 +70,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '스탠리 스테인리스 텀블러',
     description: '24시간 보온/보냉 진공 텀블러',
     price: 28000,
@@ -99,7 +99,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '위닉스 초음파 가습기',
     description: '조용한 작동의 미니 가습기',
     price: 32000,
@@ -127,7 +127,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '[다온] 리빙 폴딩박스',
     description: '접이식 다용도 수납 바구니',
     price: 15000,
@@ -155,7 +155,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '다용도 실리콘 설거지 장갑',
     description: '내열 실리콘 소재 세척 장갑',
     price: 12000,
@@ -182,7 +182,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '글라스락 유리 밀폐 용기 세트',
     description: '전자레인지 사용 가능한 유리 용기',
     price: 42000,
@@ -211,7 +211,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '헤트라스 프리미엄 대용량 디퓨저',
     description: '은은한 향기의 리드 디퓨저',
     price: 25000,
@@ -239,7 +239,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '한샘 접이식 빨래건조대',
     description: '공간 절약형 실내 건조대',
     price: 38000,
@@ -267,7 +267,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: 'LG 무선 핸디 청소기',
     description: '강력한 흡입력의 무선 청소기',
     price: 189000,
@@ -294,7 +294,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '이케아 욕실 선반 4단',
     description: '녹슬지 않는 스테인리스 선반',
     price: 55000,
@@ -322,7 +322,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '레토 패브릭 샤워커튼 방수 욕실 커튼',
     description: '곰팡이 방지 처리된 샤워 커튼',
     price: 18000,
@@ -349,7 +349,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '세이코 무소음 벽걸이 시계',
     description: '조용한 무소음 벽시계',
     price: 32000,
@@ -377,7 +377,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '더블 서포트 주방 세제 디스펜서',
     description: '자동 센서 손세정 디스펜서',
     price: 28000,
@@ -405,7 +405,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '클린스페이스 자동센서 쓰레기통',
     description: '손대지 않고 사용하는 센서 쓰레기통',
     price: 45000,
@@ -434,7 +434,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '모던하우스 클래식 규조토 발매트',
     description: '빠른 건조의 천연 규조토 매트',
     price: 22000,
@@ -461,7 +461,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '벨벳 어깨뿔방지 옷걸이 바지걸이 50p',
     description: '미끄럼 방지 벨벳 옷걸이',
     price: 25000,
@@ -489,7 +489,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '유니맥스 가정용 전기 모기향',
     description: '액체형 전자 모기향 세트',
     price: 15000,
@@ -516,7 +516,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '냄비받침 실리콘',
     description: '내열 실리콘 냄비받침 세트',
     price: 9000,
@@ -544,7 +544,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '아트박스 LED 터치 메이크업 인테리어 뷰티 탁상거울',
     description: 'LED 조명 내장 메이크업 거울',
     price: 38000,
@@ -571,7 +571,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '필립스 칫솔 UV 살균기',
     description: 'UV 자외선 칫솔 살균 건조기',
     price: 42000,
@@ -599,7 +599,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '진공 압축팩 10매',
     description: '의류 보관용 진공 압축팩',
     price: 18000,
@@ -626,7 +626,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '와인 전용 자동 오프너 소품 세트',
     description: '스테인리스 와인 오프너 5종 세트',
     price: 35000,
@@ -654,7 +654,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '템퍼 매트리스 커버',
     description: '방수 매트리스 보호 커버',
     price: 45000,
@@ -681,7 +681,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '고탄소강 초경량 접이식 의자',
     description: '공간 절약형 접이식 의자',
     price: 28000,
@@ -709,7 +709,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '그린플랜트 식물 황토볼 천연 가습기',
     description: '공기정화 식물과 가습기 결합',
     price: 55000,
@@ -737,7 +737,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '초고속 PD30W 멀티탭 USB 충전',
     description: 'USB 포트 내장 멀티탭',
     price: 32000,
@@ -765,7 +765,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: 'EVA 붐 욕실 슬리퍼',
     description: '미끄럼 방지 욕실 슬리퍼',
     price: 12000,
@@ -792,7 +792,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '스위스밀리터리 슈비츠 9종 주방칼세트',
     description: '스테인리스 주방칼 7종 세트',
     price: 89000,
@@ -820,7 +820,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '벽걸이 흡착 욕실 코너 벽 선반 정리대',
     description: '설치 간편한 벽걸이 수납선반',
     price: 38000,
@@ -847,7 +847,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '스마트 양념 조미료통',
     description: '밀폐 양념통 12종 세트',
     price: 28000,
@@ -876,7 +876,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '전동 드릴 세트',
     description: 'DIY용 전동 드릴 공구 세트',
     price: 125000,
@@ -903,7 +903,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: 'JAJU 보관용 아이스 트레이',
     description: '실리콘 얼음틀 4개 세트',
     price: 15000,
@@ -931,7 +931,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '자동 비누 디스펜서',
     description: '센서 자동 거품 비누 디스펜서',
     price: 25000,
@@ -959,7 +959,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '특대형 보관백 이불보관함 ',
     description: '부직포 이불 정리 수납함',
     price: 22000,
@@ -987,7 +987,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '휴대용 선풍기',
     description: 'USB 충전 미니 선풍기',
     price: 18000,
@@ -1014,7 +1014,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '도어 스토퍼',
     description: '강력 자석 도어 스토퍼 2개',
     price: 8000,
@@ -1042,7 +1042,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '필립스 스팀 다리미',
     description: '휴대용 소형 스팀 다리미',
     price: 48000,
@@ -1070,7 +1070,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '우드 캔들워머 (AGM-302)',
     description: '전기 캔들 워머 램프',
     price: 35000,
@@ -1098,7 +1098,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '클래식 호텔 욕실 타올 발매트 ',
     description: '벽부착 키친타올 홀더',
     price: 12000,
@@ -1125,7 +1125,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '완전방수 식탁보 북유럽 PVC 테이블보',
     description: '방수 식탁 매트',
     price: 18000,
@@ -1153,7 +1153,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '코웨이 에어 카트리지 공기청정기',
     description: '미세먼지 제거 공기청정기',
     price: 289000,
@@ -1180,7 +1180,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '[브라운]NEW 액티브 블레이드 핸드블랜더',
     description: '다용도 핸드 믹서',
     price: 65000,
@@ -1208,7 +1208,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '전면 거울(여닫이) 누드 라이트 욕실 수납장',
     description: '벽걸이 욕실 수납 캐비닛',
     price: 58000,
@@ -1235,7 +1235,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '모노 전기포트 1.5L 커피포트 분유 대용량 주전자',
     description: '빠른 끓임 전기 주전자',
     price: 42000,
@@ -1264,7 +1264,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '슬라이딩 도어 후크',
     description: '문에 거는 수납 후크 5개',
     price: 9000,
@@ -1291,7 +1291,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '클린풀 투인원 유리창 방충망 청소솔',
     description: '먼지 제거 방충망 클리너',
     price: 15000,
@@ -1319,7 +1319,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '아크릴 미니 화장대 2단',
     description: '투명 아크릴 화장품 정리함',
     price: 32000,
@@ -1346,7 +1346,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '계량컵 안깨지는 계량컵 비커 카페 제과용품',
     description: '스테인리스 계량컵 5종',
     price: 18000,
@@ -1374,7 +1374,7 @@ export const livingProducts: LivingMock[] = [
     tags: [],
   },
   {
-    category: 'LIVING',
+    category: 'living',
     name: '무선 진공청소기',
     description: '[2024 NEW] 삼성 BESPOKE AI스팀 로봇청소기',
     price: 1760000,
