@@ -11,6 +11,8 @@ import { AuthModule } from '../auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoleEntity } from '../user/entity/role.entity';
 import { RolesSeedService } from '../common/seeds/roles.seed';
+import { CategoryEntity } from '../category/entity/category.entity';
+import { CategorySeedService } from '../common/seeds/category.seed';
 import { SellerModule } from '../seller/seller.module';
 import { CategoryModule } from '../category/category.module';
 import { CartModule } from '../cart/cart.module';
@@ -37,7 +39,7 @@ import { AuditModule } from '../audit/audit.module';
       autoLoadEntities: true, // 자동으로 엔티티 로드
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([RoleEntity]),
+    TypeOrmModule.forFeature([RoleEntity, CategoryEntity]),
     AuthModule,
     SellerModule,
     CategoryModule,
@@ -53,6 +55,6 @@ import { AuditModule } from '../audit/audit.module';
     AuditModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RolesSeedService],
+  providers: [AppService, RolesSeedService, CategorySeedService],
 })
 export class AppModule {}

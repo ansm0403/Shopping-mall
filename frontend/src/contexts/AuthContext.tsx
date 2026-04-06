@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { authStorage } from '../service/auth-storage';
-import { getMe, UserResponse } from '../service/auth';
+import { getMe, logout as logoutApi, UserResponse } from '../service/auth';
 import { getAuthChannel } from '../service/auth-channel';
 
 interface AuthContextType {
@@ -12,6 +12,7 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   isHydrated: boolean;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -71,6 +72,15 @@ export default function AuthContextProvider({ children }: { children: React.Reac
     return () => window.removeEventListener('storage', onStorage);
   }, [queryClient]);
 
+  const logout = async () => {
+    try {
+      await logoutApi();
+    } finally {
+      authStorage.clearToken();
+      queryClient.setQueryData(['auth', 'user'], null);
+    }
+  };
+
   const { data: user, isLoading } = useQuery({
     queryKey: ['auth', 'user'],
     queryFn: async () => {
@@ -104,6 +114,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
         isLoading,
         isAuthenticated: !!user,
         isHydrated,
+        logout,
       }}
     >
       {children}

@@ -1,5 +1,4 @@
 import { bookProducts } from "@shopping-mall/mocks"
-import { ProductCategory } from "../product/entity/product.entity";
 
 export const bookProductsData = bookProducts.map((product) => ({
   name: product.name,
@@ -23,5 +22,5 @@ export const bookProductsData = bookProducts.map((product) => ({
     pages: product.pages,
     genre: product.genre,
   },
-  category: ProductCategory.BOOK,
+  category: product.category,
 }));

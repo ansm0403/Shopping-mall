@@ -14,7 +14,7 @@ export type ShoesMock = Omit<Shoes, 'id' | 'createdAt' | 'updatedAt' | 'category
 
 export const shoesProducts: ShoesMock[] = [
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Nike Air Trainer 1',
     description: '가벼운 러닝용 메쉬 소재 신발',
     price: 113000,
@@ -35,7 +35,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'Adidas VL COURT CLASSIC',
     description: '클래식한 테니스 스타일 로우컷 스니커즈',
     price: 79000,
@@ -55,7 +55,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Salomon XT-4 OG 스니커즈 L47132900',
     description: '접지력이 강화된 트레킹용 아웃도어 슈즈',
     price: 273000,
@@ -76,7 +76,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Skechers Women"s Urban Explore Hands Free',
     description: '도심 속 편안함을 위한 슬립온 스타일',
     price: 69000,
@@ -96,7 +96,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'The North Face VectivFastpackFutureLite Trekking Shoes',
     description: '방수 기능과 내구성이 강화된 등산화',
     price: 139000,
@@ -117,7 +117,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'Converse 잭퍼셀 classic row',
     description: '데일리로 신기 좋은 심플한 캔버스 로우 슈즈',
     price: 72000,
@@ -137,7 +137,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Under Armour Speedform Turbulence Shoes',
     description: '러너를 위한 경량 퍼포먼스 슈즈',
     price: 119000,
@@ -158,7 +158,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Adidas Cloud Foam Walk',
     description: '폭신한 클라우드폼 미드솔로 편안한 착용감',
     price: 89000,
@@ -178,7 +178,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Reebok Vintage Leather High',
     description: '빈티지 무드의 하이탑 가죽 스니커즈',
     price: 109000,
@@ -199,7 +199,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'Puma Street Flex V2',
     description: '스트리트 무드의 패션 스니커즈',
     price: 34000,
@@ -220,7 +220,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Mizuno Wave Rider Neo',
     description: '쿠셔닝과 반발력이 뛰어난 러닝화',
     price: 139000,
@@ -240,7 +240,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Allbirds Eco Recycle Slip-On',
     description: '재활용 소재로 만든 친환경 슬립온',
     price: 334000,
@@ -261,7 +261,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Lacoste Powercourt Leather Trainers',
     description: '깔끔한 디자인의 가죽 코트화',
     price: 4123000,
@@ -281,7 +281,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'SlipStream V3',
     description: '유행을 타지 않는 슬림한 실루엣의 운동화',
     price: 160000,
@@ -302,7 +302,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Adidas Ultra Boost 1.0 OG',
     description: '프리미엄 쿠셔닝의 하이엔드 러닝화',
     price: 300000,
@@ -323,7 +323,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'New Balance 9060',
     description: '부드러운 스웨이드 소재의 빈티지 로우 슈즈',
     price: 314000,
@@ -343,7 +343,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Skechers Knit-Look Casual Trainers',
     description: '발을 감싸는 니트 소재의 초경량 슬립온',
     price: 125000,
@@ -363,7 +363,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'ASICS, Novablast 2 Running Shoe',
     description: '일상용 쿠셔닝 강화 런닝화',
     price: 99000,
@@ -384,7 +384,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Fila Vintage Tennis 88 Trainers White Navy Red',
     description: '90년대 감성의 복고풍 스니커즈',
     price: 79000,
@@ -404,7 +404,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Merrell Erie Mid Leather Waterproof',
     description: '경량 방수 기능을 갖춘 트레킹화',
     price: 195000,
@@ -425,7 +425,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'CityLite Casual',
     description: '도심 속 캐주얼 무드의 편안한 로우 슈즈',
     price: 89000,
@@ -445,7 +445,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'Nike Zoom Freak 5',
     description: '반응형 쿠션으로 부드러운 착화감을 제공하는 러닝화',
     price: 119000,
@@ -466,7 +466,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'SALOMON X ULTRA 4 GORE-TEX',
     description: 'Gore-Tex 방수 기능을 갖춘 트레일용 등산화',
     price: 309000,
@@ -487,7 +487,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Men"s Tree Dasher 2',
     description: '유연한 니트 소재의 슬립온 디자인',
     price: 190000,
@@ -507,7 +507,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Asics GEL-RESOLUTION X',
     description: '오래 걸어도 편안한 쿠셔닝 중창 러닝화',
     price: 266000,
@@ -528,7 +528,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'New Balance Pro Court 212 Shoes White / Green',
     description: '레트로 감성의 코트 스타일 스니커즈',
     price: 107000,
@@ -548,7 +548,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Merrell Jungle Moc Arctic Grip Shoe - Men"s',
     description: '내구성과 접지력을 높인 하이킹 슈즈',
     price: 149000,
@@ -569,7 +569,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Fila Memory Killington Kids Running Shoes',
     description: '가벼운 쿠셔닝과 일상 착화감 강화',
     price: 79000,
@@ -589,7 +589,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Puma ST MILER Men"s Sneakers',
     description: '스트릿 패션에 어울리는 로우탑 디자인',
     price: 99000,
@@ -610,7 +610,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'Mizuno Morelia Neo II',
     description: '러너를 위한 안정감 있는 미드솔 구조',
     price: 139000,
@@ -631,7 +631,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Allbirds Wool Cruiser Slip On',
     description: '리사이클 소재의 친환경 니트 슬립온',
     price: 59000,
@@ -651,7 +651,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Under Armour Magnetico Pro 5 FG Football Boots',
     description: '트레이닝용 안정감 있는 쿠셔닝 슈즈',
     price: 1650000,
@@ -672,7 +672,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Clarks Mens Donaway Free Stone Shoes ',
     description: '부드러운 스웨이드 소재의 일상용 신발',
     price: 142000,
@@ -692,7 +692,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'The North Face Ultra Endurance GTX Trail Running Shoe',
     description: '방수 및 통기성을 강화한 등산용 트레일화',
     price: 179000,
@@ -713,7 +713,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'adidas Grand Court Base 2.0 Shoes',
     description: '복고풍 디자인의 클래식 코트 스니커즈',
     price: 89000,
@@ -733,7 +733,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'GentleWalk Everyday walk loafers',
     description: '편안한 착화감의 클래식 로퍼입니다.',
     price: 99000,
@@ -753,7 +753,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'PeakTrail Altra Lone Peak 6 Shoes Olive Green',
     description: '험한 지형에서도 완벽한 접지력을 제공하는 트레일 러닝화.',
     price: 109000,
@@ -774,7 +774,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'The Urban Ease : Ivory-Grey',
     description: '캐주얼한 도시 스타일의 슬립온.',
     price: 39000,
@@ -794,7 +794,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'Air Jordan 1 High OG Midnight Navy',
     description: '빈티지 감성을 담은 하이탑 스니커즈.',
     price: 220000,
@@ -815,7 +815,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'EasyStep Kenya Sandal in Taupe Leather',
     description: '장시간 착용에도 피로감 없는 편안한 샌들.',
     price: 124000,
@@ -835,7 +835,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Black oxford in calfskin',
     description: '격식 있는 자리에 어울리는 정장 구두.',
     price: 179000,
@@ -856,7 +856,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'Under Armour Flow Velociti Elite 2',
     description: '가볍고 통기성 좋은 러닝화.',
     price: 427000,
@@ -876,7 +876,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'WILTSHIRE - MENS SHEEPSKIN BOOTS',
     description: '눈길에서도 미끄럽지 않은 방한 부츠.',
     price: 273000,
@@ -897,7 +897,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'GUOBIOZIY Women"s Backless Walking Sneakers',
     description: '간편하게 신고 벗을 수 있는 뮬 스타일 슬립온.',
     price: 69000,
@@ -917,7 +917,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Asics Metaspeed Sky Paris',
     description: '프로 러너를 위한 고성능 러닝화.',
     price: 356000,
@@ -938,7 +938,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-dress',
     name: 'GentleCraft Classic Derby',
     description: '정통 스타일의 더비 슈즈.',
     price: 569000,
@@ -958,7 +958,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-boots',
     name: 'PeakMount Mountain Trek Boots',
     description: '산행용 방수 트레킹 부츠.',
     price: 228000,
@@ -979,7 +979,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sandals',
     name: 'Urban57 Washable Leather Canvas White',
     description: '어디에나 어울리는 기본 캔버스 로우 스니커즈.',
     price: 140000,
@@ -999,7 +999,7 @@ export const shoesProducts: ShoesMock[] = [
     tags: []
   },
   {
-    category: 'SHOES',
+    category: 'shoes-sneakers',
     name: 'Eleganza Elegant Heels',
     description: '세련된 디자인의 여성용 힐.',
     price: 139000,

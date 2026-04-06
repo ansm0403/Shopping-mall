@@ -1,21 +1,14 @@
-'use client'
-
 import React from 'react'
-import styled from "@emotion/styled";
 import UserMenu from './UserMenu';
+import { useRouter } from 'next/navigation';
 
 export default function Topbar() {
+  const router = useRouter();
+
   return (
-    <Container>
-        <div>Welcome to <span style = {{color : "orange", fontWeight: "bold"}}>Shopping mall</span> !!</div>
+    <div className='max-w-[1200px] flex justify-between'>
+        <div className='cursor-pointer select-none' onClick={() => router.push('/')}>Welcome to <span className='text-sky-300 font-bold'>Shopping mall</span> !!</div>
         <UserMenu />
-    </Container>
+    </div>
   )
 }
-
-const Container = styled.div`
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-`

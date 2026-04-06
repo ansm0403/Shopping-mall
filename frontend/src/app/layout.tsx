@@ -1,9 +1,7 @@
 
 import './global.css';
-import Header from '../components/header/Header';
-import './global.css';
+import NextTopLoader from 'nextjs-toploader';
 import ReactQueryProvider from '../providers/reactQuery-provider';
-import MaxWidthContainer from '../components/layout/MaxWidthContainer';
 import AuthContextProvider from '../contexts/AuthContext';
 
 export const metadata = {
@@ -19,12 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <NextTopLoader />
         <ReactQueryProvider>
           <AuthContextProvider>
-            <Header />
-            <MaxWidthContainer>
-              {children}
-            </MaxWidthContainer>
+            {children}
           </AuthContextProvider>
         </ReactQueryProvider>
       </body>

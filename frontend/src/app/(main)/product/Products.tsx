@@ -1,7 +1,8 @@
 'use client'
 
+import { useProducts } from '@/hook/useProduct';
 import React, { useEffect } from 'react'
-import { useProducts } from '../../hook/useProduct'
+
 
 export default function Products() {
 

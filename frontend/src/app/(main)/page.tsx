@@ -1,6 +1,7 @@
-import Banner from "../components/banner/Banner";
-import MaxWidthContainer from "../components/layout/MaxWidthContainer";
+
+import MaxWidthContainer from "@/components/layout/MaxWidthContainer";
 import Products from "./product/Products";
+import Banner from "@/components/banner/Banner";
 
 export default function Index() {
   return (

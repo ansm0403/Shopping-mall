@@ -399,13 +399,12 @@ export class AuthService {
       throw new UnauthorizedException('사용자를 찾을 수 없습니다.');
     }
 
-    // 기존 토큰 무효화
-    await this.revokeRefreshToken(payload.tokenId, payload.sub);
-
-    // 마지막 사용 시간 업데이트
+    // 마지막 사용 시간 업데이트 후 기존 토큰 무효화
     await this.refreshTokenRepository.update(payload.tokenId, {
       lastUsedAt: new Date(),
     });
+
+    await this.revokeRefreshToken(payload.tokenId, payload.sub);
 
     await this.auditLogService.log({
       userId: user.id,

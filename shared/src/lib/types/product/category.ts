@@ -1,4 +1,11 @@
-export type Category = 'CLOTHING' | 'BEAUTY' | 'SHOES' | 'BOOK' | 'FOOD' | 'OTHER' | 'LIVING';
+export type Category =
+  | 'CLOTHING' | 'BEAUTY' | 'SHOES' | 'BOOK' | 'FOOD' | 'OTHER' | 'LIVING'
+  | 'clothing' | 'clothing-spring' | 'clothing-summer' | 'clothing-fall' | 'clothing-winter'
+  | 'beauty' | 'beauty-oily' | 'beauty-dry' | 'beauty-combination' | 'beauty-sensitive' | 'beauty-all'
+  | 'shoes' | 'shoes-sneakers' | 'shoes-dress' | 'shoes-boots' | 'shoes-sandals'
+  | 'book' | 'book-novel' | 'book-essay' | 'book-self-help' | 'book-comic'
+  | 'food' | 'food-snack' | 'food-beverage' | 'food-fresh' | 'food-instant'
+  | 'living';
 
 // API 응답에서 category 필드로 반환되는 간략 카테고리 정보
 export interface CategorySummary {
@@ -91,4 +98,31 @@ export const CATEGORY_MAP: Record<Category, string> = {
   FOOD: '식품',
   OTHER: '기타',
   LIVING: '생활용품',
+  clothing: '의류',
+  'clothing-spring': '봄',
+  'clothing-summer': '여름',
+  'clothing-fall': '가을',
+  'clothing-winter': '겨울',
+  beauty: '뷰티',
+  'beauty-oily': '지성',
+  'beauty-dry': '건성',
+  'beauty-combination': '복합성',
+  'beauty-sensitive': '민감성',
+  'beauty-all': '모든 피부',
+  shoes: '신발',
+  'shoes-sneakers': '스니커즈',
+  'shoes-dress': '구두',
+  'shoes-boots': '부츠',
+  'shoes-sandals': '샌들',
+  book: '책',
+  'book-novel': '소설',
+  'book-essay': '에세이',
+  'book-self-help': '자기계발',
+  'book-comic': '만화',
+  food: '식품',
+  'food-snack': '과자',
+  'food-beverage': '음료',
+  'food-fresh': '신선식품',
+  'food-instant': '간편식',
+  living: '생활용품',
 } as const;

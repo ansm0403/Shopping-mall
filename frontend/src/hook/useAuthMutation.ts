@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { login, logout, register } from "../service/auth";
+import { login, logout, register, verifyEmail, resendVerificationEmail } from "../service/auth";
 import type { LoginRequest, RegisterRequest } from "@shopping-mall/shared";
 import { authStorage } from "../service/auth-storage";
 import { resetLoggingOutFlag } from "../lib/axios/axios-http-client";
@@ -33,6 +33,36 @@ export function useRegisterMutation() {
     return useMutation({
         mutationKey: ["auth", "register"],
         mutationFn: (data: RegisterRequest) => register(data),
+    });
+}
+
+/**
+ * 이메일 인증 mutation hook
+ */
+export function useVerifyEmailMutation() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationKey: ["auth", "verify-email"],
+        mutationFn: (token: string) => verifyEmail(token),
+        onSuccess: (response) => {
+            resetLoggingOutFlag();
+
+            // 이메일 인증 후 자동 로그인 (rememberMe=false)
+            authStorage.setAccessToken(response.data.accessToken, false);
+
+            queryClient.setQueryData(['auth', 'user'], response.data.user);
+        },
+    });
+}
+
+/**
+ * 인증 메일 재발송 mutation hook
+ */
+export function useResendVerificationMutation() {
+    return useMutation({
+        mutationKey: ["auth", "resend-verification"],
+        mutationFn: (email: string) => resendVerificationEmail(email),
     });
 }
 

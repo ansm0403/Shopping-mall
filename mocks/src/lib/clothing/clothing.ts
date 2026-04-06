@@ -14,7 +14,7 @@ export type ClothingMock = Omit<Clothing, 'id' | 'createdAt' | 'updatedAt' | 'ca
 
 export const clothingProducts: ClothingMock[] = [
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '유니클로 베이직 코튼 티셔츠',
     description: '부드러운 면 소재의 데일리 티셔츠',
     price: 29000,
@@ -38,7 +38,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '리바이스 511 프리미엄 슬림핏 청바지 인디고',
     description: '편안한 착용감의 스트레치 데님',
     price: 159000,
@@ -61,7 +61,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '그레이스픽 롱 트렌치 코트',
     description: '클래식한 디자인의 봄 아우터',
     price: 198000,
@@ -85,7 +85,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '챔피온 기모 오버핏 후드 집업',
     description: '여유로운 핏의 후드 집업',
     price: 59000,
@@ -108,7 +108,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '자라 플리츠 미디 스커트',
     description: '우아한 주름 디테일 스커트',
     price: 225000,
@@ -132,7 +132,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '에잇세컨즈 오버사이즈 맨투맨',
     description: '편안한 루즈핏 맨투맨',
     price: 39000,
@@ -155,7 +155,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '막스마라 울 블렌드 코트',
     description: '고급스러운 울 혼방 코트',
     price: 289000,
@@ -179,7 +179,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: 'H&M 서머 화이트 린넨 셔츠',
     description: '시원한 여름 린넨 셔츠',
     price: 49000,
@@ -202,7 +202,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '스파오 베이 와이드 핏핏 팬츠',
     description: '편안한 와이드 핏 팬츠',
     price: 69000,
@@ -226,7 +226,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '23FW 노스페이스 패딩',
     description: '보온성 뛰어난 겨울 패딩',
     price: 614000,
@@ -249,7 +249,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '부들 털 브이넥 크롭 니트티',
     description: '짧은 기장의 스타일리시 니트',
     price: 42000,
@@ -273,7 +273,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '빈폴 슬림핏 일자 핀턱 슬랙스',
     description: '정장에 어울리는 슬랙스',
     price: 79000,
@@ -296,7 +296,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '미쏘 플라워 원피스',
     description: '화사한 플라워 패턴 원피스',
     price: 89000,
@@ -320,7 +320,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '카르하트 밀리터리 카고 팬츠',
     description: '실용적인 포켓 디자인',
     price: 69000,
@@ -343,7 +343,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '지오다노 포멀 네이비 블레이저',
     description: '세련된 정장 재킷',
     price: 149000,
@@ -367,7 +367,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '랄프로렌 클래식 반팔 폴로셔츠',
     description: '클래식한 폴로 셔츠',
     price: 59000,
@@ -390,7 +390,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '유니클로 캐주얼 집업 가디건',
     description: '편안한 니트 가디건',
     price: 52000,
@@ -414,7 +414,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: 'Lee 우먼 스웻 미니 스커트',
     description: '활동적인 미니 스커트',
     price: 35000,
@@ -437,7 +437,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '스프레이 체크 레드드 셔츠',
     description: '빈티지 체크 패턴',
     price: 45000,
@@ -461,7 +461,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '블랙야크 구스다운 롱패딩',
     description: '긴 기장의 보온 패딩',
     price: 229000,
@@ -484,7 +484,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '비바럽 Y존 프리 워터 레깅스',
     description: '편안한 스트레치 레깅스',
     price: 29000,
@@ -508,7 +508,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '반바지',
     description: '여름용 코튼 반바지',
     price: 39000,
@@ -531,7 +531,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '코튼 노턱 반바지',
     description: '따뜻한 하이넥 니트',
     price: 55000,
@@ -555,7 +555,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '루즈핏 오버사이즈 트렌드 조거 팬츠',
     description: '편안한 조거 핏 팬츠',
     price: 49000,
@@ -578,7 +578,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '세일러 카라 시폰 블라우스',
     description: '우아한 시폰 소재',
     price: 59000,
@@ -602,7 +602,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '리바이스 x 맥라렌 레이싱 헤리티지 트러커 자켓',
     description: '클래식 데님 재킷',
     price: 79000,
@@ -625,7 +625,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '메종키츠네 남성 헤드폭스 패치 울 니트',
     description: '부드러운 울 니트',
     price: 89000,
@@ -649,7 +649,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '아디다스 컴뱃스포츠 트레이닝복 세트',
     description: '운동복 상하 세트',
     price: 69000,
@@ -672,7 +672,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '코스 COS 여자 웨이스티드 사틴 맥시 슬립 드레스 원피스',
     description: '롱 기장의 우아한 원피스',
     price: 99000,
@@ -696,7 +696,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '파타고니아 후리스 집업 레트로파일 마수피얼',
     description: '보온성 좋은 후리스',
     price: 45000,
@@ -719,7 +719,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '자라 크로셰 니트 베스트 여성 민소매 니트',
     description: '시원한 민소매 니트',
     price: 39000,
@@ -743,7 +743,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '데일리 후드 티셔츠 그레이',
     description: '따뜻한 기모 안감',
     price: 49000,
@@ -766,7 +766,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: 'G-Star RAW 클래식 핏 5 포켓 스키니 진',
     description: '슬림한 핏의 진',
     price: 79000,
@@ -790,7 +790,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '무스너클 J03 여성 숏패딩 네이비',
     description: '짧은 기장의 패딩',
     price: 139000,
@@ -813,7 +813,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '스투시 화이트 프린팅 티셔츠',
     description: '독특한 그래픽 프린트',
     price: 35000,
@@ -837,7 +837,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '플레어 스커트 핑크 FLARED SKIRT PINK',
     description: '여성스러운 플레어 실루엣',
     price: 52000,
@@ -860,7 +860,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: 'K2 네이비 바람막이 자켓',
     description: '방풍 기능성 재킷',
     price: 89000,
@@ -884,7 +884,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '폴로 랄프로렌 V넥 니트 스웨터 2컬러',
     description: '클래식한 브이넥 디자인',
     price: 62000,
@@ -907,7 +907,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: '모던 두꺼운 도톰한 베이지롱 가디건 롱',
     description: '긴 기장의 니트 가디건',
     price: 79000,
@@ -931,7 +931,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '유니클로 반팔 브이넥 티셔츠',
     description: '편안한 착용감의 베이직 티셔츠',
     price: 19900,
@@ -955,7 +955,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '자라 청록 세일러 니트',
     description: '루즈한 핏으로 시원하게 입을 수 있는 셔츠',
     price: 34900,
@@ -978,7 +978,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '리바이스 남성 511 슬림핏 청바지',
     description: '신축성 좋은 데님 소재의 슬림핏 청바지',
     price: 59000,
@@ -1002,7 +1002,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: 'H&M 여성 플리츠 롱스커트',
     description: '가벼운 쉬폰 소재의 롱스커트',
     price: 49000,
@@ -1025,7 +1025,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '나이키 남성 드라이핏 테이퍼드 조거팬츠 트레이닝 바지',
     description: '신축성 좋은 스포츠용 팬츠',
     price: 29900,
@@ -1049,7 +1049,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '무신사 스탠다드 브러쉬드 브이넥 가디건 - 베이지',
     description: '부드러운 촉감의 울 혼방 가디건',
     price: 69000,
@@ -1072,7 +1072,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '유니섹스 오버핏 후드티',
     description: '따뜻한 기모 안감의 오버핏 후드티',
     price: 49000,
@@ -1096,7 +1096,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-fall',
     name: ' 타미힐피거 네이비 블레이저 자켓',
     description: '세련된 디자인의 포멀 블레이저',
     price: 119000,
@@ -1119,7 +1119,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-winter',
     name: '버버리 롱 캐슬포드 트렌치코트',
     description: '고급스러운 클래식 트렌치코트',
     price: 3770000,
@@ -1143,7 +1143,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-spring',
     name: '스튜디오 니콜슨 소르테 차콜 그레이',
     description: '넉넉한 핏의 트렌디한 와이드 팬츠',
     price: 145000,
@@ -1166,7 +1166,7 @@ export const clothingProducts: ClothingMock[] = [
     tags: [],
   },
   {
-    category: 'CLOTHING',
+    category: 'clothing-summer',
     name: '노스페이스 NJ1DR53A 남성 레귤러핏 경량패딩',
     description: '가벼우면서 따뜻한 덕다운 패딩',
     price: 239000,
