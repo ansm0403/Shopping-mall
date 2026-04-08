@@ -48,7 +48,7 @@ export function Modal({
   size,
   children,
   className,
-}: ModalProps) {
+}: ModalProps): React.ReactElement | null {
   // SSR 환경에서 포털 마운트를 클라이언트에서만 실행
   const [mounted, setMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,7 @@ export function Modal({
 
   if (!mounted || !isOpen) return null;
 
-  return createPortal(
+  const portal = createPortal(
     <div
       ref={overlayRef}
       role="dialog"
@@ -121,6 +121,8 @@ export function Modal({
     </div>,
     document.body
   );
+  // @types/react-dom 이 내장한 @types/react 버전과 프로젝트 버전 간 ReactPortal 불일치 우회
+  return portal as unknown as React.ReactElement;
 }
 
 // ─── 편의 서브컴포넌트 (Modal 내부 영역 구분용) ──────────────────────────────

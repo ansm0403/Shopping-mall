@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import LogIn from './LogIn';
 
 export default function UserMenu() {
   const { user, isHydrated, logout } = useAuth();
+  const router = useRouter();
   const [click, setClick] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -20,7 +22,7 @@ export default function UserMenu() {
 
   const items: { label: string; onClick: () => void }[] = [
     { label: "내 정보", onClick: () => void 0 },
-    { label: "장바구니", onClick: () => void 0 },
+    { label: "장바구니", onClick: () => router.push('/cart') },
     { label: "로그아웃", onClick: () => setShowConfirm(true) },
   ];
 

@@ -59,7 +59,7 @@ export function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 w-full max-w-[600px] min-w-[400px]">
       <Form<LoginFormValues>
         title="로그인"
         description="계정에 로그인 해주세요."

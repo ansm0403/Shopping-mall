@@ -26,8 +26,8 @@ class ShipmentResponseDto {
 
 class PaymentSummaryDto {
   @Expose() id: number;
-  @Expose() impUid: string | null;
-  @Expose() merchantUid: string;
+  @Expose() transactionId: string | null;
+  @Expose() paymentId: string;
   @Expose() paymentMethod: string | null;
   @Expose() amount: number;
   @Expose() status: string;

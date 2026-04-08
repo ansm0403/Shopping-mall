@@ -87,11 +87,10 @@ export class OrderService {
     const { order } = await this.dataSource.transaction(async (manager) => {
       // 2-a. CartItem을 트랜잭션 내에서 FOR UPDATE 락으로 조회
       //      → 동일 CartItem으로 동시 주문 생성 시 두 번째 요청이 대기하게 됨
+      //      JOIN 없이 cart_items 테이블만 잠금 (product 정보는 아래 products 쿼리에서 별도 조회)
       const cartItems = await manager
         .createQueryBuilder(CartItemEntity, 'ci')
         .setLock('pessimistic_write')
-        .leftJoinAndSelect('ci.product', 'product')
-        .leftJoinAndSelect('product.images', 'images')
         .where('ci.id IN (:...ids)', { ids: dto.cartItemIds })
         .andWhere('ci.cartId = :cartId', { cartId: cart.id })
         .getMany();
@@ -101,10 +100,12 @@ export class OrderService {
       }
 
       // 2-b. 각 상품도 FOR UPDATE 락 (재고 정합성)
+      //      setLock 세 번째 인자로 잠글 테이블(alias)을 지정 → FOR UPDATE OF "p" 생성
+      //      LEFT JOIN 대상인 images 테이블은 잠그지 않으므로 PostgreSQL 제약 회피
       const productIds = cartItems.map((ci) => ci.productId);
       const products = await manager
         .createQueryBuilder(ProductEntity, 'p')
-        .setLock('pessimistic_write')
+        .setLock('pessimistic_write', undefined, ['p'])
         .whereInIds(productIds)
         .leftJoinAndSelect('p.images', 'images')
         .getMany();
@@ -169,7 +170,7 @@ export class OrderService {
       // Payment(READY) 생성
       const paymentEntity = manager.create(PaymentEntity, {
         orderId: savedOrder.id,
-        merchantUid: orderNumber,
+        paymentId: orderNumber,
         amount: totalAmount,
         status: PaymentStatus.READY,
       });

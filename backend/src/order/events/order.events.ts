@@ -12,7 +12,7 @@ export class OrderPaidEvent {
     public readonly orderId: number,
     public readonly userId: number,
     public readonly orderNumber: string,
-    public readonly impUid: string,
+    public readonly transactionId: string,
   ) {}
 }
 

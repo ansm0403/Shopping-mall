@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getAllProducts, getPaginateProducts } from "../../service/products";
+import { getAllProducts, getPaginateProducts, getProductDetail } from "../../service/products";
 import { PaginateParam } from "../../model/paginate-param";
 
 export const productsQueryOptions = {
@@ -18,8 +18,13 @@ export const productsQueryOptions = {
             additionalKey.sortBy,
             additionalKey.sortOrder,
             additionalKey.cursor,
-            additionalKey.filter
+            additionalKey.filter,
+            additionalKey.categoryId
         ],
         queryFn: () => getPaginateProducts(additionalKey)
+    }),
+    detail: (id: number) => queryOptions({
+        queryKey: ["products", "detail", id],
+        queryFn: () => getProductDetail(id)
     })
 }

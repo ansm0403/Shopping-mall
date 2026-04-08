@@ -78,6 +78,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
     } finally {
       authStorage.clearToken();
       queryClient.setQueryData(['auth', 'user'], null);
+      queryClient.removeQueries({ queryKey: ['cart'] });
     }
   };
 

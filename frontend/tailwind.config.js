@@ -38,6 +38,19 @@ module.exports = {
       animation: {
         'fadeInScale': 'fadeInScale 0.15s ease-out',
       },
+      // z-index 레이어 체계 — 숫자 대신 의미 있는 이름으로 관리
+      // 레이어 간격을 10씩 두어 중간에 추가할 여지를 남김
+      zIndex: {
+        'base':       '0',    // 기본 컨텐츠
+        'raised':     '10',   // 살짝 띄워야 하는 요소 (카드 hover 등)
+        'banner':     '20',   // 배너 내부 요소 (오버레이, CTA 버튼)
+        'header':     '30',   // 헤더 자체
+        'dropdown':   '40',   // 드롭다운, 팝오버
+        'sticky':     '50',   // sticky 헤더/사이드바
+        'modal-bg':   '60',   // 모달 배경 딤처리
+        'modal':      '70',   // 모달 본체
+        'toast':      '80',   // 토스트 알림
+      },
     },
   },
   plugins: [],

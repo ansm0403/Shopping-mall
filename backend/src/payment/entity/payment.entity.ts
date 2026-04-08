@@ -20,13 +20,15 @@ export class PaymentEntity extends BaseModel {
   @JoinColumn({ name: 'order_id' })
   order: OrderEntity;
 
+  // V2: PortOne이 발급하는 거래 ID (V1의 imp_uid에 해당). 컬럼명 imp_uid 유지로 마이그레이션 불필요.
   @Column({ type: 'varchar', name: 'imp_uid', nullable: true, unique: true })
   @Index()
-  impUid: string | null;
+  transactionId: string | null;
 
+  // V2: 우리가 설정한 결제 ID (= orderNumber). V1의 merchant_uid에 해당.
   @Column({ name: 'merchant_uid', unique: true })
   @Index()
-  merchantUid: string;
+  paymentId: string;
 
   @Column({ type: 'varchar', nullable: true, name: 'payment_method' })
   paymentMethod: string | null;

@@ -9,6 +9,7 @@ export interface PaginateParam {
     sortOrder?: SortOrder;
     cursor?: string;
     filter?: Filter;
+    categoryId?: number;
 }
 
 export interface Filter {

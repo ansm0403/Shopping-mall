@@ -10,5 +10,5 @@ export interface CategoryTreeNode {
 }
 
 export function getCategoryTree() {
-  return publicClient.get<CategoryTreeNode[]>('/categories');
+  return publicClient.get<CategoryTreeNode[]>('/categories').then((res) => res.data);
 }

@@ -1,138 +1,85 @@
-PS C:\Users\kiria\Desktop\fullstack\shopping_mall> yarn nx serve backend
-
-> nx run @shopping-mall/backend:serve:development
-
-> nx run @shopping-mall/backend:build:development
-
-> nx run @shopping-mall/backend:serve:watch
-
-ERROR (1) when writing 
-EPERM: operation not permitted, rename 'C:\Users\kiria\Desktop\fullstack\shopping_mall\.nx\workspace-data\source-maps.json~2c159d89' -> 'C:\Users\kiria\Desktop\fullstack\shopping_mall\.nx\workspace-data\source-maps.json'
-Error: EPERM: operation not permitted, rename 'C:\Users\kiria\Desktop\fullstack\shopping_mall\.nx\workspace-data\source-maps.json~2c159d89' -> 'C:\Users\kiria\Desktop\fullstack\shopping_mall\.nx\workspace-data\source-maps.json'
-    at renameSync (node:fs:1033:11)
-    at writeCache (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\nx\src\project-graph\nx-deps-cache.js:157:38)
-    at buildProjectGraphAndSourceMapsWithoutDaemon (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\nx\src\project-graph\project-graph.js:130:40)       
+[Nest] 44324  - 2026. 04. 08. 오후 11:46:10   ERROR [ExceptionsHandler] QueryFailedError: FOR UPDATE cannot be applied to the nullable side of an outer join        
+    at PostgresQueryRunner.query (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\driver\postgres\PostgresQueryRunner.js:216:19)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5) 
-    at async createProjectGraphAndSourceMapsAsync (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\nx\src\project-graph\project-graph.js:271:25)        
-    at async createProjectGraphAsync (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\nx\src\project-graph\project-graph.js:219:39)
-    at async syncGenerator (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\@nx\js\src\generators\typescript-sync\typescript-sync.js:35:26)
-    at async runSyncGenerator (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\nx\src\utils\sync-generators.js:71:24)
-    at async runSyncGenerators (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\nx\src\utils\sync-generators.js:241:24)
-    at async getSyncGeneratorChanges (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\nx\src\utils\sync-generators.js:39:19)
-
- NX   Running target build for project @shopping-mall/backend and 2 tasks it depends on:
-
-
-
-> nx run @shopping-mall/shared:build  [local cache]
-
-
-> nx run @shopping-mall/mocks:build  [local cache]
-
-
-> nx run @shopping-mall/backend:build:development  [local cache]
-
-> webpack-cli build --node-env=development
-
-chunk (runtime: main) main.js (main) 456 KiB [entry] [rendered]
-webpack compiled successfully (9de2e8f8dfe99455)
-
-
-
- NX   Successfully ran target build for project @shopping-mall/backend and 2 tasks it depends on
-
-Nx read the output from the cache instead of running the command for 3 out of 3 tasks.
-
-
-> nx run @shopping-mall/backend:"serve:watch"
-
-> nx run @shopping-mall/backend:build:watch
-
-> nx run @shopping-mall/backend:serve:node:watch
-
-
- NX   Nx Cloud encountered some problems
-
-This workspace is more than three days old and is not connected. Workspaces must be connected within 3 days of creation. Claim your workspace at https://cloud.nx.app
-
-
-> nx run @shopping-mall/backend:"serve:node:watch"
-
-> wait-on dist/main.js -t 60000 && node watch-server.js
-
-
-> nx run @shopping-mall/backend:"build:watch"
-
-> webpack-cli build --node-env=development --watch
-
-Starting server...
-Watching for file changes...
-Restarting server...
-Starting server...
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [NestFactory] Starting Nest application...
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] TypeOrmModule dependencies initialized +72ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] ConfigHostModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] HttpModule dependencies initialized +1ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] DiscoveryModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] ConfigModule dependencies initialized +4ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] EventEmitterModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] ScheduleModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] RedisModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] JwtModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] CommonModule dependencies initialized +1ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:30     LOG [InstanceLoader] EmailModule dependencies initialized +0ms
-(node:16808) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
-(Use `node --trace-deprecation ...` to show where the warning was created)        
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmCoreModule dependencies initialized +176ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] TypeOrmModule dependencies initialized +0ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31     LOG [InstanceLoader] AppModule dependencies initialized +4ms
-[Nest] 16808  - 2026. 04. 02. 오전 12:34:31   ERROR [ExceptionHandler] UnknownDependenciesException [Error]: Nest can't resolve dependencies of the JwtAuthGuard (?). Please make sure that the argument AuthService at index [0] is available in the AuditModule module.
-
-Potential solutions:
-- Is AuditModule a valid NestJS module?
-- If AuthService is a provider, is it part of the current AuditModule?
-- If AuthService is exported from a separate @Module, is that module imported within AuditModule?
-  @Module({
-    imports: [ /* the Module containing AuthService */ ]
-  })
-
-For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
-    at Injector.lookupComponentInParentModules (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\node_modules\@nestjs\core\injector\injector.js:290:19)       
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) 
-    at async resolveParam (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\node_modules\@nestjs\core\injector\injector.js:140:38)
-    at async Promise.all (index 0)
-    at async Injector.resolveConstructorParams (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\node_modules\@nestjs\core\injector\injector.js:169:27)       
-    at async Injector.loadInstance (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\node_modules\@nestjs\core\injector\injector.js:75:13)
-    at async Injector.loadInjectable (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\node_modules\@nestjs\core\injector\injector.js:99:9)
-    at async C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\node_modules\@nestjs\core\injector\instance-loader.js:80:13
-    at async Promise.all (index 0)
-    at async InstanceLoader.createInstancesOfInjectables (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\node_modules\@nestjs\core\injector\instance-loader.js:79:9) {
-  type: 'JwtAuthGuard',
-  context: {
-    index: 0,
-    dependencies: [
-      [class AuthService]
-    ],
-    name: [class AuthService]
+    at async SelectQueryBuilder.loadRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2231:25)    
+    at async SelectQueryBuilder.executeEntitiesAndRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2079:26)
+    at async SelectQueryBuilder.getRawAndEntities (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:684:29)  
+    at async SelectQueryBuilder.getMany (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:750:25)
+    at async C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8716:31
+    at async EntityManager.transaction (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\entity-manager\EntityManager.js:75:28)
+    at async OrderService.createOrder (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8713:27) {
+  query: 'SELECT "ci"."id" AS "ci_id", "ci"."createdAt" AS "ci_createdAt", "ci"."updatedAt" AS "ci_updatedAt", "ci"."cart_id" AS "ci_cart_id", "ci"."product_id" AS "ci_product_id", "ci"."quantity" AS "ci_quantity", "product"."id" AS "product_id", "product"."createdAt" AS "product_createdAt", "product"."updatedAt" AS "product_updatedAt", "product"."name" AS "product_name", "product"."description" AS "product_description", "product"."price" AS "product_price", "product"."brand" AS "product_brand", "product"."stockQuantity" AS "product_stockQuantity", "product"."status" AS "product_status", "product"."approval_status" AS "product_approval_status", "product"."sales_type" AS "product_sales_type", "product"."rejection_reason" AS "product_rejection_reason", "product"."approved_at" AS "product_approved_at", "product"."salesCount" AS "product_salesCount", "product"."viewCount" AS "product_viewCount", "product"."isEvent" AS "product_isEvent", "product"."discountRate" AS "product_discountRate", "product"."rating" AS "product_rating", "product"."specs" AS "product_specs", "product"."seller_id" AS "product_seller_id", "product"."category_id" AS "product_category_id", "product"."reviewCount" AS "product_reviewCount", "product"."ratingSum" AS "product_ratingSum", "product"."wishCount" AS "product_wishCount", "images"."id" AS "images_id", "images"."createdAt" AS "images_createdAt", "images"."updatedAt" AS "images_updatedAt", "images"."url" AS "images_url", "images"."isPrimary" AS "images_isPrimary", "images"."sortOrder" AS "images_sortOrder", "images"."productId" AS "images_productId" FROM "cart_items" "ci" LEFT JOIN "products" "product" ON "product"."id"="ci"."product_id"  LEFT JOIN "product_images" "images" ON "images"."productId"="product"."id" WHERE "ci"."id" IN ($1, $2) AND "ci"."cart_id" = $3 FOR UPDATE',
+  parameters: [
+    4,
+    3,
+    1
+  ],
+  driverError: error: FOR UPDATE cannot be applied to the nullable side of an outer join
+      at C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\pg\lib\client.js:631:17
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async PostgresQueryRunner.query (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\driver\postgres\PostgresQueryRunner.js:181:25)        
+      at async SelectQueryBuilder.loadRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2231:25)  
+      at async SelectQueryBuilder.executeEntitiesAndRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2079:26)
+      at async SelectQueryBuilder.getRawAndEntities (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:684:29)
+      at async SelectQueryBuilder.getMany (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:750:25)
+      at async C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8716:31
+      at async EntityManager.transaction (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\entity-manager\EntityManager.js:75:28)
+      at async OrderService.createOrder (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8713:27) {
+    length: 133,
+    severity: 'ERROR',
+    code: '0A000',
+    detail: undefined,
+    hint: undefined,
+    position: undefined,
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'initsplan.c',
+    dataType: undefined,
+    constraint: undefined,
+    file: 'initsplan.c',
+    line: '1751',
+    routine: 'make_outerjoininfo'
   },
-  metadata: {
-    id: '3985dc8b92c57d4102e6a'
+    constraint: undefined,
+    file: 'initsplan.c',
+    line: '1751',
+    routine: 'make_outerjoininfo'
   },
-  moduleRef: {
-    id: 'f1188df3adab348ff78c7'
-  }
+  length: 133,
+  severity: 'ERROR',
+    line: '1751',
+    routine: 'make_outerjoininfo'
+  },
+  length: 133,
+  severity: 'ERROR',
+  code: '0A000',
+  detail: undefined,
+  length: 133,
+  severity: 'ERROR',
+  code: '0A000',
+  detail: undefined,
+  code: '0A000',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'initsplan.c',
+  line: '1751',
+  routine: 'make_outerjoininfo'
 }

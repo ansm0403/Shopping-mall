@@ -1,10 +1,25 @@
 import { authClient } from '../lib/axios/axios-http-client';
 
+export function getMyCart() {
+  return authClient.get('/cart');
+}
+
 /**
  * 장바구니에 상품 추가
  * - 이미 담긴 상품이면 수량이 합산됨 (백엔드 로직)
- * - authClient 사용: JWT 토큰 자동 첨부 (BUYER 권한 필요)
  */
 export function addCartItem(productId: number, quantity: number) {
   return authClient.post('/cart/items', { productId, quantity });
+}
+
+export function updateCartItem(itemId: number, quantity: number) {
+  return authClient.patch(`/cart/items/${itemId}`, { quantity });
+}
+
+export function removeCartItem(itemId: number) {
+  return authClient.delete(`/cart/items/${itemId}`);
+}
+
+export function clearCart() {
+  return authClient.delete('/cart');
 }

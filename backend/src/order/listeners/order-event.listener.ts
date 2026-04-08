@@ -36,7 +36,7 @@ export class OrderEventListener {
   @OnEvent('order.paid')
   async handleOrderPaid(event: OrderPaidEvent) {
     this.logger.log(
-      `결제 완료 — orderId: ${event.orderId}, orderNumber: ${event.orderNumber}, impUid: ${event.impUid}`,
+      `결제 완료 — orderId: ${event.orderId}, orderNumber: ${event.orderNumber}, transactionId: ${event.transactionId}`,
     );
 
     await withRetry(
