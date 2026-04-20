@@ -3,6 +3,18 @@
  
 const { composePlugins, withNx } = require('@nx/next');
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/v1';
+const apiOrigin = new URL(apiUrl).origin;
+const isDev = process.env.NODE_ENV !== 'production';
+
+const connectSrc = [
+  "'self'",
+  apiOrigin,                                    // API 서버 (로컬이든 Elastic IP든)
+  ...(isDev ? ['ws://localhost:3000'] : []),    // 개발 환경에서만 HMR WebSocket 허용
+  'https://*.portone.io',
+  'https://*.iamport.co',
+].join(' ');
+
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
@@ -29,7 +41,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'", // emotion/styled-components용
               "img-src 'self' data: https:",
               "font-src 'self' data:",
-              "connect-src 'self' http://localhost:4000 ws://localhost:3000 https://*.portone.io https://*.iamport.co", // API + HMR + 포트원
+              `connect-src ${connectSrc}`, // API + HMR + 포트원
               "frame-src https://*.portone.io https://*.iamport.co https://*.kakaopay.com https://*.kakao.com", // 포트원 결제창 iframe + 카카오페이
               "object-src 'none'",
               "base-uri 'self'",

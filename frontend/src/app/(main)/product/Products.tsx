@@ -6,7 +6,8 @@ import React, { useEffect } from 'react'
 
 export default function Products() {
 
-  const { data, isLoading, isError } = useProducts.Paginate({ page: 1, limit: 10, sortBy: "price" });
+
+  const { data, isError } = useProducts.Paginate({ page: 1, limit: 10, sortBy: "price" });
 
   useEffect(()=>{
     console.log(data);

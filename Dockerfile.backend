@@ -19,7 +19,8 @@ COPY . .
 # workspace symlink이 deps 스테이지의 절대경로를 가리키므로 재생성 필요
 RUN yarn install
 RUN npx nx reset
-RUN npx nx build backend --prod
+RUN npx nx sync
+RUN NX_DAEMON=false npx nx build backend --prod
 
 # Stage 3: Production dependencies
 FROM base AS prod-deps

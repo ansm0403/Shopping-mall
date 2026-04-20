@@ -3,7 +3,6 @@
 import styled from "@emotion/styled";
 import Category from "./Category";
 import { NavbarButton } from "./NavbarButton";
-import Link from 'next/link';
 import { usePathname } from "next/navigation";
 import NavbarUserSection from "./NavbarUserSection";
 

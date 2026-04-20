@@ -18,7 +18,7 @@ export function useLoginMutation() {
             // 토큰 저장 전 isLoggingOut 플래그 리셋 (router.push 방식으로 전환해도 안전하게)
             resetLoggingOutFlag();
 
-            authStorage.setAccessToken(response.data.accessToken, variables.rememberMe);
+            authStorage.setAccessToken(response.data.accessToken, variables.rememberMe || false);
 
             // user 정보를 React Query 캐시에 저장
             queryClient.setQueryData(['auth', 'user'], response.data.user);

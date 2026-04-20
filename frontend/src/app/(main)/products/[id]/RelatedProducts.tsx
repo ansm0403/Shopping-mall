@@ -23,7 +23,11 @@ export default function RelatedProducts({
     })
   );
 
-  const products = data?.data?.data?.filter((p) => p.id !== currentProductId).slice(0, 5) ?? [];
+  const response = data?.data?.data ?? [];
+
+  const products = response
+    .filter((p: any) => p.id !== currentProductId)
+    .slice(0, 5);
 
   if (isLoading) {
     return (
@@ -53,7 +57,7 @@ export default function RelatedProducts({
           관련 상품
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {products.map((product) => (
+          {products.map((product: any) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

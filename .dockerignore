@@ -87,3 +87,9 @@ temp/
 
 # NX
 .nx/cache
+
+# Docs (포트폴리오, 문서 등 빌드에 불필요)
+docs/
+
+# Frontend (Vercel에서 배포, 백엔드 빌드에 불필요)
+frontend/

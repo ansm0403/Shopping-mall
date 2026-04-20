@@ -106,6 +106,7 @@ export default function ProductInfo({
     return '장바구니 추가';
   })();
 
+  // @ts-expect-error 임시로 미사용 변수 허용
   const cartButtonClass = (() => {
     if (isOutOfStock)
       return 'bg-secondary-300 text-secondary-500 cursor-not-allowed';

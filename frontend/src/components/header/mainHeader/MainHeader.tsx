@@ -6,7 +6,9 @@ import HomeCart from './HomeCart';
 import CategorySelect from '@/components/common/SearchBar/CategorySelect';
 
 export default function MainHeader() {
+  // @ts-expect-error 임시로 미사용 변수 허용
   const [ query, setQuery ] = useState("");
+  // @ts-expect-error 임시로 미사용 변수 허용
   const [ category, setCategory ] = useState(""); 
 
   return (

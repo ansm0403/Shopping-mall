@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { logout } from '../../../service/auth';
 
 export default function NavbarUserSection() {
-  const { user, isLoading, isAuthenticated, isHydrated } = useAuth();
+  const { isLoading, isAuthenticated, isHydrated } = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -16,7 +16,7 @@ export default function NavbarUserSection() {
     if (token) {
       try {
         // 백엔드 로그아웃 API 호출 (토큰 블랙리스트 + DB 무효화 + 쿠키 삭제)
-        const response = await logout(token);
+        const response = await logout();
         console.log(response.data.message); // "로그아웃 되었습니다."
 
         // 원하는 경우 사용자에게 메시지 표시
