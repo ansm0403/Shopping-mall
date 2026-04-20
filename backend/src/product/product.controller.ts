@@ -17,6 +17,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Throttle } from '@nestjs/throttler';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -41,6 +42,7 @@ export class ProductController {
 
   /** 구매자용: APPROVED + PUBLISHED 상품만 */
   @Get()
+  @Throttle({ default: { ttl: 60000, limit: 60 } })
   @Serialize(ProductResponseDto)
   findAll(@Query() query: ProductQueryDto) {
     return this.productService.findAll(query);
@@ -56,6 +58,7 @@ export class ProductController {
   }
 
   @Get(':id')
+  @Throttle({ default: { ttl: 60000, limit: 60 } })
   @Serialize(ProductResponseDto)
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.productService.findOne(id);
@@ -94,7 +97,7 @@ export class ProductController {
 
   // Admin 전용: 시드 데이터 삽입
   @Post('seed')
-  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   seed() {
     return this.productSeedService.seedProducts();

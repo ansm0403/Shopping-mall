@@ -20,15 +20,18 @@ COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
 RUN yarn install
 
-# Stage 3: Build stage
+# Stage 3: Build stage (backend only)
+# frontend는 Vercel에서 자체 빌드하므로 제외
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# workspace symlink이 deps 스테이지의 절대경로를 가리키므로 재생성 필요
+RUN yarn install
+
 # NX 캐시 클리어 및 빌드
 RUN npx nx reset
 RUN NX_DAEMON=false npx nx build backend --prod
-RUN NX_DAEMON=false npx nx build frontend --prod
 
 # Stage 4: Production dependencies
 FROM base AS prod-deps
@@ -55,24 +58,7 @@ USER nestjs
 EXPOSE 4000
 CMD ["node", "backend/dist/main.js"]
 
-# Stage 6: Frontend production image
-FROM node:20-slim AS frontend-prod
-WORKDIR /app
-
-# 보안을 위한 non-root 사용자 생성
-RUN groupadd -r nodejs && useradd -r -g nodejs nextjs
-
-# curl 설치 (healthcheck용)
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-
-# Next.js 빌드 결과물 복사
-COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/static ./frontend/.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/frontend/public ./frontend/public
-
-USER nextjs
-EXPOSE 3000
-CMD ["node", "frontend/server.js"]
+# Stage 6 (frontend-prod): 제거 — frontend는 Vercel에서 배포
 
 # Stage 7: Development image
 FROM base AS development

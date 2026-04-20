@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { ProductModule } from '../product/product.module';
 import { WishListModule } from '../wish-list/wish-list.module';
 import { UserModule } from '../user/user.module';
@@ -28,15 +30,23 @@ import { AuditModule } from '../audit/audit.module';
       envFilePath: '.env',
       isGlobal: true,
     }),
+    ThrottlerModule.forRoot([
+      {
+        // 글로벌 기본: IP당 1분에 100회
+        // 봇은 이를 초과, 일반 사용자는 이 이내
+        ttl: 60000,
+        limit: 100,
+      },
+    ]),
     EventEmitterModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 4321,
+      host: process.env.POSTGRES_HOST || 'localhost',
+      port: parseInt(process.env.POSTGRES_PORT || '4321', 10),
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      autoLoadEntities: true, // 자동으로 엔티티 로드
+      autoLoadEntities: true,
       synchronize: true,
     }),
     TypeOrmModule.forFeature([RoleEntity, CategoryEntity]),
@@ -55,6 +65,13 @@ import { AuditModule } from '../audit/audit.module';
     AuditModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RolesSeedService, CategorySeedService],
+  providers: [
+    AppService,
+    RolesSeedService,
+    CategorySeedService,
+    // 모든 HTTP 엔드포인트에 ThrottlerGuard를 전역 적용
+    // 개별 엔드포인트에서 @Throttle()로 override, @SkipThrottle()로 제외 가능
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+  ],
 })
 export class AppModule {}

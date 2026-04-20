@@ -75,6 +75,20 @@ export class AuthService {
     dto: RegisterDto,
     context: LoginContext,
   ) {
+    // Rate Limiting: IP당 1분에 3회 제한 (봇 가짜 계정 양산 방지)
+    const canAttempt = await this.redisService.checkRateLimit(
+      `register:${context.ipAddress}`,
+      3,
+      60,
+    );
+
+    if (!canAttempt) {
+      throw new HttpException(
+        '너무 많은 요청입니다. 잠시 후 다시 시도해주세요.',
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
+    }
+
     // 이메일 중복 확인
     const emailExists = await this.usersRepository.exists({
       where: { email: dto.email },
@@ -135,6 +149,20 @@ export class AuthService {
 
   // ===== 이메일 인증 =====
   async verifyEmail(token: string, context: LoginContext) {
+    // Rate Limiting: IP당 1분에 10회 제한 (토큰 brute force 방지)
+    const canAttempt = await this.redisService.checkRateLimit(
+      `verify-email:${context.ipAddress}`,
+      10,
+      60,
+    );
+
+    if (!canAttempt) {
+      throw new HttpException(
+        '너무 많은 요청입니다. 잠시 후 다시 시도해주세요.',
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
+    }
+
     const userId = await this.redisService.getEmailVerificationUserId(token);
 
     if (!userId) {

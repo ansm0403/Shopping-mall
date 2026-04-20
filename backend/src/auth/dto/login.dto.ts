@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 import type { LoginRequest } from '@shopping-mall/shared';
 
 /**
@@ -12,6 +12,7 @@ export class LoginDto implements LoginRequest {
   email: string;
 
   @IsString({ message: '비밀번호는 문자열이어야 합니다' })
+  @MaxLength(100, { message: '비밀번호는 최대 100자까지 입력 가능합니다' })
   @IsNotEmpty({ message: '비밀번호는 필수 항목입니다' })
   password: string;
 

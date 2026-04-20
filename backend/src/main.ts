@@ -37,8 +37,9 @@ async function bootstrap() {
   );
 
   // CORS 설정
+  // FRONTEND_URL: 로컬은 http://localhost:3000, 운영은 Vercel URL (https://your-app.vercel.app)
   app.enableCors({
-    origin: 'http://localhost:3000', // Next.js 개발 서버 주소
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-device-id', 'x-idempotency-key'],

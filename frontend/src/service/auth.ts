@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, User } from "@shopping-mall/shared";
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, UserProfileResponse } from "@shopping-mall/shared";
 import { authClient, publicClient } from "../lib/axios/axios-http-client";
 
 export interface LogoutResponse {
@@ -9,7 +9,7 @@ export interface MessageResponse {
     message: string;
 }
 
-export type UserResponse = Omit<User, 'password'>;
+export type UserResponse = UserProfileResponse;
 
 export async function login(data: LoginRequest) {
     return publicClient.post<LoginResponse>("/auth/login", data);

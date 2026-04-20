@@ -25,12 +25,12 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // Next.js 개발 서버용
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.portone.io https://*.iamport.co", // Next.js 개발 서버 + 포트원 SDK
               "style-src 'self' 'unsafe-inline'", // emotion/styled-components용
               "img-src 'self' data: https:",
               "font-src 'self' data:",
-              "connect-src 'self' http://localhost:4000 ws://localhost:3000", // API + HMR
-              "frame-src 'none'",
+              "connect-src 'self' http://localhost:4000 ws://localhost:3000 https://*.portone.io https://*.iamport.co", // API + HMR + 포트원
+              "frame-src https://*.portone.io https://*.iamport.co https://*.kakaopay.com https://*.kakao.com", // 포트원 결제창 iframe + 카카오페이
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

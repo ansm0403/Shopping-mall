@@ -5,15 +5,32 @@ services:
     restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    # 배포 환경에서는 DB 포트를 호스트에 퍼블리시하지 않음 (외부 직접 접근 차단)
+    # 로컬 개발 중 DBeaver 등 DB 툴 접속이 필요하면 아래 주석 해제
+    # ports:
+    #   - "5432:5432"
     environment:
-      POSTGRES_USER: sangmoon
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: sangmoon
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U sangmoon"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis 캐시 / 세션 스토어
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    # 배포 환경에서는 Redis 포트를 호스트에 퍼블리시하지 않음
+    # Redis는 기본 설정에서 비밀번호 없이 익명 접근 허용 — 세션토큰 탈취 위험
+    # 로컬 개발 중 redis-cli 접근이 필요하면 아래 주석 해제
+    # ports:
+    #   - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -26,69 +43,28 @@ services:
       target: backend-prod
     restart: unless-stopped
     ports:
-      - "4000:3000"
+      - "4000:4000"
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - DATABASE_USER=sangmoon
-      - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=sangmoon
+      # .env의 localhost 값을 컨테이너 서비스명으로 오버라이드
+      # Docker 내부 네트워크에서는 서비스명이 호스트명 역할을 함
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     depends_on:
       postgres:
         condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:4000/api/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  # Next.js 프론트엔드
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: frontend-prod
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=http://localhost:4000
-    depends_on:
-      backend:
+      redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      # globalPrefix가 'v1'이므로 /v1/health가 올바른 경로
+      test: ["CMD-SHELL", "curl -f http://localhost:4000/v1/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-
-  # 개발 환경용 서비스
-  dev:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: development
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.nx/cache
-    ports:
-      - "3000:3000"
-      - "3001:3001"
-      - "5432:5432"
-    environment:
-      - NODE_ENV=development
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - DATABASE_USER=sangmoon
-      - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=sangmoon
-    depends_on:
-      - postgres
-    profiles:
-      - dev
 
 volumes:
   postgres_data:

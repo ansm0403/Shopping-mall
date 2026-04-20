@@ -1,5 +1,5 @@
 import { Transform, Type } from 'class-transformer';
-import { IsArray, IsEnum, IsNumber, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
+import { IsArray, IsEnum, IsNumber, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
 
 export class NumberFilterDto {
   @IsOptional()
@@ -117,6 +117,7 @@ export class BasePaginateDto {
   @Type(() => Number)
   @IsNumber()
   @Min(1)
+  @Max(100, { message: '한 번에 최대 100개까지 조회 가능합니다' })
   @IsOptional()
   take = 20;
 

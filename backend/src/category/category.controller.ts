@@ -10,6 +10,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -20,7 +21,9 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../user/entity/role.entity';
 
 // ─── 공개 API ─────────────────────────────────────────
+// 카테고리는 정적 데이터에 가까워 상품/리뷰보다 여유 있게 120회/분 허용
 @Controller('categories')
+@Throttle({ default: { ttl: 60000, limit: 120 } })
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 

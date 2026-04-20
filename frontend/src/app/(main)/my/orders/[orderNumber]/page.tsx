@@ -130,26 +130,61 @@ function StatusCard({ order }: { order: OrderResponse }) {
 
       {/* 진행 단계 표시 (취소가 아닌 경우) */}
       {!isCancelled && (
-        <div className="flex items-center gap-1 mt-2 overflow-x-auto pb-1">
-          {STEPS.map((step, idx) => {
-            const isActive = idx === currentStepIdx;
-            const isPast = idx < currentStepIdx;
-            return (
-              <div key={step} className="flex items-center gap-1 shrink-0">
-                <div className={`w-2 h-2 rounded-full shrink-0 ${
-                  isPast || isActive ? 'bg-primary-600' : 'bg-secondary-200'
-                }`} />
-                <span className={`text-xs whitespace-nowrap ${
-                  isActive ? 'text-primary-600 font-semibold' : isPast ? 'text-secondary-500' : 'text-secondary-300'
-                }`}>
-                  {STATUS_LABEL[step]}
-                </span>
-                {idx < STEPS.length - 1 && (
-                  <div className={`w-4 h-px mx-0.5 ${isPast ? 'bg-primary-400' : 'bg-secondary-200'}`} />
-                )}
-              </div>
-            );
-          })}
+        <div className="mt-5">
+          {/* 원 + 연결선 */}
+          <div className="flex items-center">
+            {STEPS.map((step, idx) => {
+              const isActive = idx === currentStepIdx;
+              const isPast = idx < currentStepIdx;
+              return (
+                <div key={step} className="flex items-center flex-1 last:flex-none">
+                  {/* 원 */}
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
+                    isPast
+                      ? 'bg-primary-600 border-primary-600'
+                      : isActive
+                      ? 'bg-white border-primary-600 ring-2 ring-primary-200'
+                      : 'bg-white border-secondary-200'
+                  }`}>
+                    {isPast && (
+                      <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                    {isActive && (
+                      <div className="w-2 h-2 rounded-full bg-primary-600" />
+                    )}
+                  </div>
+                  {/* 연결선 */}
+                  {idx < STEPS.length - 1 && (
+                    <div className={`h-0.5 flex-1 mx-1 transition-all ${
+                      idx < currentStepIdx ? 'bg-primary-400' : 'bg-secondary-200'
+                    }`} />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          {/* 라벨 */}
+          <div className="flex mt-2">
+            {STEPS.map((step, idx) => {
+              const isActive = idx === currentStepIdx;
+              const isPast = idx < currentStepIdx;
+              return (
+                <div key={step} className="flex-1 last:flex-none text-center">
+                  <span className={`text-[10px] leading-tight ${
+                    isActive
+                      ? 'text-primary-600 font-bold'
+                      : isPast
+                      ? 'text-secondary-500'
+                      : 'text-secondary-300'
+                  }`}>
+                    {STATUS_LABEL[step]}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 

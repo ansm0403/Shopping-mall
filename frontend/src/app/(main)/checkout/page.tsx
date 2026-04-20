@@ -30,6 +30,9 @@ export default function CheckoutPage() {
 
   const { data, isLoading } = useQuery(cartQueryOptions.myCart(isLoggedIn));
 
+  // 결제 처리 중 여부 — true이면 장바구니가 비어도 /cart로 이동하지 않음 (race condition 방지)
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+
   useEffect(() => {
     if (isHydrated && !isLoggedIn) router.push('/login');
   }, [isHydrated, isLoggedIn, router]);
@@ -38,10 +41,10 @@ export default function CheckoutPage() {
   const items = cart?.items ?? [];
 
   useEffect(() => {
-    if (!isLoading && isHydrated && isLoggedIn && items.length === 0) {
+    if (!isLoading && isHydrated && isLoggedIn && items.length === 0 && !isPaymentProcessing) {
       router.push('/cart');
     }
-  }, [isLoading, isHydrated, isLoggedIn, items.length, router]);
+  }, [isLoading, isHydrated, isLoggedIn, items.length, isPaymentProcessing, router]);
 
   const hasOutOfStock = items.some(
     (item) => item.product.status === 'sold_out' || item.product.stockQuantity === 0
@@ -75,6 +78,14 @@ export default function CheckoutPage() {
     }
 
     isProcessingRef.current = true;
+    // 결제 처리 중 플래그 — 장바구니 빈 감지 useEffect가 /cart로 튕기지 않도록 막음
+    setIsPaymentProcessing(true);
+
+    // 처리 완료(성공/실패) 시 공통 정리 함수
+    const cleanup = () => {
+      isProcessingRef.current = false;
+      setIsPaymentProcessing(false);
+    };
 
     // 1단계: 주문 생성
     let order: OrderResponse;
@@ -82,7 +93,7 @@ export default function CheckoutPage() {
       const res = await createOrderMutation.mutateAsync();
       order = res.data as OrderResponse;
     } catch (err: unknown) {
-      isProcessingRef.current = false;
+      cleanup();
       const axiosErr = err as { response?: { data?: { message?: unknown } } };
       const message = axiosErr?.response?.data?.message ?? '주문 생성에 실패했습니다.';
       alert(Array.isArray(message) ? message.join('\n') : String(message));
@@ -103,7 +114,7 @@ export default function CheckoutPage() {
             : `${items[0].product.name} 외 ${items.length - 1}건`,
         totalAmount: Number(order.totalAmount),
         currency: 'CURRENCY_KRW',
-        payMethod: 'CARD',
+        payMethod: 'EASY_PAY',
         customer: {
           fullName: form.recipientName,
           phoneNumber: form.recipientPhone,
@@ -113,7 +124,7 @@ export default function CheckoutPage() {
     } catch (err) {
       // SDK 내부 오류(네트워크 단절, 초기화 실패 등)
       console.error('[PortOne] requestPayment 오류:', err);
-      isProcessingRef.current = false;
+      cleanup();
       alert('결제창을 여는 중 오류가 발생했습니다. 주문 상세에서 다시 시도해주세요.');
       router.push(`/my/orders/${order.orderNumber}`);
       return;
@@ -121,17 +132,26 @@ export default function CheckoutPage() {
 
     // 결제창 닫기(undefined) 또는 실패(code 있음)
     if (!response || response.code) {
-      isProcessingRef.current = false;
+      cleanup();
       alert(response?.message ?? '결제가 취소되었습니다.');
       router.push(`/my/orders/${order.orderNumber}`);
       return;
     }
 
-    // 3단계: 서버 결제 검증
-    verifyPayment.mutate({
-      transactionId: response.txId,
-      paymentId: response.paymentId,
-    });
+    // 3단계: 서버 결제 검증 — mutateAsync로 await하여 결과를 handleSubmit 내에서 처리
+    try {
+      await verifyPayment.mutateAsync({
+        transactionId: response.txId,
+        paymentId: response.paymentId,
+      });
+      // 성공 처리는 useVerifyPayment의 onSuccess에서 수행 (장바구니 무효화 + 완료 페이지 이동)
+      // isPaymentProcessing은 리셋하지 않음 — 페이지를 벗어날 것이므로
+      // 리셋하면 장바구니 empty 감지 useEffect가 /cart로 튕기는 race condition 발생
+      isProcessingRef.current = false;
+    } catch {
+      // 에러 처리는 useVerifyPayment의 onError에서 수행 (alert + 주문 상세 이동)
+      cleanup();
+    }
   };
 
   const isSubmitting = createOrderMutation.isPending || verifyPayment.isPending;

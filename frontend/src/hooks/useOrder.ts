@@ -29,7 +29,7 @@ export function useVerifyPayment() {
       queryClient.invalidateQueries({ queryKey: cartKeys.all });
       // 주문 목록도 무효화
       queryClient.invalidateQueries({ queryKey: orderKeys.all });
-      router.push(`/my/orders/${paymentId}`);
+      router.push(`/checkout/complete?orderNumber=${paymentId}`);
     },
 
     onError: (error, { paymentId }) => {

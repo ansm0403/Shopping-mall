@@ -22,6 +22,7 @@ export default function UserMenu() {
 
   const items: { label: string; onClick: () => void }[] = [
     { label: "내 정보", onClick: () => void 0 },
+    { label: "주문 목록", onClick: () => router.push('/my/orders') },
     { label: "장바구니", onClick: () => router.push('/cart') },
     { label: "로그아웃", onClick: () => setShowConfirm(true) },
   ];
@@ -33,7 +34,7 @@ export default function UserMenu() {
           onClick={() => setClick(!click)}
           className="text-gray-500 text-[0.9rem] cursor-pointer select-none"
         >
-          My account {click ? "▲" : "▼"}
+          {user.nickName + "님"} {click ? "▲" : "▼"}
         </div>
 
         <div

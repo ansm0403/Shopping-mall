@@ -70,6 +70,18 @@ export default function ProductInfo({
     addToCart.mutate({ productId: product.id, quantity });
   };
 
+  // ── 바로 구매 ──────────────────────────────────────────────
+  const handleBuyNow = () => {
+    if (!authStorage.getAccessToken()) {
+      router.push('/login');
+      return;
+    }
+    addToCart.mutate(
+      { productId: product.id, quantity },
+      { onSuccess: () => router.push('/checkout') },
+    );
+  };
+
   // ── 위시리스트 토글 ────────────────────────────────────────
   const handleWishToggle = () => {
     if (!authStorage.getAccessToken()) {
@@ -260,14 +272,34 @@ export default function ProductInfo({
         </div>
       )}
 
-      {/* ── 장바구니 추가 버튼 ── */}
-      <button
-        onClick={handleAddToCart}
-        disabled={isOutOfStock || addToCart.isPending}
-        className={`w-full py-4 rounded-xl font-semibold text-base transition-all duration-200 ${cartButtonClass}`}
-      >
-        {cartButtonLabel}
-      </button>
+      {/* ── 버튼 영역 ── */}
+      <div className="space-y-2.5">
+        {/* 구매하기 */}
+        <button
+          onClick={handleBuyNow}
+          disabled={isOutOfStock || addToCart.isPending}
+          className="w-full py-4 rounded-xl font-semibold text-base transition-all duration-200 bg-primary-600 text-white hover:bg-primary-700 active:scale-95 disabled:bg-secondary-300 disabled:text-secondary-500 disabled:cursor-not-allowed"
+        >
+          {addToCart.isPending ? '처리 중...' : isOutOfStock ? '품절' : '구매하기'}
+        </button>
+
+        {/* 장바구니 추가 */}
+        <button
+          onClick={handleAddToCart}
+          disabled={isOutOfStock || addToCart.isPending}
+          className={`w-full py-3.5 rounded-xl font-semibold text-base transition-all duration-200 border ${
+            isOutOfStock
+              ? 'border-secondary-200 text-secondary-400 cursor-not-allowed'
+              : addToCart.isPending
+              ? 'border-primary-300 text-primary-400 cursor-wait'
+              : addToCart.isSuccess
+              ? 'border-green-500 text-green-600 bg-green-50'
+              : 'border-primary-600 text-primary-600 hover:bg-primary-50 active:scale-95'
+          }`}
+        >
+          {cartButtonLabel}
+        </button>
+      </div>
 
       {/* ── 에러 메시지 (재고 부족 등) ── */}
       {addToCart.isError && (

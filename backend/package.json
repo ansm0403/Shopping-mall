@@ -115,11 +115,6 @@
           "command": "node dist/main.js",
           "cwd": "backend"
         }
-      },
-      "test": {
-        "options": {
-          "passWithNoTests": true
-        }
       }
     }
   },

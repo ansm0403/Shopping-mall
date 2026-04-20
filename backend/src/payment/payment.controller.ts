@@ -6,6 +6,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { SkipThrottle } from '@nestjs/throttler';
 import { PaymentService } from './payment.service';
 import { VerifyPaymentDto } from './dto/verify-payment.dto';
 import { CancelPaymentDto } from './dto/cancel-payment.dto';
@@ -45,6 +46,8 @@ export class PaymentController {
 }
 
 /** PortOne 웹훅 — 인증 없이 서버 간 통신 */
+// PortOne 서버에서 오는 요청이므로 IP가 고정되지 않아 Rate Limit 제외
+@SkipThrottle()
 @Controller('payments')
 export class PaymentWebhookController {
   constructor(private readonly paymentService: PaymentService) {}

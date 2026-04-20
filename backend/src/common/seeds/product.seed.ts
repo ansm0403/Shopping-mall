@@ -4,12 +4,6 @@ import { Repository } from 'typeorm';
 import { ProductEntity } from '../../product/entity/product.entity';
 import { ProductImageEntity } from '../../product/entity/product-image.entity';
 import { CategoryEntity } from '../../category/entity/category.entity';
-import { beautyProductsData } from '../../data/beauty-products';
-import { clothingProductsData } from '../../data/clothing-products';
-import { shoesProductsData } from '../../data/shoes-products';
-import { bookProductsData } from '../../data/book-products';
-import { foodProductsData } from '../../data/food-products';
-import { livingProductsData } from '../../data/living-products';
 
 @Injectable()
 export class ProductSeedService {
@@ -23,6 +17,22 @@ export class ProductSeedService {
   ) {}
 
   async seedProducts() {
+    const [
+      { beautyProductsData },
+      { clothingProductsData },
+      { shoesProductsData },
+      { bookProductsData },
+      { foodProductsData },
+      { livingProductsData },
+    ] = await Promise.all([
+      import('../../data/beauty-products'),
+      import('../../data/clothing-products'),
+      import('../../data/shoes-products'),
+      import('../../data/book-products'),
+      import('../../data/food-products'),
+      import('../../data/living-products'),
+    ]);
+
     const rawData = [
       ...beautyProductsData,
       ...clothingProductsData,

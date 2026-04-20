@@ -10,6 +10,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { ReviewService } from './review.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -42,6 +43,7 @@ export class ReviewController {
 
   // 공개 엔드포인트: 상품별 리뷰 목록
   @Get('product/:productId')
+  @Throttle({ default: { ttl: 60000, limit: 60 } })
   @Serialize(ReviewResponseDto)
   getByProduct(
     @Param('productId', ParseIntPipe) productId: number,
