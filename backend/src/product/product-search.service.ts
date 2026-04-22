@@ -10,10 +10,9 @@ import {
   PageSearchResult,
   CursorSearchResult,
 } from './interfaces/product-search.interface';
-
-type SortableKey = 'id' | 'createdAt' | 'rating' | 'price' | 'viewCount';
-
-const SORTABLE_COLUMNS: SortableKey[] = ['id', 'createdAt', 'rating', 'price', 'viewCount'];
+import { SORTABLE_COLUMNS, SortableKey } from '../common/const/sortable-columns.const';
+import { encodeCursor, decodeCursor } from '../common/utils/cursor';
+import { CommonService } from '../common/common.service';
 
 @Injectable()
 export class TypeOrmProductSearchService implements IProductSearchService {
@@ -21,6 +20,7 @@ export class TypeOrmProductSearchService implements IProductSearchService {
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
     private readonly configService: ConfigService,
+    private readonly commonService: CommonService,
   ) {}
 
   async search(query: ProductSearchQuery): Promise<SearchResult> {
@@ -50,8 +50,14 @@ export class TypeOrmProductSearchService implements IProductSearchService {
     const total = await this.countDistinct(qb.clone());
 
     // EC3: M:M JOIN 중복 방어 — 서브쿼리로 ID 먼저 뽑고 본 쿼리에서 relation 로드
+    // PG 규칙: SELECT DISTINCT 사용 시 ORDER BY 컬럼은 SELECT 리스트에 포함되어야 함.
+    // id 는 PK 이므로 sortBy 컬럼을 addSelect 해도 DISTINCT 결과 카디널리티는 변하지 않는다.
+    // DISTINCT 는 .select() 문자열에 끼워 넣지 말고 .distinct(true) 로 지정해야
+    // TypeORM 이 `SELECT DISTINCT col1, col2` 형태로 올바르게 직렬화한다.
     const idQb = qb.clone()
-      .select('DISTINCT product.id', 'id')
+      .select('product.id', 'id')
+      .addSelect(`product.${sortBy}`, 'sortVal')
+      .distinct(true)
       .orderBy(this.toColumn(sortBy), query.sortOrder)
       .addOrderBy('product.id', query.sortOrder)
       .offset((page - 1) * take)
@@ -105,8 +111,9 @@ export class TypeOrmProductSearchService implements IProductSearchService {
 
     // EC3: M:M JOIN 중복 방어 — 서브쿼리로 ID 먼저 뽑기
     const idQb = qb.clone()
-      .select('DISTINCT product.id', 'id')
+      .select('product.id', 'id')
       .addSelect(`product.${sortBy}`, 'sortVal')
+      .distinct(true)
       .orderBy(this.toColumn(sortBy), query.sortOrder)
       .addOrderBy('product.id', query.sortOrder)
       .limit(take + 1);
@@ -201,47 +208,16 @@ export class TypeOrmProductSearchService implements IProductSearchService {
       qb.andWhere('product.sellerId = :sellerId', { sellerId: query.sellerId });
     }
 
-    // 5. 범용 filter (price, rating 등)
+    // 5. 범용 filter (price, rating 등) — CommonService로 위임, alias만 'product'로 지정
     if (query.filter) {
-      this.applyFilter(qb, query.filter);
+      this.commonService.applyFilterToQueryBuilder(qb, query.filter, 'product');
     }
 
     return qb;
   }
 
   // ─────────────────────────────────────────────────────
-  // 필터 적용
-  // ─────────────────────────────────────────────────────
-  private applyFilter(qb: SelectQueryBuilder<ProductEntity>, filter: ProductSearchQuery['filter']): void {
-    if (!filter) return;
-
-    if (filter.price) {
-      const p = filter.price;
-      if (p.equals !== undefined) qb.andWhere('product.price = :priceEq', { priceEq: p.equals });
-      else if (p.gte !== undefined && p.lte !== undefined)
-        qb.andWhere('product.price BETWEEN :priceMin AND :priceMax', { priceMin: p.gte, priceMax: p.lte });
-      else if (p.gte !== undefined) qb.andWhere('product.price >= :priceGte', { priceGte: p.gte });
-      else if (p.gt !== undefined) qb.andWhere('product.price > :priceGt', { priceGt: p.gt });
-      if (p.lte !== undefined && p.gte === undefined)
-        qb.andWhere('product.price <= :priceLte', { priceLte: p.lte });
-      else if (p.lt !== undefined) qb.andWhere('product.price < :priceLt', { priceLt: p.lt });
-    }
-
-    if (filter.rating) {
-      const r = filter.rating;
-      if (r.equals !== undefined) qb.andWhere('product.rating = :ratingEq', { ratingEq: r.equals });
-      else if (r.gte !== undefined && r.lte !== undefined)
-        qb.andWhere('product.rating BETWEEN :ratingMin AND :ratingMax', { ratingMin: r.gte, ratingMax: r.lte });
-      else if (r.gte !== undefined) qb.andWhere('product.rating >= :ratingGte', { ratingGte: r.gte });
-      else if (r.gt !== undefined) qb.andWhere('product.rating > :ratingGt', { ratingGt: r.gt });
-      if (r.lte !== undefined && r.gte === undefined)
-        qb.andWhere('product.rating <= :ratingLte', { ratingLte: r.lte });
-      else if (r.lt !== undefined) qb.andWhere('product.rating < :ratingLt', { ratingLt: r.lt });
-    }
-  }
-
-  // ─────────────────────────────────────────────────────
-  // EC4: 커서 디코딩 실패 방어
+  // EC4: 커서 디코딩 실패 방어 — 실제 디코딩은 common/utils/cursor.ts에 위임
   // ─────────────────────────────────────────────────────
   private applyCursor(
     qb: SelectQueryBuilder<ProductEntity>,
@@ -249,17 +225,7 @@ export class TypeOrmProductSearchService implements IProductSearchService {
     sortBy: SortableKey,
     sortOrder: 'ASC' | 'DESC',
   ): void {
-    let decoded: { sortValue: unknown; id: unknown };
-    try {
-      decoded = JSON.parse(Buffer.from(cursor, 'base64').toString('utf-8'));
-    } catch {
-      throw new BadRequestException('유효하지 않은 커서 형식입니다.');
-    }
-
-    if (decoded.sortValue === undefined || decoded.id === undefined) {
-      throw new BadRequestException('커서에 필수 값(sortValue, id)이 없습니다.');
-    }
-
+    const decoded = decodeCursor(cursor);
     const op = sortOrder === 'DESC' ? '<' : '>';
 
     qb.andWhere(
@@ -308,9 +274,7 @@ export class TypeOrmProductSearchService implements IProductSearchService {
   }
 
   private encodeCursor(item: ProductEntity, sortBy: SortableKey): string {
-    return Buffer.from(
-      JSON.stringify({ sortValue: item[sortBy], id: item.id }),
-    ).toString('base64');
+    return encodeCursor({ sortValue: item[sortBy], id: item.id });
   }
 
   private buildNextUrl(query: ProductSearchQuery, nextCursor: string, sortBy: SortableKey): string {

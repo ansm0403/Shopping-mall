@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Topbar from './topbar/Topbar';
 import MainHeader from './mainHeader/MainHeader';
 import Category from './navbar/Category';
@@ -12,7 +12,9 @@ export default function Header() {
     <div className="relative z-header max-w-[1200px] mx-auto px-8 pt-4 flex flex-col gap-3">
       <Topbar />
       <div>
-        <MainHeader />
+        <Suspense fallback={<div className="h-16 w-full bg-sky-300" />}>
+          <MainHeader />
+        </Suspense>
         <div className='flex flex-row'>
           <Category />
           <CategoryBar />

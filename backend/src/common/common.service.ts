@@ -9,8 +9,9 @@ import {
 } from 'typeorm';
 import { BaseModel } from './entity/base.entity';
 import { ConfigService } from '@nestjs/config';
+import { SORTABLE_COLUMNS, SortableKey } from './const/sortable-columns.const';
+import { encodeCursor, decodeCursor } from './utils/cursor';
 
-type SortableKey = 'id' | 'createdAt' | 'rating' | 'price' | 'viewCount';
 type SortKey<T extends BaseModel> = Extract<SortableKey, keyof T>;
 
 @Injectable()
@@ -23,7 +24,6 @@ export class CommonService {
    * 쿼리 예시) /product?filter[category][equals]=BEAUTY&page=1&take=20
    */
   private static readonly MAX_TAKE = 100;
-  private static readonly SORTABLE_COLUMNS: SortableKey[] = ['id', 'createdAt', 'rating', 'price', 'viewCount'];
 
   async paginate<T extends BaseModel>(
     dto: BasePaginateDto,
@@ -45,9 +45,9 @@ export class CommonService {
     const sortOrder = dto.sortOrder || 'DESC';
 
     // sortBy가 허용된 컬럼인지 검증 (undefined 제외 — 기본값 createdAt 으로 처리됨)
-    if (dto.sortBy && !CommonService.SORTABLE_COLUMNS.includes(dto.sortBy as SortableKey)) {
+    if (dto.sortBy && !SORTABLE_COLUMNS.includes(dto.sortBy as SortableKey)) {
       throw new BadRequestException(
-        `sortBy는 ${CommonService.SORTABLE_COLUMNS.join(', ')} 중 하나여야 합니다.`,
+        `sortBy는 ${SORTABLE_COLUMNS.join(', ')} 중 하나여야 합니다.`,
       );
     }
 
@@ -125,8 +125,8 @@ export class CommonService {
   ) {
     const qb = repository.createQueryBuilder('entity');
 
-    // 1. 필터 조건 추가
-    this.applyFilters(qb, dto.filter);
+    // 1. 필터 조건 추가 (alias 기본값 'entity')
+    this.applyFilterToQueryBuilder(qb, dto.filter);
 
     // 2. 커서 조건 추가
     if (dto.cursor) {
@@ -190,114 +190,70 @@ export class CommonService {
   }
 
   /**
-   * QueryBuilder에 필터 조건 적용
+   * QueryBuilder에 PaginateFilterDto를 적용한다.
+   * - 커서/페이지 양쪽에서 재사용된다.
+   * - 다른 엔티티 alias로도 재사용 가능하도록 alias 파라미터를 받는다. (예: 'entity' | 'product')
+   *
+   * EC-E: 바인드 파라미터 이름은 `${alias}_${column}...` 로 네임스페이스화해서
+   *       같은 qb에 서로 다른 alias로 두 번 호출해도 충돌하지 않도록 한다.
    */
-  private applyFilters(
+  applyFilterToQueryBuilder(
     qb: any,
-    filter?: PaginateFilterDto
+    filter: PaginateFilterDto | undefined,
+    alias = 'entity',
   ): void {
     if (!filter) return;
 
-    // rating 필터
-    if (filter.rating) {
-      if (filter.rating.equals !== undefined) {
-        qb.andWhere('entity.rating = :ratingEquals', {
-          ratingEquals: filter.rating.equals,
-        });
-      }
-      if (filter.rating.gte !== undefined && filter.rating.lte !== undefined) {
-        qb.andWhere('entity.rating BETWEEN :ratingMin AND :ratingMax', {
-          ratingMin: filter.rating.gte,
-          ratingMax: filter.rating.lte,
-        });
-      } else if (filter.rating.gte !== undefined) {
-        qb.andWhere('entity.rating >= :ratingGte', {
-          ratingGte: filter.rating.gte,
-        });
-      } else if (filter.rating.gt !== undefined) {
-        qb.andWhere('entity.rating > :ratingGt', {
-          ratingGt: filter.rating.gt,
-        });
-      }
-      if (filter.rating.lte !== undefined && filter.rating.gte === undefined) {
-        qb.andWhere('entity.rating <= :ratingLte', {
-          ratingLte: filter.rating.lte,
-        });
-      } else if (filter.rating.lt !== undefined) {
-        qb.andWhere('entity.rating < :ratingLt', {
-          ratingLt: filter.rating.lt,
-        });
-      }
+    // EC-D: alias는 SQL 조각에 그대로 삽입되므로 식별자 형태인지 검증한다.
+    //       개발자 실수(사용자 입력을 그대로 전달) 방지용 가드. 위반 시 500이 맞다.
+    if (!CommonService.VALID_IDENTIFIER.test(alias)) {
+      throw new Error(`applyFilterToQueryBuilder: alias는 식별자 형식이어야 합니다. 받은 값: ${alias}`);
     }
 
-    // status 필터
-    if (filter.status) {
-      if (filter.status.equals !== undefined) {
-        qb.andWhere('entity.status = :statusEquals', {
-          statusEquals: filter.status.equals,
-        });
-      }
-      if (filter.status.contains !== undefined) {
-        qb.andWhere('entity.status LIKE :statusContains', {
-          statusContains: `%${filter.status.contains}%`,
-        });
-      }
-      if (filter.status.in !== undefined && filter.status.in.length > 0) {
-        qb.andWhere('entity.status IN (:...statusIn)', {
-          statusIn: filter.status.in,
-        });
-      }
-    }
+    if (filter.rating) this.applyNumberFilter(qb, alias, 'rating', filter.rating);
+    if (filter.price) this.applyNumberFilter(qb, alias, 'price', filter.price);
+    if (filter.status) this.applyStringFilter(qb, alias, 'status', filter.status);
+    if (filter.category) this.applyStringFilter(qb, alias, 'category', filter.category);
+  }
 
-    // category 필터
-    if (filter.category) {
-      if (filter.category.equals !== undefined) {
-        qb.andWhere('entity.category = :categoryEquals', {
-          categoryEquals: filter.category.equals,
-        });
-      }
-      if (filter.category.contains !== undefined) {
-        qb.andWhere('entity.category LIKE :categoryContains', {
-          categoryContains: `%${filter.category.contains}%`,
-        });
-      }
-      if (filter.category.in !== undefined && filter.category.in.length > 0) {
-        qb.andWhere('entity.category IN (:...categoryIn)', {
-          categoryIn: filter.category.in,
-        });
-      }
-    }
+  private static readonly VALID_IDENTIFIER = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
 
-    // price 필터
-    if (filter.price) {
-      if (filter.price.equals !== undefined) {
-        qb.andWhere('entity.price = :priceEquals', {
-          priceEquals: filter.price.equals,
-        });
-      }
-      if (filter.price.gte !== undefined && filter.price.lte !== undefined) {
-        qb.andWhere('entity.price BETWEEN :priceMin AND :priceMax', {
-          priceMin: filter.price.gte,
-          priceMax: filter.price.lte,
-        });
-      } else if (filter.price.gte !== undefined) {
-        qb.andWhere('entity.price >= :priceGte', {
-          priceGte: filter.price.gte,
-        });
-      } else if (filter.price.gt !== undefined) {
-        qb.andWhere('entity.price > :priceGt', {
-          priceGt: filter.price.gt,
-        });
-      }
-      if (filter.price.lte !== undefined && filter.price.gte === undefined) {
-        qb.andWhere('entity.price <= :priceLte', {
-          priceLte: filter.price.lte,
-        });
-      } else if (filter.price.lt !== undefined) {
-        qb.andWhere('entity.price < :priceLt', {
-          priceLt: filter.price.lt,
-        });
-      }
+  private applyNumberFilter(qb: any, alias: string, column: string, filter: NumberFilterDto): void {
+    const col = `${alias}.${column}`;
+    const p = (suffix: string) => `${alias}_${column}${suffix}`; // 예: product_ratingEquals
+
+    if (filter.equals !== undefined) {
+      qb.andWhere(`${col} = :${p('Equals')}`, { [p('Equals')]: filter.equals });
+    }
+    if (filter.gte !== undefined && filter.lte !== undefined) {
+      qb.andWhere(`${col} BETWEEN :${p('Min')} AND :${p('Max')}`, {
+        [p('Min')]: filter.gte,
+        [p('Max')]: filter.lte,
+      });
+    } else if (filter.gte !== undefined) {
+      qb.andWhere(`${col} >= :${p('Gte')}`, { [p('Gte')]: filter.gte });
+    } else if (filter.gt !== undefined) {
+      qb.andWhere(`${col} > :${p('Gt')}`, { [p('Gt')]: filter.gt });
+    }
+    if (filter.lte !== undefined && filter.gte === undefined) {
+      qb.andWhere(`${col} <= :${p('Lte')}`, { [p('Lte')]: filter.lte });
+    } else if (filter.lt !== undefined) {
+      qb.andWhere(`${col} < :${p('Lt')}`, { [p('Lt')]: filter.lt });
+    }
+  }
+
+  private applyStringFilter(qb: any, alias: string, column: string, filter: StringFilterDto): void {
+    const col = `${alias}.${column}`;
+    const p = (suffix: string) => `${alias}_${column}${suffix}`;
+
+    if (filter.equals !== undefined) {
+      qb.andWhere(`${col} = :${p('Equals')}`, { [p('Equals')]: filter.equals });
+    }
+    if (filter.contains !== undefined) {
+      qb.andWhere(`${col} LIKE :${p('Contains')}`, { [p('Contains')]: `%${filter.contains}%` });
+    }
+    if (filter.in !== undefined && filter.in.length > 0) {
+      qb.andWhere(`${col} IN (:...${p('In')})`, { [p('In')]: filter.in });
     }
   }
 
@@ -311,37 +267,24 @@ export class CommonService {
     sortBy: SortKey<T>,
     sortOrder: 'ASC' | 'DESC'
   ): void {
-    try {
-      const decoded = JSON.parse(
-        Buffer.from(cursor, 'base64').toString('utf-8')
-      );
-      const { sortValue, id } = decoded;
+    const { sortValue, id } = decodeCursor(cursor);
+    const op = sortOrder === 'DESC' ? '<' : '>';
 
-      if (sortValue === undefined || id === undefined) {
-        throw new BadRequestException('커서에 필수 값(sortValue, id)이 없습니다.');
-      }
-
-      const sortOperator = sortOrder === 'DESC' ? '<' : '>';
-      const idOperator = sortOrder === 'DESC' ? '<' : '>';
-
-      qb.andWhere(
-        new Brackets((qb) => {
-          qb.where(`entity.${String(sortBy)} ${sortOperator} :cursorSortValue`, {
-            cursorSortValue: sortValue,
-          }).orWhere(
-            new Brackets((qb) => {
-              qb.where(`entity.${String(sortBy)} = :cursorSortValue`, {
-                cursorSortValue: sortValue,
-              }).andWhere(`entity.id ${idOperator} :cursorId`, {
-                cursorId: id,
-              });
-            })
-          );
-        })
-      );
-    } catch (error) {
-      throw new BadRequestException('Invalid cursor format');
-    }
+    qb.andWhere(
+      new Brackets((qb) => {
+        qb.where(`entity.${String(sortBy)} ${op} :cursorSortValue`, {
+          cursorSortValue: sortValue,
+        }).orWhere(
+          new Brackets((qb) => {
+            qb.where(`entity.${String(sortBy)} = :cursorSortValue`, {
+              cursorSortValue: sortValue,
+            }).andWhere(`entity.id ${op} :cursorId`, {
+              cursorId: id,
+            });
+          })
+        );
+      })
+    );
   }
 
   /**
@@ -435,11 +378,10 @@ export class CommonService {
    * 커서 인코딩: 마지막 아이템의 sortBy 값과 id를 base64로 인코딩
    */
   private encodeCursor<T extends BaseModel, K extends keyof T>(item: T, sortBy: K): string {
-    const cursorData = {
+    return encodeCursor({
       sortValue: item[sortBy],
-      id: item['id'],
-    };
-    return Buffer.from(JSON.stringify(cursorData)).toString('base64');
+      id: item['id'] as number,
+    });
   }
 
   /**

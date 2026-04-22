@@ -19,7 +19,8 @@ export const productsQueryOptions = {
             additionalKey.sortOrder,
             additionalKey.cursor,
             additionalKey.filter,
-            additionalKey.categoryId
+            additionalKey.categoryId,
+            additionalKey.keyword
         ],
         queryFn: () => getPaginateProducts(additionalKey)
     }),

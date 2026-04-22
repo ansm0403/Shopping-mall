@@ -90,6 +90,10 @@ export default function ProductsClient() {
   const rawPage = Number(searchParams.get('page'));
   const pageParam = Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1;
 
+  // 빈 문자열/공백만 있는 keyword는 undefined로 정규화 (캐시 키 일관성 + 백엔드 400 방지)
+  const rawKeyword = searchParams.get('keyword');
+  const keyword = rawKeyword && rawKeyword.trim() !== '' ? rawKeyword : undefined;
+
   // 현재 활성 정렬 인덱스
   const activeSortIdx = SORT_OPTIONS.findIndex(
     (o) => o.sortBy === sortByParam && o.sortOrder === sortOrderParam
@@ -103,6 +107,7 @@ export default function ProductsClient() {
     sortBy: sortByParam,
     sortOrder: sortOrderParam,
     categoryId,
+    keyword,
   });
 
   const result = data?.data as PaginatedProducts | undefined;

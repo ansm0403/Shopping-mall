@@ -1,5 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 import { IsArray, IsEnum, IsNumber, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
+import { SORTABLE_COLUMNS } from '../const/sortable-columns.const';
 
 export class NumberFilterDto {
   @IsOptional()
@@ -122,7 +123,7 @@ export class BasePaginateDto {
   take = 20;
 
   @IsOptional()
-  @IsEnum(['id', 'createdAt', 'rating', 'price', 'viewCount'])
+  @IsEnum([...SORTABLE_COLUMNS])
   sortBy?: string = 'createdAt';
 
   @IsOptional()
