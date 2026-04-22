@@ -6,9 +6,10 @@ interface SearchBarProps {
   onSubmit: () => void;
   placeholder?: string;
   className?: string;
+  hideButton?: boolean;
 }
 
-export default function SearchBar({ value, onChange, onSubmit, placeholder, className }: SearchBarProps) {
+export default function SearchBar({ value, onChange, onSubmit, placeholder, className, hideButton }: SearchBarProps) {
   const isEmpty = value.trim() === '';
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,7 +26,7 @@ export default function SearchBar({ value, onChange, onSubmit, placeholder, clas
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center">
+    <form onSubmit={handleSubmit} className="flex items-center w-full">
       <input
         type="text"
         value={value}
@@ -35,14 +36,15 @@ export default function SearchBar({ value, onChange, onSubmit, placeholder, clas
         placeholder={placeholder}
         className={className}
       />
-      <button
-        type="submit"
-        disabled={isEmpty}
-        className="ml-2 px-3 py-2 my-5 bg-white text-sm rounded-sm border border-gray-400 disabled:opacity-40 disabled:cursor-not-allowed"
-      >
-        검색
-      </button>
-      {/* 추후 확장: 여기에 자동완성 드롭다운 삽입 예정 */}
+      {!hideButton && (
+        <button
+          type="submit"
+          disabled={isEmpty}
+          className="ml-2 px-3 py-2 bg-white text-sm rounded-sm border border-gray-400 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+        >
+          검색
+        </button>
+      )}
     </form>
   );
 }

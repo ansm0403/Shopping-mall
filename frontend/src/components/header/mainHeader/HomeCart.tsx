@@ -1,14 +1,15 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import CartIcons from '@/components/icons/CartIcons';
 import { cartQueryOptions } from '@/lib/react-query/cart-query-options';
 import { useAuth } from '@/contexts/AuthContext';
 import { Cart } from '@/model/cart';
+import { useRouter } from 'next/navigation';
 
 export default function HomeCart() {
   const { user } = useAuth();
   const { data } = useQuery(cartQueryOptions.myCart(!!user));
+  const router = useRouter();
 
   const cart = data?.data as Cart | undefined;
   const items = cart?.items ?? [];
@@ -16,14 +17,38 @@ export default function HomeCart() {
   const totalPrice = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
   return (
-    <div className="flex gap-4 text-white text-sm items-center justify-center bg-sky-500 self-stretch px-7 whitespace-nowrap">
-      <CartIcons size={'xl'} />
-      <div>
-        <div>장바구니</div>
-        <div>
-          {totalCount} ITEM - {totalPrice.toLocaleString()} 원
-        </div>
+    <button
+      onClick={() => router.push('/cart')}
+      className="flex items-center gap-3 px-4 py-2 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 active:bg-indigo-100 transition-all group shrink-0 cursor-pointer"
+      aria-label="장바구니"
+    >
+      {/* 아이콘 + 배지 */}
+      <div className="relative">
+        <svg
+          xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+          className="text-gray-600 group-hover:text-indigo-600 transition-colors"
+        >
+          <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+        </svg>
+        {totalCount > 0 && (
+          <span className="absolute -top-1.5 -right-1.5 bg-indigo-600 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none">
+            {totalCount > 99 ? '99+' : totalCount}
+          </span>
+        )}
       </div>
-    </div>
+
+      {/* 텍스트 정보 */}
+      <div className="hidden sm:flex flex-col items-start leading-tight">
+        <span className="text-[11px] text-gray-400 group-hover:text-indigo-500 transition-colors">
+          {totalCount > 0 ? `${totalCount}개 담음` : '장바구니'}
+        </span>
+        <span className="text-sm font-semibold text-gray-800 group-hover:text-indigo-700 transition-colors">
+          {totalCount > 0 ? `${totalPrice.toLocaleString()}원` : '비어있음'}
+        </span>
+      </div>
+    </button>
   );
 }

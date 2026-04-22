@@ -1,6 +1,6 @@
 import MaxWidthContainer from '@/components/layout/MaxWidthContainer';
 import Banner from '@/components/banner/Banner';
-import CategoryShortcuts from '@/components/home/CategoryShortcuts';
+// import CategoryShortcuts from '@/components/home/CategoryShortcuts';
 import ProductSection from '@/components/home/ProductSection';
 import CategoryTabSection from '@/components/home/CategoryTabSection';
 
@@ -12,7 +12,7 @@ export default function Index() {
 
       <MaxWidthContainer>
         {/* 카테고리 퀵 링크 */}
-        <CategoryShortcuts />
+        {/* <CategoryShortcuts /> */}
 
         {/* 인기 상품 */}
         <ProductSection

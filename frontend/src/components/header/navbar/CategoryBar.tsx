@@ -2,37 +2,45 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { NavbarButton } from './NavbarButton';
 import { useCategories } from '@/hooks/useCategories';
 
-// 로딩 중 레이아웃 시프트를 방지하는 플레이스홀더 버튼 수
 const SKELETON_COUNT = 6;
+
+function NavItem({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative px-3 py-3 text-sm font-medium text-gray-600 whitespace-nowrap transition-colors hover:text-indigo-600 group"
+    >
+      {children}
+      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-200 group-hover:w-full rounded-full" />
+    </button>
+  );
+}
 
 export default function CategoryBar() {
   const router = useRouter();
   const { roots, isLoading, isError } = useCategories();
 
   return (
-    <nav className="flex items-center">
-      <NavbarButton onClick={() => router.push('/')}>
-        HOME
-      </NavbarButton>
+    <nav className="flex items-center overflow-x-auto">
+      <NavItem onClick={() => router.push('/')}>HOME</NavItem>
 
       {isLoading && Array.from({ length: SKELETON_COUNT }).map((_, i) => (
-        <NavbarButton key={i} disabled className="opacity-40 animate-pulse w-16" />
+        <div key={i} className="h-3 w-14 bg-gray-200 rounded animate-pulse mx-3" />
       ))}
 
       {!isLoading && !isError && roots.map((category) => (
-        <NavbarButton
+        <NavItem
           key={category.id}
           onClick={() => router.push(`/products?category=${encodeURIComponent(category.slug)}`)}
         >
           {category.name}
-        </NavbarButton>
+        </NavItem>
       ))}
 
       {isError && (
-        <span className="px-4 py-2 text-sm text-red-500">카테고리를 불러올 수 없습니다.</span>
+        <span className="px-4 py-3 text-xs text-red-500">카테고리를 불러올 수 없습니다.</span>
       )}
     </nav>
   );

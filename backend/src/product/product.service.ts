@@ -80,10 +80,17 @@ export class ProductService {
   async findAll(query: ProductQueryDto) {
     // keyword가 있으면 검색 서비스로 위임 (캐싱 없음 — 검색은 동적 쿼리라 캐시 효과 낮음)
     if (query.keyword) {
+      // 비검색 경로와 동일하게 categoryId → 하위 카테고리까지 확장해서 넘긴다.
+      // (상품은 리프 카테고리에 저장되므로 정확 일치 필터는 0건을 만든다)
+      const categoryIds = query.categoryId
+        ? await this.getCategoryIds(query.categoryId)
+        : undefined;
+
       return this.searchService.search({
         keyword: query.keyword,
         tags: query.tags,
         categoryId: query.categoryId,
+        categoryIds,
         sellerId: query.sellerId,
         page: query.page,
         take: query.take,

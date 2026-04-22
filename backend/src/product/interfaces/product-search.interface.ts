@@ -7,6 +7,9 @@ export interface ProductSearchQuery {
   keyword: string;
   tags?: string[];
   categoryId?: number;
+  // 하위 카테고리까지 확장된 id 리스트. 있으면 이 쪽이 필터에 우선 사용된다.
+  // (categoryId는 URL 보존/응답용으로 유지)
+  categoryIds?: number[];
   sellerId?: number;
   page?: number;
   take: number;

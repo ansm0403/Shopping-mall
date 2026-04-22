@@ -198,8 +198,15 @@ export class TypeOrmProductSearchService implements IProductSearchService {
       });
     }
 
-    // 3. categoryId 필터
-    if (query.categoryId) {
+    // 3. categoryId 필터 — 트리 구조이므로 하위 카테고리 id까지 포함한 IN 필터를 우선 사용.
+    //    categoryIds가 빈 배열이면 "존재하지 않는 categoryId"로 해석해 결과를 0건으로 만든다.
+    if (query.categoryIds) {
+      if (query.categoryIds.length === 0) {
+        qb.andWhere('1 = 0');
+      } else {
+        qb.andWhere('product.categoryId IN (:...categoryIds)', { categoryIds: query.categoryIds });
+      }
+    } else if (query.categoryId) {
       qb.andWhere('product.categoryId = :categoryId', { categoryId: query.categoryId });
     }
 

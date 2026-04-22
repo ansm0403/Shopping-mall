@@ -29,7 +29,7 @@ export default function CategorySelect({ value, onSelect, className }: CategoryS
       onChange={handleChange}
       disabled={isLoading || isError}
       value={selectValue}
-      className={`border-[1px] border-gray-400 rounded-sm px-2 py-2 my-5 bg-white text-sm ${className || ''}`}
+      className={`text-sm ${className || ''}`}
     >
       {isError ? (
         <option value="">카테고리를 불러올 수 없습니다</option>

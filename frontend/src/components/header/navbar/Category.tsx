@@ -124,7 +124,7 @@ export default function Category() {
       onMouseEnter={() => setIsDropdownVisible(true)}
       onMouseLeave={() => setIsDropdownVisible(false)}
     >
-      <NavbarButton className='bg-gray-700 text-white w-full flex justify-between items-center'>
+      <NavbarButton className='bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white w-full flex justify-between items-center rounded-sm transition-colors font-medium text-sm'>
         카테고리
         <CategoryIcon size='md'/>
       </NavbarButton>

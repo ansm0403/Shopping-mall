@@ -411,3 +411,104 @@ summary svg {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ── Splash Screen ──────────────────────────────────────────── */
+
+/* React가 도착하기 전에도 메인 페이지가 보이지 않도록 (FOUC 방지) */
+html[data-splash="active"] {
+  background-color: #0f172a;
+}
+
+html[data-splash="active"] body > *:not(.splash-container) {
+  visibility: hidden;
+}
+
+.splash-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.splash-panel-top,
+.splash-panel-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background-color: #0f172a;
+}
+
+.splash-panel-top {
+  top: 0;
+}
+
+.splash-panel-bottom {
+  bottom: 0;
+}
+
+/* 중앙 콘텐츠 레이어 — 여기를 교체하면 로고↔텍스트 전환 가능 */
+.splash-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: splash-content-in 0.8s ease forwards;
+  animation-delay: 0.3s;
+}
+
+/* 등장 애니메이션 */
+@keyframes splash-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 퇴장: 콘텐츠 페이드 아웃 */
+.splash-exiting .splash-content {
+  animation: splash-content-out 0.4s ease forwards;
+}
+
+@keyframes splash-content-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* 퇴장: 상단 패널이 위로 올라감 */
+.splash-exiting .splash-panel-top {
+  animation: splash-panel-top-exit 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes splash-panel-top-exit {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+
+/* 퇴장: 하단 패널이 아래로 내려감 */
+.splash-exiting .splash-panel-bottom {
+  animation: splash-panel-bottom-exit 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes splash-panel-bottom-exit {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
+/* 움직임에 민감한 사용자: 애니메이션 즉시 처리 */
+@media (prefers-reduced-motion: reduce) {
+  .splash-content,
+  .splash-exiting .splash-content,
+  .splash-exiting .splash-panel-top,
+  .splash-exiting .splash-panel-bottom {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+}
