@@ -5,12 +5,22 @@ const { composePlugins, withNx } = require('@nx/next');
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/v1';
 const apiOrigin = new URL(apiUrl).origin;
+
+// const isDev = process.env.NODE_ENV !== 'production';
+
+// const connectSrc = [
+//   "'self'",
+//   apiOrigin,                                    // API 서버 (로컬이든 Elastic IP든)
+//   ...(isDev ? ['ws://localhost:3000'] : []),    // 개발 환경에서만 HMR WebSocket 허용
+//   'https://*.portone.io',
+//   'https://*.iamport.co',
+// ].join(' ');
+
 const isDev = process.env.NODE_ENV !== 'production';
 
 const connectSrc = [
-  "'self'",
-  apiOrigin,                                    // API 서버 (로컬이든 Elastic IP든)
-  ...(isDev ? ['ws://localhost:3000'] : []),    // 개발 환경에서만 HMR WebSocket 허용
+  "'self'",  // 프록시 덕에 같은 오리진으로 충분
+  ...(isDev ? ['http://localhost:4000', 'ws://localhost:3000'] : []),  // 로컬 개발용
   'https://*.portone.io',
   'https://*.iamport.co',
 ].join(' ');
@@ -109,6 +119,16 @@ const nextConfig = {
     }
 
     return config;
+  },
+
+  // CSP 해결 프록시 서버
+  async rewrites() {
+  return [
+    {
+      source: '/api/:path*',
+      destination: `${process.env.API_PROXY_TARGET || 'http://localhost:4000/v1'}/:path*`,
+    },
+  ];
   },
 
   // 개발 환경에서 Hot Reload 개선
