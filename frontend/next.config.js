@@ -3,8 +3,8 @@
  
 const { composePlugins, withNx } = require('@nx/next');
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/v1';
-const apiOrigin = new URL(apiUrl).origin;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/v1';
+// const apiOrigin = new URL(apiUrl).origin;
 
 // const isDev = process.env.NODE_ENV !== 'production';
 
