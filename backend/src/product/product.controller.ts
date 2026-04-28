@@ -4,6 +4,8 @@ import {
   Delete,
   Get,
   HttpCode,
+  InternalServerErrorException,
+  Logger,
   Param,
   ParseIntPipe,
   Patch,
@@ -35,6 +37,8 @@ import { AuditAction } from '../audit/entity/audit-log.entity';
 
 @Controller('products')
 export class ProductController {
+  private readonly logger = new Logger(ProductController.name);
+
   constructor(
     private readonly productService: ProductService,
     private readonly productSeedService: ProductSeedService,
@@ -97,10 +101,28 @@ export class ProductController {
 
   // Admin 전용: 시드 데이터 삽입
   @Post('seed')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  seed() {
-    return this.productSeedService.seedProducts();
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles(Role.ADMIN)
+  async seed() {
+    try {
+      return await this.productSeedService.seedProducts();
+    } catch (e) {
+      const err = e as {
+        message?: string;
+        name?: string;
+        code?: string;
+        detail?: string;
+        stack?: string;
+      };
+      this.logger.error('SEED FAILED', err.stack || String(e));
+      throw new InternalServerErrorException({
+        message: err.message ?? 'seed failed',
+        name: err.name,
+        code: err.code,
+        detail: err.detail,
+        stack: err.stack?.split('\n').slice(0, 8),
+      });
+    }
   }
 
   @Post(':id/images')

@@ -52,6 +52,7 @@ test-output
 
 # environment
 .env
+.env.*
 
 # 로그 파일
 logs/

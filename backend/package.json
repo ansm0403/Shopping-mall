@@ -4,6 +4,29 @@
   "private": true,
   "nx": {
     "targets": {
+      "seed": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node dist/main.js",
+          "cwd": "backend",
+          "env": {
+            "NODE_SEED": "true",
+            "SEED_DAYS": "30"
+          }
+        }
+      },
+      "seed:reset": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node dist/main.js",
+          "cwd": "backend",
+          "env": {
+            "NODE_SEED": "true",
+            "SEED_RESET": "true",
+            "SEED_DAYS": "30"
+          }
+        }
+      },
       "build": {
         "executor": "nx:run-commands",
         "options": {
@@ -131,7 +154,6 @@
     "@nestjs/schedule": "*",
     "@nestjs/throttler": "*",
     "@nestjs/typeorm": "*",
-    "@shopping-mall/mocks": "*",
     "@shopping-mall/shared": "*",
     "class-transformer": "*",
     "class-validator": "*",

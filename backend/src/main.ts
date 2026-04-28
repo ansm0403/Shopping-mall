@@ -37,9 +37,21 @@ async function bootstrap() {
   );
 
   // CORS 설정
-  // FRONTEND_URL: 로컬은 http://localhost:3000, 운영은 Vercel URL (https://your-app.vercel.app)
+  // CORS_ORIGINS: 콤마로 구분된 허용 origin 목록 (이메일 링크용 FRONTEND_URL과 분리)
+  // 로컬: http://localhost:3000 / 운영: https://shopping-mall-frontend-dusky.vercel.app
+  // 운영은 Vercel 프록시 덕에 브라우저가 EC2를 직접 호출하지 않아 사실상 무의미하지만 명시해둠
+  const allowedOrigins = (process.env.CORS_ORIGINS ?? 'http://localhost:3000')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: (origin, cb) => {
+      // origin 없는 요청(서버사이드 fetch, curl 등)은 통과
+      if (!origin) return cb(null, true);
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      cb(new Error(`Not allowed by CORS: ${origin}`));
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-device-id', 'x-idempotency-key'],

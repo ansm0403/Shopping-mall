@@ -5,9 +5,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useLoginMutation } from "../../hook/useAuthMutation";
 import { Form, TextField, CheckboxField } from "./BaseForm";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { AxiosError } from "axios";
+
+/**
+ * Open redirect 방어:
+ * - 같은 오리진 내부 경로(`/`로 시작, `//`나 `/\`로 시작 안 함)만 허용
+ * - 외부 URL이나 프로토콜 상대 URL(`//evil.com`)은 차단해 홈으로 폴백
+ */
+function safeRedirectPath(raw: string | null): string {
+  if (!raw) return "/";
+  if (!raw.startsWith("/")) return "/";
+  if (raw.startsWith("//") || raw.startsWith("/\\")) return "/";
+  return raw;
+}
 
 const loginSchema = z.object({
   email: z
@@ -22,6 +34,8 @@ export type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = safeRedirectPath(searchParams.get("redirect"));
   const loginMutation = useLoginMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -41,10 +55,10 @@ export function LoginForm() {
         rememberMe: values.rememberMe,
       });
 
-      router.push("/");
+      router.push(redirectTo);
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 403) {
-        // 이메일 미인증 → 인증 안내 페이지로 이��
+        // 이메일 미인증 → 인증 안내 페이지로 이동
         router.push(`/check-email?email=${encodeURIComponent(values.email)}`);
         return;
       }

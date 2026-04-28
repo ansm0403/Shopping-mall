@@ -1,36 +1,30 @@
-[Nest] 44324  - 2026. 04. 08. 오후 11:46:10   ERROR [ExceptionsHandler] QueryFailedError: FOR UPDATE cannot be applied to the nullable side of an outer join        
+[Nest] 29388  - 2026. 04. 28. 오전 3:14:14   ERROR [ExceptionsHandler] QueryFailedError: column "created_at" does not exist
     at PostgresQueryRunner.query (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\driver\postgres\PostgresQueryRunner.js:216:19)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) 
-    at async SelectQueryBuilder.loadRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2231:25)    
-    at async SelectQueryBuilder.executeEntitiesAndRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2079:26)
-    at async SelectQueryBuilder.getRawAndEntities (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:684:29)  
-    at async SelectQueryBuilder.getMany (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:750:25)
-    at async C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8716:31
-    at async EntityManager.transaction (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\entity-manager\EntityManager.js:75:28)
-    at async OrderService.createOrder (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8713:27) {
-  query: 'SELECT "ci"."id" AS "ci_id", "ci"."createdAt" AS "ci_createdAt", "ci"."updatedAt" AS "ci_updatedAt", "ci"."cart_id" AS "ci_cart_id", "ci"."product_id" AS "ci_product_id", "ci"."quantity" AS "ci_quantity", "product"."id" AS "product_id", "product"."createdAt" AS "product_createdAt", "product"."updatedAt" AS "product_updatedAt", "product"."name" AS "product_name", "product"."description" AS "product_description", "product"."price" AS "product_price", "product"."brand" AS "product_brand", "product"."stockQuantity" AS "product_stockQuantity", "product"."status" AS "product_status", "product"."approval_status" AS "product_approval_status", "product"."sales_type" AS "product_sales_type", "product"."rejection_reason" AS "product_rejection_reason", "product"."approved_at" AS "product_approved_at", "product"."salesCount" AS "product_salesCount", "product"."viewCount" AS "product_viewCount", "product"."isEvent" AS "product_isEvent", "product"."discountRate" AS "product_discountRate", "product"."rating" AS "product_rating", "product"."specs" AS "product_specs", "product"."seller_id" AS "product_seller_id", "product"."category_id" AS "product_category_id", "product"."reviewCount" AS "product_reviewCount", "product"."ratingSum" AS "product_ratingSum", "product"."wishCount" AS "product_wishCount", "images"."id" AS "images_id", "images"."createdAt" AS "images_createdAt", "images"."updatedAt" AS "images_updatedAt", "images"."url" AS "images_url", "images"."isPrimary" AS "images_isPrimary", "images"."sortOrder" AS "images_sortOrder", "images"."productId" AS "images_productId" FROM "cart_items" "ci" LEFT JOIN "products" "product" ON "product"."id"="ci"."product_id"  LEFT JOIN "product_images" "images" ON "images"."productId"="product"."id" WHERE "ci"."id" IN ($1, $2) AND "ci"."cart_id" = $3 FOR UPDATE',
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async DataSource.query (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\data-source\DataSource.js:353:20)
+    at async DashboardService.getKpi (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:11508:23) {
+  query: "\n      SELECT\n        -- 1. 오늘 주문 수 (created_at 기준)\n        (SELECT COUNT(*)::text FROM orders\n          WHERE created_at >= $1 AND created_at < $2)\n          AS today_orders,\n        -- 2. 어제 동시간까지 주문 수 (delta% 계산용)\n        (SELECT COUNT(*)::text FROM orders\n          WHERE created_at >= $3 AND created_at < $4)\n          AS yday_orders,\n        -- 3. 오늘 매출 (paid_at 기준 — 결제 완료된 주문만)\n        (SELECT COALESCE(SUM(total_amount), 0)::text FROM orders\n          WHERE paid_at IS NOT NULL AND paid_at >= $1 AND paid_at < $2)\n          AS today_revenue,\n        -- 4. 어제 동시간까지 매출\n        (SELECT COALESCE(SUM(total_amount), 0)::text FROM orders\n          WHERE paid_at IS NOT NULL AND paid_at >= $3 AND paid_at < $4)\n          AS yday_revenue,\n        -- 5. 미처리 배송 (현재 시점 status='paid')\n        (SELECT COUNT(*)::text FROM orders WHERE status = $5)\n          AS pending_shipments,\n        -- 6-1. 오늘 로그인 실패 건수\n        (SELECT COUNT(*)::text FROM audit_logs\n          WHERE action = $6 AND created_at >= $1 AND created_at < $2)\n          AS today_failed_login,\n        -- 6-2. 오늘 LOGIN(성공) + FAILED_LOGIN 합 (실패율 분모)\n        (SELECT COUNT(*)::text FROM audit_logs\n          WHERE action IN ($7, $6) AND created_at >= $1 AND created_at < $2)\n          AS today_total_login_attempts\n      ",
   parameters: [
-    4,
-    3,
-    1
+    2026-04-27T15:00:00.000Z,
+    2026-04-27T18:14:14.229Z,
+    2026-04-26T15:00:00.000Z,
+    2026-04-26T18:14:14.229Z,
+    'paid',
+    'FAILED_LOGIN',
+    'LOGIN'
   ],
-  driverError: error: FOR UPDATE cannot be applied to the nullable side of an outer join
+  driverError: error: column "created_at" does not exist
       at C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\pg\lib\client.js:631:17
       at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-      at async PostgresQueryRunner.query (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\driver\postgres\PostgresQueryRunner.js:181:25)        
-      at async SelectQueryBuilder.loadRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2231:25)  
-      at async SelectQueryBuilder.executeEntitiesAndRawResults (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:2079:26)
-      at async SelectQueryBuilder.getRawAndEntities (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:684:29)
-      at async SelectQueryBuilder.getMany (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\query-builder\SelectQueryBuilder.js:750:25)
-      at async C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8716:31
-      at async EntityManager.transaction (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\entity-manager\EntityManager.js:75:28)
-      at async OrderService.createOrder (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:8713:27) {
-    length: 133,
+      at async PostgresQueryRunner.query (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\driver\postgres\PostgresQueryRunner.js:181:25)
+      at async DataSource.query (C:\Users\kiria\Desktop\fullstack\shopping_mall\node_modules\typeorm\data-source\DataSource.js:353:20)
+      at async DashboardService.getKpi (C:\Users\kiria\Desktop\fullstack\shopping_mall\backend\dist\main.js:11508:23) {
+    length: 174,
     severity: 'ERROR',
-    code: '0A000',
+    code: '42703',
     detail: undefined,
-    hint: undefined,
-    position: undefined,
+    hint: 'Perhaps you meant to reference the column "orders.createdAt".',
+    position: '112',
     internalPosition: undefined,
     internalQuery: undefined,
     where: undefined,
@@ -39,38 +33,16 @@
     column: undefined,
     dataType: undefined,
     constraint: undefined,
-    file: 'initsplan.c',
-    dataType: undefined,
-    constraint: undefined,
-    file: 'initsplan.c',
-    line: '1751',
-    routine: 'make_outerjoininfo'
+    file: 'parse_relation.c',
+    line: '3829',
+    routine: 'errorMissingColumn'
   },
-    constraint: undefined,
-    file: 'initsplan.c',
-    line: '1751',
-    routine: 'make_outerjoininfo'
-  },
-  length: 133,
+  length: 174,
   severity: 'ERROR',
-    line: '1751',
-    routine: 'make_outerjoininfo'
-  },
-  length: 133,
-  severity: 'ERROR',
-  code: '0A000',
+  code: '42703',
   detail: undefined,
-  length: 133,
-  severity: 'ERROR',
-  code: '0A000',
-  detail: undefined,
-  code: '0A000',
-  detail: undefined,
-  hint: undefined,
-  position: undefined,
-  internalPosition: undefined,
-  position: undefined,
-  internalPosition: undefined,
+  hint: 'Perhaps you meant to reference the column "orders.createdAt".',
+  position: '112',
   internalPosition: undefined,
   internalQuery: undefined,
   where: undefined,
@@ -79,7 +51,7 @@
   column: undefined,
   dataType: undefined,
   constraint: undefined,
-  file: 'initsplan.c',
-  line: '1751',
-  routine: 'make_outerjoininfo'
+  file: 'parse_relation.c',
+  line: '3829',
+  routine: 'errorMissingColumn'
 }

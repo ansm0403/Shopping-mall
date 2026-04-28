@@ -23,9 +23,6 @@
   "references": [
     {
       "path": "../shared/tsconfig.lib.json"
-    },
-    {
-      "path": "../mocks/tsconfig.lib.json"
     }
   ]
 }

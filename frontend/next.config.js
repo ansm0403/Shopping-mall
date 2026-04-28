@@ -3,6 +3,12 @@
  
 const { composePlugins, withNx } = require('@nx/next');
 
+// ============================================================
+// [nginx+HTTPS 방식] — 향후 EC2에 도메인 + Nginx + Let's Encrypt 적용 시 사용
+// 전환 절차: docs/Modify-proxy.md 참고
+// 이 방식에서는 브라우저가 https://api.yourdomain.com 을 직접 호출하므로
+// CSP connectSrc에 API 도메인을 명시해야 한다.
+// ============================================================
 // const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/v1';
 // const apiOrigin = new URL(apiUrl).origin;
 
@@ -16,6 +22,12 @@ const { composePlugins, withNx } = require('@nx/next');
 //   'https://*.iamport.co',
 // ].join(' ');
 
+// ============================================================
+// [프록시 방식] — 현재 활성
+// 브라우저 → Vercel /api/* → EC2 (서버사이드 프록시)
+// 브라우저 입장에서 API 요청은 같은 오리진(Vercel)이므로 'self'만으로 충분
+// nginx+HTTPS 전환 시: 이 블록 주석 처리 후 위 nginx+HTTPS 블록 활성화
+// ============================================================
 const isDev = process.env.NODE_ENV !== 'production';
 
 const connectSrc = [
@@ -33,6 +45,21 @@ const nextConfig = {
   // See: https://nx.dev/recipes/next/next-config-setup
   nx: {},
   output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
+
+  // standalone 빌드 시 런타임에 불필요한 빌드 전용 대형 바이너리 제외
+  // 이 파일들은 빌드 도구용이므로 프로덕션 서버 실행에 필요하지 않음
+  outputFileTracingExcludes: {
+    '*': [
+      'node_modules/@rspack/**',
+      'node_modules/@swc/**',
+      'node_modules/esbuild/**',
+      'node_modules/webpack/**',
+      'node_modules/terser/**',
+      'node_modules/rollup/**',
+      'node_modules/@nx/**',
+      'node_modules/nx/**',
+    ],
+  },
 
   // 모노레포 패키지 transpile 설정
   transpilePackages: ['@shopping-mall/shared'],
@@ -121,7 +148,12 @@ const nextConfig = {
     return config;
   },
 
-  // CSP 해결 프록시 서버
+  // ============================================================
+  // [프록시 방식] — 현재 활성
+  // /api/* 요청을 EC2 백엔드로 서버사이드 프록시
+  // nginx+HTTPS 전환 시: 이 rewrites 블록 전체를 주석 처리 또는 제거
+  // Vercel 환경변수 API_PROXY_TARGET 도 함께 제거
+  // ============================================================
   async rewrites() {
   return [
     {

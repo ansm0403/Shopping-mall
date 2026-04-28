@@ -17,8 +17,8 @@ export class EmailService {
     email: string,
     token: string,
   ): Promise<EmailSendResult> {
-    const frontendUrl =
-      this.configService.get('FRONTEND_URL') || 'http://localhost:3000';
+    const frontendUrl = this.configService.get<string>('FRONTEND_URL');
+    if (!frontendUrl) throw new Error('FRONTEND_URL env is required');
     const verificationUrl = `${frontendUrl}/verify-email?token=${token}`;
 
     const template =
@@ -36,8 +36,8 @@ export class EmailService {
     email: string,
     token: string,
   ): Promise<EmailSendResult> {
-    const frontendUrl =
-      this.configService.get('FRONTEND_URL') || 'http://localhost:3000';
+    const frontendUrl = this.configService.get<string>('FRONTEND_URL');
+    if (!frontendUrl) throw new Error('FRONTEND_URL env is required');
     const resetUrl = `${frontendUrl}/auth/reset-password?token=${token}`;
 
     const template =

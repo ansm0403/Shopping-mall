@@ -23,12 +23,23 @@ import { PaymentModule } from '../payment/payment.module';
 import { SettlementModule } from '../settlement/settlement.module';
 import { InquiryModule } from '../inquiry/inquiry.module';
 import { AuditModule } from '../audit/audit.module';
+import { AdminModule } from '../admin/admin.module';
+import { SeedModule } from '../seed/seed.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
+      validate(config) {
+        if (!config['FRONTEND_URL']) {
+          throw new Error(
+            'FRONTEND_URL environment variable is required. ' +
+              'Set it to the frontend URL (e.g. https://your-app.vercel.app)',
+          );
+        }
+        return config;
+      },
     }),
     ThrottlerModule.forRoot([
       {
@@ -47,7 +58,7 @@ import { AuditModule } from '../audit/audit.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
     TypeOrmModule.forFeature([RoleEntity, CategoryEntity]),
     AuthModule,
@@ -63,6 +74,8 @@ import { AuditModule } from '../audit/audit.module';
     SettlementModule,
     InquiryModule,
     AuditModule,
+    AdminModule,
+    ...(process.env['NODE_SEED'] === 'true' ? [SeedModule] : []),
   ],
   controllers: [AppController],
   providers: [

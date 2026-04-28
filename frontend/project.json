@@ -1,0 +1,13 @@
+{
+  "name": "@shopping-mall/frontend",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "options": {
+        "env": {
+          "NODE_OPTIONS": "--max-old-space-size=4096"
+        }
+      }
+    }
+  }
+}

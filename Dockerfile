@@ -31,6 +31,7 @@ RUN yarn install
 
 # NX 캐시 클리어 및 빌드
 RUN npx nx reset
+RUN NX_DAEMON=false npx nx sync
 RUN NX_DAEMON=false npx nx build backend --prod
 
 # Stage 4: Production dependencies
@@ -54,19 +55,13 @@ COPY --from=prod-deps --chown=nestjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nestjs:nodejs /app/backend/dist ./backend/dist
 COPY --from=builder --chown=nestjs:nodejs /app/shared ./shared
 
+# multer DiskStorage가 부팅 시 mkdir './uploads' 호출 → /app은 root 소유라 권한 부여 필요
+RUN mkdir -p /app/uploads && chown nestjs:nodejs /app/uploads
+
 USER nestjs
 EXPOSE 4000
 CMD ["node", "backend/dist/main.js"]
 
-# Stage 6 (frontend-prod): 제거 — frontend는 Vercel에서 배포
-
-# Stage 7: Development image
-FROM base AS development
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-# 개발용 포트 노출
-EXPOSE 3000 3001
-
-# 개발 서버 실행을 위한 스크립트
-CMD ["yarn", "nx", "run-many", "--target=serve", "--all", "--parallel"]
+# 주의: backend-prod가 마지막 stage여야 함.
+# --target 없이 docker build 시 마지막 stage가 빌드되므로 development stage를 두면 안 됨.
+# 개발용 빌드는 Dockerfile.dev 또는 docker-compose.dev.yaml 사용.

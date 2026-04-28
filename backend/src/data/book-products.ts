@@ -1,4 +1,4 @@
-import { bookProducts } from "@shopping-mall/mocks"
+import { bookProducts } from "./raw/book"
 
 export const bookProductsData = bookProducts.map((product) => ({
   name: product.name,
